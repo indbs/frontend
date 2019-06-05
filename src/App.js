@@ -1,26 +1,26 @@
 import * as React from "react";
-import { render } from "react-dom";
-import { Chart } from "react-google-charts";
-import * as axios  from 'axios';
 import TimeLineRaisa from './scripts/TimeLineRaisa';
 import TimeLineRaisa2 from './scripts/TimeLineRaisa2';
 import TimeLineFR05 from './scripts/TimeLineFR05';
 import TimeLineFR06 from './scripts/TimeLineFR06';
-
-
-
+import GraphRaisa from './scripts/GraphRaisa';
 
 function App()  {
 
-
   return (
-    <div className="App">
+    /*<div className="App">
                            
                            <TimeLineFR05  />
                            <TimeLineFR06  />
                            <TimeLineRaisa2 />
                            <TimeLineRaisa />
-    </div>
+                           <GraphRaisa  value1={64}/> 
+    </div>*/
+  <div>
+    <TimeLineRaisa />
+    dfgdfg
+    <GraphRaisa  value1={64}/>
+  </div>
   );
 }
 

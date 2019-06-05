@@ -1,25 +1,23 @@
 import React from 'react';
-import axios from 'axios';
+import axios2 from 'axios';
 import Chart from 'react-google-charts';
 
-
-
-export class GraphRaisa extends React.Component{
-    requestData(){
+class GraphRaisa extends React.Component{
+    requestData2(){
         const self = this;
         const data_url = `http://94.140.216.17:8889/php/request_program.php?number=`+this.props.value1;
         const chartData =   [[ { type: 'date', label: 'Time' }, {type: 'number', label: 'SP'},{type: 'number', label: 'Average'}]
                             /*  [new Date('2018-06-14 21:04:27'),56,87],
                                 [new Date('2018-06-16 21:04:27'),56,87]*/
                             ];
-        axios.get(data_url)
+        axios2.get(data_url)
                 .then(function (response) {
                     // handle success
                     const dataTable=response.data.Points;
                     for (let i = 0; i < dataTable.length-3; i += 1) {
                         chartData.push([new Date(dataTable[i].Time), parseInt(dataTable[i].Sp), parseInt(dataTable[i].Average)]);
                     }
-                    self.setState({data: chartData}); 
+                    self.setState({dataGraph: chartData}); 
 
                 })
                 .catch(function (error) {
@@ -30,24 +28,20 @@ export class GraphRaisa extends React.Component{
                     // always executed
                 });     
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value1 !== this.props.value1) {
-            this.requestData();
-        }
-      }
 
     componentDidMount() {
-        this.requestData();
+        this.requestData2();
     }
     render(){
         return (
             <div className="Graph" id="chart_div">
-                { this.state && this.state.data &&<Chart
+                { this.state && this.state.dataGraph &&<Chart
                     width={1200}
                     height={600}
                     chartType="LineChart"
+                    chartLanguage = 'ru'
                     loader={<div>Загружаем данные...</div>}
-                    data={this.state.data}
+                    data={this.state.dataGraph}
                     options={{  
                         chart: {
                             title: 'Программа обжига №66',

@@ -2,11 +2,7 @@ import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
 import axios from 'axios';
-
-import GraphRaisa from './GraphRaisa';
-
 require('datejs');  
-
 
 function createCustomHTMLContent(numb,duration,Temperaure, SP, Power) {
     var  A='<div class="block1">   '+
@@ -76,8 +72,6 @@ function parsingToDate(inputDate) {
          var date = new Date(  timeValue.setMilliseconds(-0.3 * 60 * 60 * 1000));
      return date; }
 
-
-
 const columns = [
     { type: "string", id: "Role" },
     { type: "string", id: "Name" },
@@ -87,39 +81,25 @@ const columns = [
     { type: 'date', id: 'Stop' }
   ];
 
+class TimeLineRaisa extends React.Component{
 
-
-
-//google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
-export class TimeLineRaisa extends React.Component{
-
-
-    constructor(props) {
-
+    /*constructor(props) {
             super(props);
             this.state = { value: "" };
         
             this.handleChange = this.handleChange.bind(this);
-           /* this.handleSubmit = this.handleSubmit.bind(this);*/
-
 
             console.log(props);
           }
-        
-
+    
           handleChange(event) {
             this.setState({ value: event.target.value });
-          }
-
-
-
-
-
+          }*/
 
     requestData(){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa';
-        const rows=[];
+        const rows=[],rows2=[];
         axios.get(data_url)
                 .then(function (response) {
                     // handle success
@@ -127,22 +107,22 @@ export class TimeLineRaisa extends React.Component{
                     const minValue=(Date.today().addMonths(-1));
                     for (let i = 0; i < dataTable.length-1; i += 1) {
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
-                            rows.push([
-                                        '1',
-                                        dataTable[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
-                                         createCustomHTMLContent(
-                                            dataTable[i].PROGRAM_NUMBER.toString(),
-                                            dataTable[i].PROGRAM_NAME.toString(), 
-                                            dataTable[i].duration.toString(), 
-                                            dataTable[i].powerVAh.toString(),
-                                            dataTable[i].powerkWh.toString(),
-                                            ),
-                                        new Date(dataTable[i].STARTUP_TIME),
-                                        new Date(dataTable[i].end_time)
-                                    ],
-                                    
-                                    ['1',  
+                            rows.push(  [
+                                '1',
+                                dataTable[i].PROGRAM_NUMBER.toString(),
+                                '#b0d1f2',
+                                createCustomHTMLContent(
+                                    dataTable[i].PROGRAM_NUMBER.toString(),
+                                    dataTable[i].PROGRAM_NAME.toString(), 
+                                    dataTable[i].duration.toString(), 
+                                    dataTable[i].powerVAh.toString(),
+                                    dataTable[i].powerkWh.toString(),
+                                    ),
+                                new Date(dataTable[i].STARTUP_TIME),
+                                new Date(dataTable[i].end_time)
+                                ],
+                            
+                                ['1',  
                                     dataTable[i].PROGRAM_NUMBER.toString(),
                                     '#003366',
                                     createCustomHTMLContent2(
@@ -150,30 +130,49 @@ export class TimeLineRaisa extends React.Component{
                                         ),
                                     new Date(dataTable[i].end_time),
                                     new Date(plus15Hours( new Date(dataTable[i].end_time))),
-                                 ],  
-                                
-
-                                 ['1', 
-                                 dataTable[i].PROGRAM_NUMBER.toString(),
-                                 '#0080ff',
-                                 createCustomHTMLContent4( new Date(dataTable[i].STARTUP_TIME) ) ,	            
+                                ],  
+                        
+                                ['1', 
+                                    dataTable[i].PROGRAM_NUMBER.toString(),
+                                    '#0080ff',
+                                    createCustomHTMLContent4( new Date(dataTable[i].STARTUP_TIME) ) ,	            
                                         new Date(minus15Hours( new Date(dataTable[i].STARTUP_TIME))),
                                         new Date(dataTable[i].STARTUP_TIME)
-                               ],
+                                ],
 
-                               ['1',  
-                               dataTable[i].PROGRAM_NUMBER.toString(),
-                               
-                               dataTable[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTable[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTable[i+1].pause),
-                                      plus15Hours(new Date(dataTable[i].end_time)),		            
-                                      minus15Hours(new Date(dataTable[i+1].STARTUP_TIME))
-                            ]       
+                                ['1',  
+                                dataTable[i].PROGRAM_NUMBER.toString(),                               
+                                dataTable[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                                dataTable[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTable[i+1].pause),
+                                        plus15Hours(new Date(dataTable[i].end_time)),		            
+                                        minus15Hours(new Date(dataTable[i+1].STARTUP_TIME))
+                                ]       
                                     );
+                        }
+                    }
+                    for (let i = 0; i < dataTable.length-1; i += 1) {
+                        if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
+                            rows2.push(
+                                [
+                                    new Date(dataTable[i].STARTUP_TIME),
+                                    dataTable[i].PROGRAM_NUMBER,
+                                    dataTable[i].PROGRAM_NAME,
+                                    new Date(dataTable[i].end_time),
+                                    dataTable[i].duration.toString(),                      
+                                    dataTable[i].heat_st.toString(),
+                                    dataTable[i].gas_st.toString(),
+                                    dataTable[i].waterQuant.toString(),
+                                    dataTable[i].powerVAh.toString(),
+                                    dataTable[i].powerkWh.toString()    
+                            ]         
+                          );
                         }
                     }
                     self.setState({data: rows}); 
                     self.setState({minDate: minValue});
+
+                    self.setState({dataTable: rows2});
+                    //self.setState({minDate: minValue});
                 })
                 .catch(function (error) {
                     // handle error
@@ -182,153 +181,58 @@ export class TimeLineRaisa extends React.Component{
                 .finally(function () {
                     // always executed
                 });
-                
-                
-
-
-    }
-    
-
-    requestDataTableRaisa(){
-        const self = this;
-        const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa';
-        const rows= [];
-        axios.get(data_url)
-                .then(function (response) {
-                    // handle success
-                    const dataTable=response.data[1];
-                    const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTable.length-1; i += 1) {
-                        if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
-                            rows.push(
-                                [
-                                         new Date(dataTable[i].STARTUP_TIME),
-                                         dataTable[i].PROGRAM_NUMBER,
-                                         dataTable[i].PROGRAM_NAME,
-                                         new Date(dataTable[i].end_time),
-                                         dataTable[i].duration.toString(),
-                             
-                                         dataTable[i].heat_st.toString(),
-                                         dataTable[i].gas_st.toString(),
-                                         dataTable[i].waterQuant.toString(),
-                                         dataTable[i].powerVAh.toString(),
-                                         dataTable[i].powerkWh.toString()    
-                            ]         
-                          );
-                        }
-                    }
-                    
-                   /* self.setState({dataTable: rows}); */
-                    self.setState({dataTable: rows});
-                    //self.setState({dataTable: columns});
-                    self.setState({minDate: minValue});
-
-                   /* var format_url1 = new google.visualization.PatternFormat('<a href=http://172.16.20.75:8080/GeneralTimeLine/TwoTablesServlet?program_number={1}">{0}</a>');
-                    format_url1.format(dataTable, [2,1], 2);
-                    var format_url2 = new google.visualization.PatternFormat('<a href=http://172.16.20.75:8080/GeneralTimeLine/GraficServlet?program_number={0}>{0}</a>');
-                    format_url2.format(dataTable, [1]);  
-*/
-
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-                .finally(function () {
-                    // always executed
-                });     
     }
 
     componentDidMount() {
         this.requestData();      
-        this.requestDataTableRaisa();
+        //this.requestDataTableRaisa();
     }
-
-
 
     render(){
         return (
-        /*   <div className="TimelineRaisa" id="timeline_div">
-                { this.state && this.state.data &&<Chart
-                chartType="Timeline"
-               
-                rows={this.state.data}       
-                  columns={columns}       
-                width="100%"
-                height="400px"
-                options={{
-                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-                }}
-
+            <div>
+          
+                Раиса              
+                { this.state && this.state.dataTable && <Chart
+                    chartType="Table"
+                    chartLanguage = 'ru'
+                    columns={[ 
+                        { type: 'date',     label: 'Start' },
+                        { type: "number",   label:  "N обжига" },
+                        { type: "string",   label: "Название программы" },
+                        { type: 'date',     label: 'Stop' },
+                        { type: "string",   label: "Продолжительность" },         
+                        { type: "string",   label: "Температура" },
+                        { type: "string",   label: "Газ" },
+                        { type: "string",   label: "Вода" },
+                        { type: "string",   label: "Полная мощность" },
+                        { type: "string",   label: "Активная мощность" },
+                            ]} 
+                    rows={this.state.dataTable}     
+                    width="100%"
+                    height="300px"
+                    options={{
+                        colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+                        showRowNumber: true,
+                    }}      
+                />}             
+            
+            tyktkdtkh vnvn
+            
+            
+                { this.state && this.state.data && <Chart
+                    chartType="Timeline" 
+                    chartLanguage = 'ru'
+                    columns={columns}
+                    rows={this.state.data}
+                    width="100%"
+                    height="100px"
+                    options={{colors: ['#98719D', '#A0BD85', '#5DBAD9'],}}      
                 />}
-            </div>   */
-
-<div className="TimelineRaisa" id="timeline_div">
-
-
-Раиса
-<div className={"my-pretty-chart-container"}>
-      { this.state && this.state.dataTable &&<Chart
-      chartType="Table"
-      chartLanguage = 'ru'
-
-    /*  data={data}*/
-     rows={this.state.dataTable}
-      columns={[ 
-                { type: 'date', label: 'Start' },
-                { type: "number",label:  "N обжига" },
-                { type: "string", label: "Название программы" },
-                { type: 'date', label: 'Stop' },
-                { type: "string", label: "Продолжительность" },
-              
-                { type: "string", label: "Температура" },
-                { type: "string", label: "Газ" },
-                { type: "string", label: "Вода" },
-                { type: "string", label: "Полная мощность" },
-                { type: "string", label: "Активная мощность" },
-
-
-              ]}    
-      
-      width="100%"
-      height="100%"
-      options={{
-         colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-         showRowNumber: true,
-       }}      
-
-       />}
-  </div>
-
-
-
-  <div className={"my-pretty-chart-container"}>
-      { this.state && this.state.data &&<Chart
-      chartType="Timeline"
-      chartLanguage = 'ru'
-      rows={this.state.data}
-              columns={columns}
-      width="100%"
-      height="400px"
-      options={{
-         colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-       }}      
-
-       />}
-  </div>
-
-
-  <div>  
-
-      
-  <p>State: {64}</p>
-  <GraphRaisa  value1={64}/>  
-
-</div>
-
-  
-</div>
-  );
+            
+            
+            </div>
+        );
     }
 }
 
