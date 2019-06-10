@@ -75,11 +75,6 @@ export class GraphTest extends React.Component {
                 });     
     }
 
-
-    componentDidMount() {
-        this.requestData();      
-    }
-    
     render() {
         const takeValue = this.props.commonValue;
       return (
