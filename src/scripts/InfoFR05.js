@@ -87,113 +87,69 @@ const columns = [
   ];
 
 
-/*
-  const columnsTable = [
-    { type: 'date', name: 'Start' },
-    { type: "number",name:  "N обжига" },
-    { type: 'date', name: 'Stop' },
-    { type: "string", name: "Продолжительность" },
-    { type: "string",name: "Пауза" },
-    { type: "string", name: "Температура" },
-    { type: "string", name: "SP" },
-    { type: "string", name: "Сила" },
-    
-  ];
-
-
-*/
-
-
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
-export class TimeLineFR05 extends React.Component{
+export class InfoFR05 extends React.Component{
 
     
     requestData(){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=fr05';
-        const rows=[];
+        const rowsTimeLine= [];
+        const rowsTable= [];
         axios.get(data_url)
                 .then(function (response) {
                     // handle success
                     const dataTable=response.data[1];
+                    const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTable.length-1; i += 1) {
-                        if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
-                            rows.push([
+                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                            rowsTimeLine.push([
                                         '1',
-                                        dataTable[i].PROGRAM_NUMBER.toString(),
+                                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                         '#b0d1f2',
                                          createCustomHTMLContent(
-                                            dataTable[i].PROGRAM_NUMBER.toString(),
-                                                                         dataTable[i].TEMPERATURE.toString(), 
-                                            dataTable[i].SP.toString(),
-                                            dataTable[i].OUTPUT_POWER.toString(),
-                                            dataTable[i].duration.toString()
+                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                            dataTimeLine[i].TEMPERATURE.toString(), 
+                                            dataTimeLine[i].SP.toString(),
+                                            dataTimeLine[i].OUTPUT_POWER.toString(),
+                                            dataTimeLine[i].duration.toString()
                                             ),
-                                        new Date(dataTable[i].STARTUP_TIME),
-                                        new Date(dataTable[i].end_time)
+                                        new Date(dataTimeLine[i].STARTUP_TIME),
+                                        new Date(dataTimeLine[i].end_time)
                                     ],
-                                    
                                     ['1',  
-                                    dataTable[i].PROGRAM_NUMBER.toString(),
+                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                     '#003366',
                                     createCustomHTMLContent2(
-                                        new Date(dataTable[i].end_time)
+                                        new Date(dataTimeLine[i].end_time)
                                         ),
-                                    new Date(dataTable[i].end_time),
-                                    new Date(plus15Hours( new Date(dataTable[i].end_time))),
+                                    new Date(dataTimeLine[i].end_time),
+                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
                                  ],  
-                                
-
                                  ['1', 
-                                 dataTable[i].PROGRAM_NUMBER.toString(),
+                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                  '#0080ff',
-                                 createCustomHTMLContent4( new Date(dataTable[i].STARTUP_TIME) ) ,	            
-                                        new Date(minus15Hours( new Date(dataTable[i].STARTUP_TIME))),
-                                        new Date(dataTable[i].STARTUP_TIME)
+                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
+                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                        new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
-
                                ['1',  
-                               dataTable[i].PROGRAM_NUMBER.toString(),
-                               
-                               dataTable[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTable[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTable[i+1].pause),
-                                      plus15Hours(new Date(dataTable[i].end_time)),		            
-                                      minus15Hours(new Date(dataTable[i+1].STARTUP_TIME))
-                            ] 
-
-                                    );
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(), 
+                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
+                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
+                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
+                                 ] 
+                             );
                         }
                     }
-                    self.setState({data: rows}); 
-                    self.setState({minDate: minValue});
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-                .finally(function () {
-                    // always executed
-                });     
-    }
-
-
-    requestDataTableFR005(){
-        const self = this;
-        const data_url = 'http://172.16.20.75:8060/?generaltimeline=fr05';
-        const rows= [];
-        axios.get(data_url)
-                .then(function (response) {
-                    // handle success
-                    const dataTable=response.data[1];
-                    const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTable.length-1; i += 1) {
-                        if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
-                            rows.push(
+                for (let i = 0; i < dataTable.length-1; i += 1) {
+                   if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
+                    rowsTable.push(
                                 [
                                          new Date(dataTable[i].STARTUP_TIME),
                                          dataTable[i].PROGRAM_NUMBER,
-                                         dataTable[i].PROGRAM_NAME,
                                          new Date(dataTable[i].end_time),
                                          dataTable[i].duration.toString(),
                                          dataTable[i].pause.toString(),
@@ -204,10 +160,8 @@ export class TimeLineFR05 extends React.Component{
                           );
                         }
                     }
-                    
-                   /* self.setState({dataTable: rows}); */
-                    self.setState({dataTable: rows});
-                    //self.setState({dataTable: columns});
+                    self.setState({dateTimeLine: rowsTimeLine}); 
+                    self.setState({dataTable: rowsTable});
                     self.setState({minDate: minValue});
                 })
                 .catch(function (error) {
@@ -222,74 +176,78 @@ export class TimeLineFR05 extends React.Component{
 
     componentDidMount() {
         this.requestData();      
-        this.requestDataTableFR005();    
     }
 
     render(){
         return (
-        /*   <div className="TimelineRaisa" id="timeline_div">
-                { this.state && this.state.data &&<Chart
-                chartType="Timeline"
-               
-                rows={this.state.data}       
-                  columns={columns}       
-                width="100%"
-                height="400px"
-                options={{
-                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-                }}
+            <div className={"my-global-div"} >
+             <div className={"my-table-div"}>
+                            { this.state && this.state.dataTable &&<Chart
+                            chartType="Table"
+                            chartLanguage = 'ru'
+                            rows={this.state.dataTable}
+                            columns={[       
+                                { type: 'date', label: 'Start' },
+                                { type: "number",label:  "N обжига" },
+                                { type: 'date', label: 'Stop' },
+                                { type: "string", label: "Продолжительность" },
+                                { type: "string",label: "Пауза" },
+                                { type: "string", label: "Температура" },
+                                { type: "string", label: "SP" },
+                                { type: "string", label: "Сила" },
+                            ]}    
+                            width="100%"
+                            height="100%"
+                            options={{
+                                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+                                showRowNumber: true,
+                                allowHtml: true, 
+                            }}  
+                            formatters={[
+                             {
+                                 type: 'PatternFormat',
+                                 column: [1],
+                                 options: '<a href=GraphRaisa value1={0}>{0} </a>' , 
+                            
+                            
+                             },  
+                           ]}
+                      />}
+                </div>
 
-                />}
-            </div>   */
+             <div className={"my-timeline-div"}>
+                        { this.state && this.state.dateTimeLine &&<Chart
+                        chartType="Timeline"
+                        chartLanguage = 'ru'
+                        rows={this.state.dateTimeLine}
+                                columns={columns}
+                        width="100%"
+                        height="100px"
+                        options={{
+                            colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+                        }}    
+                        
+                       /* chartEvents={[
+                            {
+                            eventName: "select",
+                            callback({ chartWrapper }) {
+                            var selection = chartWrapper.getChart().getSelection();
+                            console.warn('selection ', selection);
+                            console.warn('selection row', selection[0].row);
+                            var value=selection[0].row;
+                            const {  rows } =  selection[0].row;
+                            alert ('selection row', rows); 
+                            alert(this.getValue(selection[0].row, 0));
+                        }
+                      }
+                ]} */
+        
+           />}
+          </div>
+           </div>
+           );
+            }
+   }
+          
 
-<div className="TimelineRaisa" id="timeline_div">
-    фр05
-<div className={"my-pretty-chart-container"}>
-      { this.state && this.state.dataTable &&<Chart
-      chartType="Table"
-      chartLanguage = 'ru'
-
-    /*  data={data}*/
-     rows={this.state.dataTable}
-      columns={[  { type: 'date', label: 'Start' },
-                { type: "number",label:  "N обжига" },
-                { type: 'date', label: 'Stop' },
-                { type: "string", label: "Продолжительность" },
-                { type: "string",label: "Пауза" },
-                { type: "string", label: "Температура" },
-                { type: "string", label: "SP" },
-                { type: "string", label: "Сила" },
-              ]}    
-      
-      width="100%"
-      height="100%"
-      options={{
-         colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-         showRowNumber: true,
-       }}      
-
-       />}
-
-  </div>
-
-<div className={"my-pretty-chart-container"}>
-      { this.state && this.state.data &&<Chart
-      chartType="Timeline"
-      chartLanguage = 'ru'
-      rows={this.state.data}
-              columns={columns}
-      width="100%"
-      height="100px"
-      options={{
-         colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-       }}      
-
-       />}
-  </div>
-
-</div>
-        );
-    }
-}
-
-export default TimeLineFR05;
+export default InfoFR05;

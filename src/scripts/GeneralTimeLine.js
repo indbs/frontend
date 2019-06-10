@@ -1,14 +1,46 @@
+
+
 import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
 import axios from 'axios';
 
-
+import GraphRaisa from './GraphRaisa';
+import Linkify from 'react-linkify';
 
 require('datejs');  
 
 
-function createCustomHTMLContent(numb,duration,Temperaure, SP, Power) {
+function createCustomHTMLContentRaisa(numb,duration,Temperaure, SP, Power) {
+    var  A='<div class="block1">   '+
+      '<table padding = 10   cellpadding=1 cellspacing=0 border=0 > ' + '<tr>' +
+      '<td><h4 class = "leftTitle">'+ 'Обжиг №' + numb+'</h4></td >' + '</tr>' + '<tr>' +
+      '<td><hr6>'+ 'Temperaure: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + Temperaure +'</hr5></td>' + '</tr>' + '<tr>' +
+      '<td><hr6>'+ 'SP: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + SP +'</hr5></td>' + '</tr>' + '<tr padding = 0>' +
+      '<td><hr6>'+ 'Power: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + Power +'</hr5></td>' + '</tr>' + '<tr padding = 0>' +
+      '<td><hr6>'+ 'Длительность: ' +'</hr6>' +'<hr5 class ="righTableInfo">'+ duration+ ' часов' +'</hr5></td padding = 0>' + '</tr>' + '</table>' + '</div>';
+return A;}
+
+function createCustomHTMLContentFR06(numb,duration,Temperaure, SP, Power) {
+    var  A='<div class="block1">   '+
+      '<table padding = 10   cellpadding=1 cellspacing=0 border=0 > ' + '<tr>' +
+      '<td><h4 class = "leftTitle">'+ 'Обжиг №' + numb+'</h4></td >' + '</tr>' + '<tr>' +
+
+      '<td><hr6>'+ 'Длительность: ' +'</hr6>' +'<hr5 class ="righTableInfo">'+ duration+ ' часов' +'</hr5></td padding = 0>' + '</tr>' + '</table>' + '</div>';
+return A;}
+
+function createCustomHTMLContentRaisa2(numb,waterQuant,VAh,Wth,duration) {
+    var A='<div class="block1">   '+
+    '<table padding = 10   cellpadding=1 cellspacing=0 border=0 > ' + '<tr>' +
+    '<td><h4 class = "leftTitle">'+ 'Обжиг №' + numb+'</h4></td >' + '</tr>' + '<tr>' +
+    '<td><hr6>'+ 'Уровень воды: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + waterQuant +'</hr5></td>' + '</tr>' + '<tr>' +
+    
+    '<td><hr6>'+ 'Потребление ВА: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + VAh +'</hr5></td>' + '</tr>' + '<tr>' +
+    '<td><hr6>'+ 'Потребление Вт: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + Wth +'</hr5></td>' + '</tr>' + '<tr padding = 0>' +
+    '<td><hr6>'+ 'Длительность: ' +'</hr6>' +'<hr5 class ="righTableInfo">'+ duration+ ' часов' +'</hr5></td padding = 0>' + '</tr>' + '</table>' + '</div>';
+return A;}
+
+function createCustomHTMLContentFR05(numb,duration,Temperaure, SP, Power) {
     var  A='<div class="block1">   '+
       '<table padding = 10   cellpadding=1 cellspacing=0 border=0 > ' + '<tr>' +
       '<td><h4 class = "leftTitle">'+ 'Обжиг №' + numb+'</h4></td >' + '</tr>' + '<tr>' +
@@ -18,6 +50,7 @@ function createCustomHTMLContent(numb,duration,Temperaure, SP, Power) {
       '<td><hr6>'+ 'Power: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + Power +'</hr5></td>' + '</tr>' + '<tr padding = 0>' +
       '<td><hr6>'+ 'Длительность: ' +'</hr6>' +'<hr5 class ="righTableInfo">'+ duration+ ' часов' +'</hr5></td padding = 0>' + '</tr>' + '</table>' + '</div>';
 return A;}
+
 
 function createCustomHTMLContent2(stTime) {
 var      A='<div class="block1">'+
@@ -89,70 +122,246 @@ const columns = [
 
 
 
-//google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
-export class TimeLineRaisa extends React.Component{
+
+export class GeneralTimeLine extends React.Component{
 
 
+    constructor(props) {
+            super(props);
+            this.state = { value1: "" };
+            this.handleChange = this.handleChange.bind(this);
+         
+          }
+        
+          handleChange(event) {
+            this.setState({ value: event.target.value });
+          }
 
-
-
-    requestDataGeneralTimeLine(){
+    requestDataRaisa (){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa';
-        const rows=[];
+        const data_url2 = 'http://172.16.20.75:8060/?generaltimeline=raisa2';
+        const data_url3 = 'http://172.16.20.75:8060/?generaltimeline=fr05';
+        const data_url4 = 'http://172.16.20.75:8060/?generaltimeline=fr06';
+        const  rowsTable=[];
+        const  rowsTimeLine=[];
         axios.get(data_url)
                 .then(function (response) {
                     // handle success
                     const dataTable=response.data[1];
+                    const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTable.length-1; i += 1) {
-                        if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
-                            rows.push([
-                                        '1',
-                                        dataTable[i].PROGRAM_NUMBER.toString(),
+                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                            rowsTimeLine.push([
+                                        'Раиса',
+                                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                         '#b0d1f2',
-                                         createCustomHTMLContent(
-                                            dataTable[i].PROGRAM_NUMBER.toString(),
-                                            dataTable[i].PROGRAM_NAME.toString(), 
-                                            dataTable[i].duration.toString(), 
-                                            dataTable[i].powerVAh.toString(),
-                                            dataTable[i].powerkWh.toString(),
+                                         createCustomHTMLContentRaisa(
+                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                            dataTimeLine[i].PROGRAM_NAME.toString(), 
+                                            dataTimeLine[i].duration.toString(), 
+                                            dataTimeLine[i].powerVAh.toString(),
+                                            dataTimeLine[i].powerkWh.toString(),
                                             ),
-                                        new Date(dataTable[i].STARTUP_TIME),
-                                        new Date(dataTable[i].end_time)
+                                        new Date(dataTimeLine[i].STARTUP_TIME),
+                                        new Date(dataTimeLine[i].end_time)
                                     ],
                                     
-                                    ['1',  
-                                    dataTable[i].PROGRAM_NUMBER.toString(),
+                                    ['Раиса',  
+                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                     '#003366',
                                     createCustomHTMLContent2(
-                                        new Date(dataTable[i].end_time)
+                                        new Date(dataTimeLine[i].end_time)
                                         ),
-                                    new Date(dataTable[i].end_time),
-                                    new Date(plus15Hours( new Date(dataTable[i].end_time))),
+                                    new Date(dataTimeLine[i].end_time),
+                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
                                  ],  
                                 
 
-                                 ['1', 
-                                 dataTable[i].PROGRAM_NUMBER.toString(),
+                                 ['Раиса', 
+                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                  '#0080ff',
-                                 createCustomHTMLContent4( new Date(dataTable[i].STARTUP_TIME) ) ,	            
-                                        new Date(minus15Hours( new Date(dataTable[i].STARTUP_TIME))),
-                                        new Date(dataTable[i].STARTUP_TIME)
+                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
+                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                        new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
 
-                               ['1',  
-                               dataTable[i].PROGRAM_NUMBER.toString(),
+                               ['Раиса',  
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                
-                               dataTable[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTable[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTable[i+1].pause),
-                                      plus15Hours(new Date(dataTable[i].end_time)),		            
-                                      minus15Hours(new Date(dataTable[i+1].STARTUP_TIME))
+                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
+                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
+                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
                             ]       
                                     );
                         }
                     }
-                    self.setState({data: rows}); 
+                    self.setState({dateTimeLine: rowsTimeLine}); 
+                    self.setState({minDate: minValue});
+                })
+
+                axios.get(data_url2)
+                .then(function (response) {
+                    const dataTimeLine=response.data[1];
+                    const minValue=(Date.today().addMonths(-1));
+           
+                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){  
+                            rowsTimeLine.push(
+                                [
+                                        'Раиса2',
+                                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                        '#b0d1f2',
+                                         createCustomHTMLContentRaisa2(
+                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                            dataTimeLine[i].waterQuant.toString(),
+                                            dataTimeLine[i].powerVAh.toString(),
+                                            dataTimeLine[i].powerkWh.toString(),
+                                            dataTimeLine[i].duration.toString()
+                                            ),
+                                        new Date(dataTimeLine[i].STARTUP_TIME),
+                                        new Date(dataTimeLine[i].end_time)
+                                    ],
+                                    ['Раиса2',  
+                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                    '#003366',
+                                    createCustomHTMLContent2(
+                                        new Date(dataTimeLine[i].end_time)
+                                        ),
+                                    new Date(dataTimeLine[i].end_time),
+                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
+                                 ],  
+                                 ['Раиса2', 
+                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                 '#0080ff',
+                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
+                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                        new Date(dataTimeLine[i].STARTUP_TIME)
+                               ],
+                               ['Раиса2',  
+                               ,
+                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
+                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
+                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
+                            ]  
+                      );
+                       }  
+                    }
+                    self.setState({dateTimeLine: rowsTimeLine}); 
+                    self.setState({minDate: minValue});
+                })
+                axios.get(data_url3)
+                .then(function (response) {
+                    // handle success
+                    const dataTimeLine=response.data[1];
+                    const minValue=(Date.today().addMonths(-1));
+                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                            rowsTimeLine.push([
+                                        'ФР05',
+                                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                        '#b0d1f2',
+                                         createCustomHTMLContentFR05(
+                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                            dataTimeLine[i].TEMPERATURE.toString(), 
+                                            dataTimeLine[i].SP.toString(),
+                                            dataTimeLine[i].OUTPUT_POWER.toString(),
+                                            dataTimeLine[i].duration.toString()
+                                            ),
+                                        new Date(dataTimeLine[i].STARTUP_TIME),
+                                        new Date(dataTimeLine[i].end_time)
+                                    ],
+                                    ['ФР05',  
+                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                    '#003366',
+                                    createCustomHTMLContent2(
+                                        new Date(dataTimeLine[i].end_time)
+                                        ),
+                                    new Date(dataTimeLine[i].end_time),
+                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
+                                 ],  
+                                 ['ФР05', 
+                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                 '#0080ff',
+                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
+                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                        new Date(dataTimeLine[i].STARTUP_TIME)
+                               ],
+                               ['ФР05',  
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(), 
+                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
+                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
+                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
+                                 ] 
+                             );
+                        }
+                    }
+                    self.setState({dateTimeLine: rowsTimeLine}); 
+                    self.setState({minDate: minValue});
+                })
+                axios.get(data_url4)
+                .then(function (response) {
+                    const dataTimeLine=response.data;
+                    const dataTable=response.data;
+                    const minValue=(Date.today().addMonths(-1));
+                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                            rowsTimeLine.push([
+                                        'FR06',
+                                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                        '#b0d1f2',
+                                        createCustomHTMLContentFR06(
+                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                            dataTimeLine[i].duration.toString()
+                                            ),
+                                        new Date(dataTimeLine[i].STARTUP_TIME),
+                                        new Date(dataTimeLine[i].end_time)
+                                    ],
+                                    ['FR06',  
+                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                    '#003366',
+                                    createCustomHTMLContent2(
+                                        new Date(dataTimeLine[i].end_time)
+                                        ),
+                                    new Date(dataTimeLine[i].end_time),
+                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
+                                 ],  
+                                 ['FR06', 
+                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                 '#0080ff',
+                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
+                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                        new Date(dataTimeLine[i].STARTUP_TIME)
+                               ],
+
+                               ['FR06',  
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
+                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
+                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
+                                    ] 
+                             );
+                        }
+                    }
+                
+                    for (let i = 0; i < dataTable.length-1; i += 1) {         
+                        if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){ 
+                            rowsTable.push(
+                                [
+                                         new Date(dataTable[i].STARTUP_TIME),
+                                         dataTable[i].PROGRAM_NUMBER,
+                                         new Date(dataTable[i].end_time),
+                                         dataTable[i].duration.toString()
+                            ]         
+                          );
+                        }
+                    }
+                    self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({minDate: minValue});
                 })
                 .catch(function (error) {
@@ -161,65 +370,43 @@ export class TimeLineRaisa extends React.Component{
                 })
                 .finally(function () {
                     // always executed
-                });     
+                });
     }
-
-
-
-
-
-
 
 
     componentDidMount() {
-        this.requestDataGeneralTimeLine();      
-        
+        this.requestDataRaisa();      
+      /*  this.requestDataRaisa2();      */
     }
-
-
-
     render(){
         return (
-        /*   <div className="TimelineRaisa" id="timeline_div">
-                { this.state && this.state.data &&<Chart
-                chartType="Timeline"
-               
-                rows={this.state.data}       
-                  columns={columns}       
-                width="100%"
-                height="400px"
-                options={{
-                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-                }}
+    <div className={"my-global-div"} >
+     
 
-                />}
-            </div>   */
-
-<div className="TimelineRaisa" id="timeline_div">
-
-
-Общий таймлайн
-
-
-
-
-  <div className={"my-pretty-chart-container"}>
-      { this.state && this.state.data &&<Chart
+     <div className={"my-timelineRaisa-div"}>
+      { this.state && this.state.dateTimeLine &&<Chart
       chartType="Timeline"
       chartLanguage = 'ru'
-      rows={this.state.data}
+      rows={this.state.dateTimeLine}
               columns={columns}
       width="100%"
-      height="400px"
+      height="100%"
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-       }}      
+       }}    
+       
+      
 
        />}
   </div>
-</div>
-        );
-    }
-}
 
-export default TimeLineRaisa;
+
+
+
+
+   </div>
+   );
+    }
+  }
+  
+export default GeneralTimeLine;
