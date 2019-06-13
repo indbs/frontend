@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Chart from 'react-google-charts';
 
+
 const chartData =   [
     { type: 'date', label: 'Время' }, 
     {type: 'number', label: 'Азот SP, %'},
@@ -30,7 +31,9 @@ export class GraphTest extends React.Component {
         const takeValue = this.props.commonValue;
    
 
-        const data_url = `http://172.16.20.75:8060/?graph=raisa&program_number=`+{takeValue}+'year=2019';
+      
+
+        const data_url = "http://172.16.20.75:8060/?graph=raisa&program_number=16&year=2019";
      
 
         const chartData =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 'SP',
@@ -76,6 +79,10 @@ export class GraphTest extends React.Component {
     }
 
 
+    handleClick = () => {
+        alert('this is:', this);
+      }
+
     componentDidMount() {
         this.requestData();      
     }
@@ -90,10 +97,11 @@ export class GraphTest extends React.Component {
                             width={1200}
                             height={600}
                             chartType="LineChart"
+                            chartLanguage = 'ru'
                             loader={<div>Загружаем данные...</div>}
                             data={this.state.data}
                             options= {{
-                                title: 'Обжиг №  ${graficInfo.get(15).getProgramm_number()}',
+                                title: 'Обжиг № ',
                                 explorer: {actions: ['dragToZoom', 'rightClickToReset'],
                                             keepInBounds: true,maxZoomIn: 8.0},
                                             series:{0: {targetAxisIndex: 1},
@@ -122,11 +130,42 @@ export class GraphTest extends React.Component {
                                     chartArea:{left:100,top:50,width:'85%',height:'85%'},vAxis: {format: '####'}
                                 }
                             }
+                            controls={[
+                                {
+                                  controlEvents: [
+                                    {
+                                      eventName: 'ready',
+                                      callback: ({ chartWrapper, controlWrapper }) => {
+                                        alert(
+                                          'State changed to ' + JSON.stringify(controlWrapper.getState()),
+                                         
+                                        )
+                                        /*var view =new google.visualization.DataView (chartWrapper); */ 
+                                      },
+                                    },
+                                  ],
+                                  controlType: 'CategoryFilter',
+                                  options: {
+                                    filterColumnIndex: 1,
+                                    ui: {
+                                      labelStacking: 'vertical',
+                                      label: 'Gender Selection:',
+                                      allowTyping: false,
+                                      allowMultiple: false,
+                                    },
+                                  },
+                                },
+                              ]}    
                     
                 />
                         }
                 </div>
+         <div className="Buttons" id="chart_div">
 
+                 <button onClick={this.handleClick}>Click me</button>
+                <button type="button" className="btn btn-secondary" onClick="clearForm();" data-dismiss="modal">Отмена</button>
+
+         </div>
              
         </div>
       );
