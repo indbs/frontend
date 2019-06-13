@@ -93,9 +93,7 @@ const columns = [
 
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
 export class InfoRaisa extends React.Component{
-
-
-    
+  
   constructor(props) {
     super(props);
     this.state = { valuePass: "12" };
@@ -106,9 +104,6 @@ export class InfoRaisa extends React.Component{
   handleChange(value) {
     this.setState({ valuePass: value });
   }
-
-
- 
 
     requestData(){
         const self = this;
@@ -292,7 +287,7 @@ export class InfoRaisa extends React.Component{
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],
        }}    
-       chartEvents={this.chartEvents }
+      chartEvents={this.chartEvents }
                  
        />}
   </div>

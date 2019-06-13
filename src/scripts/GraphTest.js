@@ -2,41 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import Chart from 'react-google-charts';
 
-
-const chartData =   [
-    { type: 'date', label: 'Время' }, 
-    {type: 'number', label: 'Азот SP, %'},
-    {type: 'number', label: 'Азот PV, %'},
-
-    {type: 'number', label: 'Ток L1, А'},
-    {type: 'number', label: 'Ток L2, А'},
-    {type: 'number', label: 'Ток L3, А'},
-    {type: 'number', label: 'SP'},
-    {type: 'number', label: 'Средняя °С'},
-    {type: 'number', label: 'TC411, °С'},
-    {type: 'number', label: 'TC412, °С'},
-    {type: 'number', label: 'TC413, °С'},
-    {type: 'number', label: 'A, %'},
-    {type: 'number', label: 'B, %'},
-    {type: 'number', label: 'C, %'},
-    {type: 'number', label: 'D, %'},
-    {type: 'number', label: 'E, %'}
-];
-
 /*  /*  const data_url_test = 'http://172.16.20.75:8060/?graph=raisa&program_number=63&year=2019'; /**/
 
 export class GraphTest extends React.Component {
+        
     requestData(){
         const self = this;
-        const takeValue = this.props.commonValue;
-   
-
-      
-
         const data_url = "http://172.16.20.75:8060/?graph=raisa&program_number=16&year=2019";
-     
 
-        const chartData =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 'SP',
+        const chartDataCurrents=[[{ type: 'date', label: 'Время'}, 'Ток L1, А', 'Ток L2, А', 'Ток L3, А']];
+        const chartDataAll =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 'SP',
         'Средняя °С','TC411, °С','TC412, °С', 'TC413, °С', 'A, %', 'B, %', 'C, %', 'D, %', 'E, %' ]];
         axios.get(data_url)
                 .then(function (response) {
@@ -44,31 +19,34 @@ export class GraphTest extends React.Component {
               
                     const dataTable=response.data;
                     for (let i = 0; i < dataTable.length-1; i += 1) {
-                        chartData.push([
+                        chartDataAll.push([
                             new Date(dataTable[i].time), 
                             parseInt(dataTable[i].oxygen_predict_sp),
-                            parseInt( dataTable[i].analiser_calc),
+                            parseInt(dataTable[i].analiser_calc),
                             parseInt(dataTable[i].current_l1),
                             parseInt(dataTable[i].current_l2),
                             parseInt(dataTable[i].current_l3),
                             parseInt(dataTable[i].setpoint), 
                             parseInt(dataTable[i].average),
                             parseInt(dataTable[i].tc410),
-                            parseInt( dataTable[i].tc411),
+                            parseInt(dataTable[i].tc411),
                             parseInt(dataTable[i].tc412),
                             parseInt(dataTable[i].flap_a_percent_position),
-                            parseInt( dataTable[i].flap_b_percent_position),
+                            parseInt(dataTable[i].flap_b_percent_position),
                             parseInt(dataTable[i].flap_c_percent_position),
                             parseInt(dataTable[i].flap_d_percent_position),
-                            parseInt( dataTable[i].flap_e_percent_position)
-                            
+                            parseInt(dataTable[i].flap_e_percent_position)                           
                         ]);
-
-                        console.warn("info ",chartData);
+                        chartDataCurrents.push([
+                            new Date(dataTable[i].time), 
+                            parseInt(dataTable[i].current_l1),
+                            parseInt(dataTable[i].current_l2),
+                            parseInt(dataTable[i].current_l3)  
+                        ]);
                     }
-                    self.setState({data: chartData}); 
-                    console.warn("info ",chartData);
-                    
+                    self.setState({dataToDisplay: chartDataAll});
+                    self.setState({dataCurrents: chartDataCurrents});  
+                    self.setState({dataAll: chartDataAll});                 
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -78,26 +56,30 @@ export class GraphTest extends React.Component {
                 });     
     }
 
-    handleClick = () => {
-        alert('this is:', this);
-      }
+    handleClickCurrents = () => {
+        this.setState( {dataToDisplay: this.state.dataCurrents} );
+    }
+
+    handleClickAll = () => {
+        this.setState( {dataToDisplay: this.state.dataAll} );
+    }
 
     componentDidMount() {
         this.requestData();      
     }
 
     render() {
-        const takeValue = this.props.commonValue;
       return (
-        <div className="GraphPage" id="chart_div">    
+        <div className="GraphPage">    
                         <div className="Graph" id="chart_div">
-                        {this.state && this.state.data &&<Chart
+                        {this.state && this.state.dataToDisplay &&<Chart
                             width={1200}
-                            height={600}
+                            height={800}
                             chartType="LineChart"
                             chartLanguage = 'ru'
                             loader={<div>Загружаем данные...</div>}
-                            data={this.state.data}
+                            data={this.state.dataToDisplay}
+                            legend_toggle={true}
                             options= {{
                                 title: 'Обжиг № ',
                                 explorer: {actions: ['dragToZoom', 'rightClickToReset'],
@@ -127,44 +109,14 @@ export class GraphTest extends React.Component {
                                     textStyle: {color: '#cc9a9a'}}},legend: { position: 'bottom', textStyle: {color: 'blue', fontSize: 12} },
                                     chartArea:{left:100,top:50,width:'85%',height:'85%'},vAxis: {format: '####'}
                                 }
-                            }
-                            controls={[
-                                {
-                                  controlEvents: [
-                                    {
-                                      eventName: 'ready',
-                                      callback: ({ chartWrapper, controlWrapper }) => {
-                                        alert(
-                                          'State changed to ' + JSON.stringify(controlWrapper.getState()),
-                                         
-                                        )
-                                        /*var view =new google.visualization.DataView (chartWrapper); */ 
-                                      },
-                                    },
-                                  ],
-                                  controlType: 'CategoryFilter',
-                                  options: {
-                                    filterColumnIndex: 1,
-                                    ui: {
-                                      labelStacking: 'vertical',
-                                      label: 'Gender Selection:',
-                                      allowTyping: false,
-                                      allowMultiple: false,
-                                    },
-                                  },
-                                },
-                              ]}    
-                    
+                            }  
                 />
                         }
                 </div>
-         <div className="Buttons" id="chart_div">
-
-                 <button onClick={this.handleClick}>Click me</button>
-                <button type="button" className="btn btn-secondary" onClick="clearForm();" data-dismiss="modal">Отмена</button>
-
-         </div>
-             
+            <div className="Buttons" id="chart_div_buttons">
+                <button onClick={this.handleClickCurrents}>Показать токи</button>
+                <button onClick={this.handleClickAll}>Показать всё</button>
+            </div>             
         </div>
       );
     }
