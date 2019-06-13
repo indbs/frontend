@@ -225,8 +225,8 @@ export class InfoRaisa extends React.Component{
     render(){
         return (
     <div className={"my-global-div"} >
-     
-     <div className={"my-table-div"}>
+         
+         <div className={"my-table-div"}>
                     { this.state && this.state.dataTable &&<Chart
                     chartType="Table"
                     chartLanguage = 'ru'
@@ -278,7 +278,7 @@ export class InfoRaisa extends React.Component{
                    ]}
              
                     />}
-                </div>
+                </div> 
 
 
      <div className={"my-timeline-div"}>
