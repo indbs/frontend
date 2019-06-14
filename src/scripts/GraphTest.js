@@ -10,9 +10,9 @@ export class GraphTest extends React.Component {
         const self = this;
         const data_url = "http://172.16.20.75:8060/?graph=raisa&program_number=16&year=2019";
 
-        const chartDataCurrents=[[{ type: 'date', label: 'Время'}, 'Ток L1, А', 'Ток L2, А', 'Ток L3, А']];
-        const chartDataAll =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 'SP',
-        'Средняя °С','TC411, °С','TC412, °С', 'TC413, °С', 'A, %', 'B, %', 'C, %', 'D, %', 'E, %' ]];
+        var chartDataCurrents=[],chartDataAirHeaters=[],chartDataShort=[];
+        const chartDataAll =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %','SP','Средняя °С', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 
+        'TC411, °С','TC412, °С', 'TC413, °С', 'A, %', 'B, %', 'C, %', 'D, %', 'E, %' ]];
         axios.get(data_url)
                 .then(function (response) {
                     // handle success
@@ -23,11 +23,11 @@ export class GraphTest extends React.Component {
                             new Date(dataTable[i].time), 
                             parseInt(dataTable[i].oxygen_predict_sp),
                             parseInt(dataTable[i].analiser_calc),
+                            parseInt(dataTable[i].setpoint), 
+                            parseInt(dataTable[i].average),
                             parseInt(dataTable[i].current_l1),
                             parseInt(dataTable[i].current_l2),
                             parseInt(dataTable[i].current_l3),
-                            parseInt(dataTable[i].setpoint), 
-                            parseInt(dataTable[i].average),
                             parseInt(dataTable[i].tc410),
                             parseInt(dataTable[i].tc411),
                             parseInt(dataTable[i].tc412),
@@ -37,16 +37,25 @@ export class GraphTest extends React.Component {
                             parseInt(dataTable[i].flap_d_percent_position),
                             parseInt(dataTable[i].flap_e_percent_position)                           
                         ]);
-                        chartDataCurrents.push([
+                        //new way
+                        chartDataShort      = chartDataAll.map(function(row){return row.slice(0,5)});
+                        chartDataCurrents   = chartDataAll.map(function(row){return row.slice(0,8)});
+                        chartDataAirHeaters = chartDataAll.map(function(row){return row.slice(0,11)});
+                        //console.log(chartDataCurrents);
+
+                        //old way
+                        /*chartDataCurrents.push([
                             new Date(dataTable[i].time), 
                             parseInt(dataTable[i].current_l1),
                             parseInt(dataTable[i].current_l2),
                             parseInt(dataTable[i].current_l3)  
-                        ]);
+                        ]);*/
                     }
-                    self.setState({dataToDisplay: chartDataAll});
+                    self.setState({dataToDisplay: chartDataShort});
                     self.setState({dataCurrents: chartDataCurrents});  
-                    self.setState({dataAll: chartDataAll});                 
+                    self.setState({dataAirHeaters: chartDataAirHeaters});  
+                    self.setState({dataAll: chartDataAll}); 
+                    self.setState({dataShort: chartDataShort});                
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -62,6 +71,14 @@ export class GraphTest extends React.Component {
 
     handleClickAll = () => {
         this.setState( {dataToDisplay: this.state.dataAll} );
+    }
+
+    handleClickShort = () => {
+        this.setState( {dataToDisplay: this.state.dataShort} );
+    }
+
+    handleClickAirHeaters = () => {
+        this.setState( {dataToDisplay: this.state.dataAirHeaters} );
     }
 
     componentDidMount() {
@@ -115,6 +132,8 @@ export class GraphTest extends React.Component {
                 </div>
             <div className="Buttons" id="chart_div_buttons">
                 <button onClick={this.handleClickCurrents}>Показать токи</button>
+                <button onClick={this.handleClickAirHeaters}>Показать возд. нагреватели</button>
+                <button onClick={this.handleClickShort}>Показать только темперутру</button>
                 <button onClick={this.handleClickAll}>Показать всё</button>
             </div>             
         </div>
