@@ -5,10 +5,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "datejs": "^1.0.0-rc3",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-google-charts": "^3.0.13",
     "react-linkify": "^1.0.0-alpha",
+    "react-moment": "^0.9.2",
     "react-scripts": "3.0.1"
   },
   "scripts": {

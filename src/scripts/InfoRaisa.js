@@ -7,24 +7,13 @@ import GraphRaisa from './GraphRaisa';
 import GraphTest from './GraphTest';
 import Linkify from 'react-linkify';
 
+import HtmlToolTip from './tooltip';
+var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
 
-function createCustomHTMLContent(numb,duration,Temperaure, SP, Power) {
-    var  A='<div class="block1">   '+
-      '<table padding = 10   cellpadding=1 cellspacing=0 border=0 > ' + '<tr>' +
-      '<td><h4 class = "leftTitle">'+ 'Обжиг №' + numb+'</h4></td >' + '</tr>' + '<tr>' +
-      '<td><hr6>'+ 'Temperaure: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + Temperaure +'</hr5></td>' + '</tr>' + '<tr>' +
-      '<td><hr6>'+ 'SP: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + SP +'</hr5></td>' + '</tr>' + '<tr padding = 0>' +
-      '<td><hr6>'+ 'Power: '+'</hr6>' +'<hr5 class ="righTableInfo">'  + Power +'</hr5></td>' + '</tr>' + '<tr padding = 0>' +
-      '<td><hr6>'+ 'Длительность: ' +'</hr6>' +'<hr5 class ="righTableInfo">'+ duration+ ' часов' +'</hr5></td padding = 0>' + '</tr>' + '</table>' + '</div>';
-return A;}
 
-function createCustomHTMLContent2(stTime) {
-var      A='<div class="block1">'+
-'<table   cellpadding=2 cellspacing=0 border=0> ' + '<tr>' +
-'<td><hr6>'+ 'Остановка: '+'</hr6>' +'<hr5 class ="righTableInfo">' +stTime.toLocaleDateString('RU') +' в ' +stTime.toLocaleTimeString('RU') +'</hr5 class ="righTableInfo></td>' + '</tr>' + '</table>' + '</div>';
-return A;}
+
 
 function createCustomHTMLContent3(pause) {
 var  A='<div class="block1">'+
@@ -32,11 +21,6 @@ var  A='<div class="block1">'+
 '<td><hr6>'+ 'Ожидание: ' + '</hr6>'+'<hr5 class ="righTableInfo">' +pause  +'</hr5></td>' + '</tr>' + '</table>' + '</div>';
 return A;}
 
-function createCustomHTMLContent4(strTime) {
-var   A='<div class="block1">'+
-'<table   cellpadding=1 cellspacing=0 border=0> ' + '<tr>' +
-'<td><hr6>'+ 'Запуск: ' +'</hr6>' + '<hr5 class ="righTableInfo">'+strTime.toLocaleDateString('RU') +' в ' +strTime.toLocaleTimeString('RU') +'</hr5></td>' + '</tr>' + '</table>' + '</div>';
-return A;}
 
 function parsingToDate(inputDate) {
            var dateStr=inputDate;
@@ -98,6 +82,7 @@ export class InfoRaisa extends React.Component{
     super(props);
     this.state = { valuePass: "12" };
     this.handleChange = this.handleChange.bind(this);
+    const takeValue = this.props.commonValue;
    /* this.handleSubmit = this.handleSubmit.bind(this);*/
 }
 
@@ -122,13 +107,11 @@ export class InfoRaisa extends React.Component{
                                         '1',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                         '#b0d1f2',
-                                         createCustomHTMLContent(
-                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                            dataTimeLine[i].PROGRAM_NAME.toString(), 
-                                            dataTimeLine[i].duration.toString(), 
-                                            dataTimeLine[i].powerVAh.toString(),
-                                            dataTimeLine[i].powerkWh.toString(),
-                                            ),
+                                        ReactDOMServer.renderToString(
+                                          <HtmlToolTip 
+                                            toolTipData={dataTable[i]}
+                                            toolTipType={"full"}
+                                          />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
                                     ],
@@ -136,9 +119,10 @@ export class InfoRaisa extends React.Component{
                                     ['1',  
                                     dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                     '#003366',
-                                    createCustomHTMLContent2(
-                                        new Date(dataTimeLine[i].end_time)
-                                        ),
+                                    ReactDOMServer.renderToString(<HtmlToolTip 
+                                      toolTipData={dataTable[i]}
+                                      toolTipType={"stop"}
+                                    />),
                                     new Date(dataTimeLine[i].end_time),
                                     new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
                                  ],  
@@ -147,13 +131,16 @@ export class InfoRaisa extends React.Component{
                                  ['1', 
                                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                  '#0080ff',
-                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
+                                 ReactDOMServer.renderToString(<HtmlToolTip 
+                                  toolTipData={dataTable[i]}
+                                  toolTipType={"start"}
+                                  />) ,	            
                                         new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
 
                                ['1',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                               '',
                                
                                dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
                                dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
@@ -218,6 +205,8 @@ export class InfoRaisa extends React.Component{
       ];
 
     render(){
+
+      const takeValue = this.props.commonValue;
         return (
     <div className={"my-global-div"} >
          

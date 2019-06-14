@@ -1,0 +1,15 @@
+.TooltipStyle {
+    display: grid;
+    grid-template-columns: 150px 90px;
+  }
+/*.TooltipStyle {
+    border: 2px solid #66a3ff;
+    background-color: #e6f0ff;
+}
+.TooltipStyle > div {
+    border: 1px solid #3385ff;
+    background-color: #cce0ff;
+    padding: 1em;
+    color: #0052cc;
+    font-size: 14px;
+}*/
