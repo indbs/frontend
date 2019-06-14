@@ -1,4 +1,5 @@
 import * as React from "react";
+<<<<<<< HEAD
 import { render } from "react-dom";
 import { Chart } from "react-google-charts";
 import * as axios  from 'axios';
@@ -22,15 +23,38 @@ import FlavorForm  from './Divs/FlavorForm';
 function App()  {
  /* <MainDiv /> 
                            <MainDiv />  */
+=======
+import TimeLineRaisa from './scripts/TimeLineRaisa';
+import TimeLineRaisa2 from './scripts/TimeLineRaisa2';
+import TimeLineFR05 from './scripts/TimeLineFR05';
+import TimeLineFR06 from './scripts/TimeLineFR06';
+import GraphRaisa from './scripts/GraphRaisa';
+
+function App()  {
+>>>>>>> be01159d28fa0511f5ff274cc8efe171582c26d6
 
   return (
-    <div className="App">
+    /*<div className="App">
                            
+<<<<<<< HEAD
     
                       
                           
                            < InfoRaisa    />
     </div>
+=======
+                           <TimeLineFR05  />
+                           <TimeLineFR06  />
+                           <TimeLineRaisa2 />
+                           <TimeLineRaisa />
+                           <GraphRaisa  value1={64}/> 
+    </div>*/
+  <div>
+    <TimeLineRaisa />
+    dfgdfg
+    <GraphRaisa  value1={64}/>
+  </div>
+>>>>>>> be01159d28fa0511f5ff274cc8efe171582c26d6
   );
 }
 

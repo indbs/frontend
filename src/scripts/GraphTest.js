@@ -68,6 +68,10 @@ export class GraphTest extends React.Component {
                 });     
     }
 
+    handleClickAll = () => {
+        this.setState( {dataToDisplay: this.state.dataAll} );
+    }
+
     handleClickShort = () => {
         this.setState( {dataToDisplay: this.state.dataShort} );
     }
