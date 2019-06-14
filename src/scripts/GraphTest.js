@@ -27,7 +27,7 @@ export class GraphTest extends React.Component {
                             parseInt(dataTable[i].oxygen_predict_sp),
                             parseInt(dataTable[i].analiser_calc),
                             parseInt(dataTable[i].setpoint), 
-                            parseInt(dataTable[i].average),
+                            parseInt(dataTable[i].average),                           
                             parseInt(dataTable[i].current_l1),
                             parseInt(dataTable[i].current_l2),
                             parseInt(dataTable[i].current_l3),
@@ -43,17 +43,10 @@ export class GraphTest extends React.Component {
                         //new way
                         chartDataShort      = chartDataAll.map(function(row){return row.slice(0,5)});
                         chartDataCurrents   = chartDataAll.map(function(row){return row.slice(0,8)});
-                        chartDataAirHeaters = chartDataAll.map(function(row){return row.slice(0,11)});
-                        //console.log(chartDataCurrents);
-
-                        //old way
-                        /*chartDataCurrents.push([
-                            new Date(dataTable[i].time), 
-                            parseInt(dataTable[i].current_l1),
-                            parseInt(dataTable[i].current_l2),
-                            parseInt(dataTable[i].current_l3)  
-                        ]);*/
+                        chartDataAirHeaters = chartDataAll.map(function(row){return [...row.slice(0,5),...row.slice(8,11)]});
                     }
+                    console.log('chartDataCurrents ', chartDataCurrents);
+
                     self.setState({dataToDisplay: chartDataShort});
                     self.setState({dataCurrents: chartDataCurrents});  
                     self.setState({dataAirHeaters: chartDataAirHeaters});  
@@ -74,6 +67,10 @@ export class GraphTest extends React.Component {
 
     handleClickShort = () => {
         this.setState( {dataToDisplay: this.state.dataShort} );
+    }
+
+    handleClickCurrents = () => {
+        this.setState( {dataToDisplay: this.state.dataCurrents} );
     }
 
     handleClickAirHeaters = () => {
