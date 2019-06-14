@@ -2,7 +2,7 @@ import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
 import axios from 'axios';
-import GraphRaisa from './GraphRaisa';
+
 
 
 require('datejs');  

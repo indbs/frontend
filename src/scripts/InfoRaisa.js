@@ -3,7 +3,7 @@ import React from 'react';
 import Chart from "react-google-charts";
 import axios from 'axios';
 
-import GraphRaisa from './GraphRaisa';
+
 import GraphTest from './GraphTest';
 import Linkify from 'react-linkify';
 

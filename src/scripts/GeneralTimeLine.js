@@ -5,7 +5,6 @@ import React from 'react';
 import Chart from "react-google-charts";
 import axios from 'axios';
 
-import GraphRaisa from './GraphRaisa';
 import Linkify from 'react-linkify';
 
 require('datejs');  
