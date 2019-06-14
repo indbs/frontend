@@ -68,22 +68,6 @@ export class GraphTest extends React.Component {
                 });     
     }
 
-    handleClickTocks = () => {
-        this.setState( {dataToDisplay: this.state.dataTocks} );
-    }
-
-    handleClickCalorifers = () => {
-        this.setState( {dataToDisplay: this.state.dataCalorifers} );
-    }
-    handleClickDampers = () => {
-        this.setState( {dataToDisplay: this.state.dataDampers} );
-    }
-
-    handleClickAll = () => {
-        this.setState( {dataToDisplay: this.state.dataAll} );
-    }
-
-
     handleClickShort = () => {
         this.setState( {dataToDisplay: this.state.dataShort} );
     }
