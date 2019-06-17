@@ -3,7 +3,8 @@ import React from 'react';
 import Chart from "react-google-charts";
 import axios from 'axios';
 
-
+import HtmlToolTip from './tooltip';
+var ReactDOMServer = require('react-dom/server');
 
 require('datejs');  
 

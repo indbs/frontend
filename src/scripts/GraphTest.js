@@ -24,21 +24,21 @@ export class GraphTest extends React.Component {
                     for (let i = 0; i < dataTable.length-1; i += 1) {
                         chartDataAll.push([
                             new Date(dataTable[i].time), 
-                            parseInt(dataTable[i].oxygen_predict_sp),
-                            parseInt(dataTable[i].analiser_calc),
-                            parseInt(dataTable[i].setpoint), 
-                            parseInt(dataTable[i].average),                           
-                            parseInt(dataTable[i].current_l1),
-                            parseInt(dataTable[i].current_l2),
-                            parseInt(dataTable[i].current_l3),
-                            parseInt(dataTable[i].tc410),
-                            parseInt(dataTable[i].tc411),
-                            parseInt(dataTable[i].tc412),
-                            parseInt(dataTable[i].flap_a_percent_position),
-                            parseInt(dataTable[i].flap_b_percent_position),
-                            parseInt(dataTable[i].flap_c_percent_position),
-                            parseInt(dataTable[i].flap_d_percent_position),
-                            parseInt(dataTable[i].flap_e_percent_position)                           
+                            dataTable[i].oxygen_predict_sp,
+                            dataTable[i].analiser_calc,
+                            dataTable[i].setpoint, 
+                            dataTable[i].average,                           
+                            dataTable[i].current_l1,
+                            dataTable[i].current_l2,
+                            dataTable[i].current_l3,
+                            dataTable[i].tc410,
+                            dataTable[i].tc411,
+                            dataTable[i].tc412,
+                            dataTable[i].flap_a_percent_position,
+                            dataTable[i].flap_b_percent_position,
+                            dataTable[i].flap_c_percent_position,
+                            dataTable[i].flap_d_percent_position,
+                            dataTable[i].flap_e_percent_position                         
                         ]);
                         //new way
                         chartDataShort      = chartDataAll.map(function(row){return row.slice(0,5)});

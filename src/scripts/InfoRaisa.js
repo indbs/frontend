@@ -170,13 +170,10 @@ export class InfoRaisa extends React.Component{
                         }
                     }
                     self.setState({dateTimeLine: rowsTimeLine}); 
-                    console.log( rowsTimeLine);
                     self.setState({minDate: minValue});
-                    
-                    /* self.setState({dataTable: rows}); */
                     self.setState({dataTable: rowsTable});
-                    //self.setState({dataTable: columns});
-                    self.setState({minDate: minValue});
+                  
+       
 
                 })
                 .catch(function (error) {

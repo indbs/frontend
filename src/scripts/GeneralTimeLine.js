@@ -6,7 +6,8 @@ import Chart from "react-google-charts";
 import axios from 'axios';
 
 import Linkify from 'react-linkify';
-
+import HtmlToolTip from './tooltip';
+var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
 
