@@ -29,6 +29,8 @@ export class HtmlToolTip extends React.Component {
 
                 {placeInDiv('Потребление воды')}
                 {placeInDiv(this.props.toolTipData.waterQuant)}
+                {placeInDiv('Пfepf')}
+                {placeInDiv(this.props.toolTipData.pause)}
             </div>)
         }
         if (this.props.toolTipType==="start") {  
@@ -45,6 +47,25 @@ export class HtmlToolTip extends React.Component {
                 {placeInDiv(moment(this.props.toolTipData.end_time).locale("ru").format("Do MMM HH:mm"))}
             </div>    
         }
+
+        if (this.props.toolTipType==="pause") {  
+            tooltip=                
+            <div className="TooltipStyle">                
+                {placeInDiv('Ожидание')}
+                {placeInDiv((this.props.toolTipData.pause))}
+            </div>    
+        }
+
+        if (this.props.toolTipType==="lost") {  
+            tooltip=                
+            <div className="TooltipStyle">                
+                {placeInDiv('Возможная потеря данных')}
+               
+            </div>    
+        }
+
+
+
         return tooltip;   
     }
 }

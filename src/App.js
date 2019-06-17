@@ -18,13 +18,6 @@ import GeneralTimeLine from './scripts/GeneralTimeLine';
 import GraphTest from './scripts/GraphTest';
 
 
-import Mouse from './Divs/Mouse';
-import MouseWithCat from './Divs/MouseWithCat';
-import Cat from './Divs/Cat';
-import MainDiv from './Divs/MainDiv'; 
-import MainDivTable from './Divs/MainDivTable';
-import FlavorForm  from './Divs/FlavorForm';
-
 
 function App()  {
 
