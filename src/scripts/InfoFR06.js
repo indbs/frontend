@@ -2,6 +2,8 @@ import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
 import axios from 'axios';
+import moment from 'moment';
+import 'moment/locale/ru';
 
 import HtmlToolTip from './tooltip';
 var ReactDOMServer = require('react-dom/server');
@@ -9,50 +11,7 @@ var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
 
-function createCustomHTMLContent(numb,duration,Temperaure, SP, Power) {
-    var  A='<div class="block1">   '+
-      '<table padding = 10   cellpadding=1 cellspacing=0 border=0 > ' + '<tr>' +
-      '<td><h4 class = "leftTitle">'+ 'Обжиг №' + numb+'</h4></td >' + '</tr>' + '<tr>' +
 
-      '<td><hr6>'+ 'Длительность: ' +'</hr6>' +'<hr5 class ="righTableInfo">'+ duration+ ' часов' +'</hr5></td padding = 0>' + '</tr>' + '</table>' + '</div>';
-return A;}
-
-function createCustomHTMLContent2(stTime) {
-var      A='<div class="block1">'+
-'<table   cellpadding=2 cellspacing=0 border=0> ' + '<tr>' +
-'<td><hr6>'+ 'Остановка: '+'</hr6>' +'<hr5 class ="righTableInfo">' +stTime.toLocaleDateString('RU') +' в ' +stTime.toLocaleTimeString('RU') +'</hr5 class ="righTableInfo></td>' + '</tr>' + '</table>' + '</div>';
-return A;}
-
-function createCustomHTMLContent3(pause) {
-var  A='<div class="block1">'+
-'<table   cellpadding=1 cellspacing=0 border=0> ' + '<tr>' +
-'<td><hr6>'+ 'Ожидание: ' + '</hr6>'+'<hr5 class ="righTableInfo">' +pause  +'</hr5></td>' + '</tr>' + '</table>' + '</div>';
-return A;}
-
-function createCustomHTMLContent4(strTime) {
-var   A='<div class="block1">'+
-'<table   cellpadding=1 cellspacing=0 border=0> ' + '<tr>' +
-'<td><hr6>'+ 'Запуск: ' +'</hr6>' + '<hr5 class ="righTableInfo">'+strTime.toLocaleDateString('RU') +' в ' +strTime.toLocaleTimeString('RU') +'</hr5></td>' + '</tr>' + '</table>' + '</div>';
-return A;}
-
-function parsingToDate(inputDate) {
-           var dateStr=inputDate;
-           var a=dateStr.split(" ");
-           var d=a[0].split("-");
-           var t=a[1].split(":");
-           var date = new Date(d[0],(d[1]-1),d[2],t[0],t[1],t[2]);
-       return date;}
-
- function ParseDateLocale(inputDate) {
-
-     var dateStr=inputDate;
-         var a=dateStr.split(" ");
-         var d=a[0].split("-");
-         var t=a[1].split(":");
-         var date = new Date(d[0],(d[1]-1),d[2],t[0],t[1]);
-
-       document.write(date.toLocaleDateString('RU') + ' время ' +date.toLocaleTimeString('RU'));
-   }
 
  function plus15Hours (timeValue ) {
          var dateStr=timeValue;
@@ -100,41 +59,54 @@ export class InfoFR06 extends React.Component{
                                         '1',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                         '#b0d1f2',
-                                        createCustomHTMLContent(
-                                            dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                            dataTimeLine[i].duration.toString()
-                                            ),
+                                        ReactDOMServer.renderToString(
+                                            <HtmlToolTip 
+                                              toolTipData={dataTable[i]}
+                                              toolTipType={"full"}
+                                            />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
                                     ],
                                     ['1',  
                                     dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                     '#003366',
-                                    createCustomHTMLContent2(
-                                        new Date(dataTimeLine[i].end_time)
-                                        ),
+                                    ReactDOMServer.renderToString(<HtmlToolTip 
+                                        toolTipData={dataTable[i]}
+                                        toolTipType={"stop"}
+                                      />),
                                     new Date(dataTimeLine[i].end_time),
-                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
+                                    new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
                                  ],  
                                  ['1', 
                                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                  '#0080ff',
-                                 createCustomHTMLContent4( new Date(dataTimeLine[i].STARTUP_TIME) ) ,	            
-                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                 ReactDOMServer.renderToString(<HtmlToolTip 
+                                    toolTipData={dataTable[i]}
+                                    toolTipType={"start"}
+                                  />), 	            
+                                  new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
-
                                ['1',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(), 
                                dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
-                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
-                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
+                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                                <HtmlToolTip 
+                                  toolTipData={dataTable[i+1]}
+                                  toolTipType={"lost"}
+                                />) :   ReactDOMServer.renderToString(
+                                    <HtmlToolTip 
+                                      toolTipData={dataTable[i+1]}
+                                      toolTipType={"pause"}
+                                    />),
+                                     
+                                      new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
+                                      new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	            
+                                      
                                     ] 
                              );
                         }
                     }
-                
                     for (let i = 0; i < dataTable.length-1; i += 1) {         
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){ 
                             rowsTable.push(

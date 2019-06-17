@@ -15,32 +15,6 @@ require('datejs');
 
 
 
-function createCustomHTMLContent3(pause) {
-var  A='<div class="block1">'+
-'<table   cellpadding=1 cellspacing=0 border=0> ' + '<tr>' +
-'<td><hr6>'+ 'Ожидание: ' + '</hr6>'+'<hr5 class ="righTableInfo">' +pause  +'</hr5></td>' + '</tr>' + '</table>' + '</div>';
-return A;}
-
-
-function parsingToDate(inputDate) {
-           var dateStr=inputDate;
-           var a=dateStr.split(" ");
-           var d=a[0].split("-");
-           var t=a[1].split(":");
-           var date = new Date(d[0],(d[1]-1),d[2],t[0],t[1],t[2]);
-       return date;}
-
- function ParseDateLocale(inputDate) {
-
-     var dateStr=inputDate;
-         var a=dateStr.split(" ");
-         var d=a[0].split("-");
-         var t=a[1].split(":");
-         var date = new Date(d[0],(d[1]-1),d[2],t[0],t[1]);
-
-       document.write(date.toLocaleDateString('RU') + ' время ' +date.toLocaleTimeString('RU'));
-   }
-
  function plus15Hours (timeValue ) {
          var dateStr=timeValue;
          var date = new Date(  timeValue.setMilliseconds(0.1 * 60 * 60 * 1000));
@@ -143,10 +117,18 @@ export class InfoRaisa extends React.Component{
                                '',
                                
                                dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ? createCustomHTMLContent3('Возможная потеря данных') : createCustomHTMLContent3(dataTimeLine[i+1].pause),
+                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                                <HtmlToolTip 
+                                  toolTipData={dataTable[i+1]}
+                                  toolTipType={"lost"}
+                                />) :   ReactDOMServer.renderToString(
+                                    <HtmlToolTip 
+                                      toolTipData={dataTable[i+1]}
+                                      toolTipType={"pause"}
+                                    />),
                                       plus15Hours(new Date(dataTimeLine[i].end_time)),		            
                                       minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
-                            ]       
+                                    ]        
                                     );
                         }
                     }
