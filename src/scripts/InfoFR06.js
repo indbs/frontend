@@ -4,9 +4,12 @@ import Chart from "react-google-charts";
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
-
+import GraphFR06  from './GraphFR06';
 import HtmlToolTip from './tooltip';
 var ReactDOMServer = require('react-dom/server');
+
+
+
 
 require('datejs');  
 
@@ -23,6 +26,16 @@ const columns = [
   ];
 
 export class InfoFR06 extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = { valuePass: "4" };
+    this.handleChange = this.handleChange.bind(this);
+  
+  
+}
+
+   
     requestData(){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=fr06';
@@ -67,10 +80,10 @@ export class InfoFR06 extends React.Component{
                                         new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
-                               ['1',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(), 
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               ['1',  ' '
+                                  , 
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTable[i+1]}
                                   toolTipType={"lost"}
@@ -79,10 +92,8 @@ export class InfoFR06 extends React.Component{
                                       toolTipData={dataTable[i+1]}
                                       toolTipType={"pause"}
                                     />),
-                                     
                                       new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
                                       new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	            
-                                      
                                     ] 
                              );
                         }
@@ -111,25 +122,30 @@ export class InfoFR06 extends React.Component{
                 });     
     }
 
+   
     componentDidMount() {
-        this.requestData();      
-    }
+      this.requestData();      
+  }
 
-    handleChange(value) {
-        this.setState({ valuePass: value });
-      }
 
       chartEvents =[
-        {
-        eventName: "select",
-        callback  : ({chartWrapper}) => { 
-               var selection = chartWrapper.getChart().getSelection();
-               var value = chartWrapper.getDataTable().getValue(selection[0].row,1);     
-               this.handleChange(value);
-                }
-           }
-        ];
+    {
+    eventName: "select",
+    callback  : ({chartWrapper}) => { 
+           var selection = chartWrapper.getChart().getSelection();
+           var value = chartWrapper.getDataTable().getValue(selection[0].row,1);   
+           console.log('catch you ',value);
+           
+           this.handleChange(value);
+            }
+       }
+    ];
 
+
+      handleChange(value) {
+          this.setState({ valuePass: value });
+        }
+      
     render(){
         return (
             <div className={"my-global-div"} >
@@ -162,19 +178,25 @@ export class InfoFR06 extends React.Component{
                 </div>
 
              <div className={"my-timeline-div"}>
-                        { this.state && this.state.dateTimeLine &&<Chart
+             { this.state && this.state.dateTimeLine &&<Chart
                         chartType="Timeline"
                         chartLanguage = 'ru'
                         rows={this.state.dateTimeLine}
-                        columns={columns}
+                                columns={columns}
                         width="100%"
                         height="100px"
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                         }}    
                         
-                       chartEvents={[this.chartEvents]} 
+                        chartEvents={this.chartEvents }
+                        
            />}
+          </div>
+          <div className={"my-graphFR06-div"}>
+              
+          <GraphFR06    commonValueFR06={this.state}/>
+           
           </div>
            </div>
            );

@@ -5,6 +5,10 @@ import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
 import HtmlToolTip from './tooltip';
+import GraphFR05 from './GraphFR05';
+
+
+
 var ReactDOMServer = require('react-dom/server');
 
 require('datejs');  
@@ -22,7 +26,18 @@ const columns = [
 
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
 export class InfoFR05 extends React.Component{
-
+   
+    constructor(props) {
+        super(props);
+        this.state = { valuePass: "2" };
+        this.handleChange = this.handleChange.bind(this);
+       
+       /* this.handleSubmit = this.handleSubmit.bind(this);*/
+    }
+    
+      handleChange(value) {
+        this.setState({ valuePass: value });
+      }
     
     requestData(){
         const self = this;
@@ -70,9 +85,9 @@ export class InfoFR05 extends React.Component{
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
                                ['1',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(), 
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               ' ', 
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTable[i+1]}
                                   toolTipType={"lost"}
@@ -120,6 +135,22 @@ export class InfoFR05 extends React.Component{
     componentDidMount() {
         this.requestData();      
     }
+
+    chartEvents =[
+        {
+        eventName: "select",
+        callback  : ({chartWrapper}) => { 
+               var selection = chartWrapper.getChart().getSelection();
+               var value = chartWrapper.getDataTable().getValue(selection[0].row,1);     
+               this.handleChange(value);
+                }
+           }
+        ];
+
+        handleChange(value) {
+            this.setState({ valuePass: value });
+          }
+        
 
     render(){
         return (
@@ -170,23 +201,18 @@ export class InfoFR05 extends React.Component{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                         }}    
                         
-                       /* chartEvents={[
-                            {
-                            eventName: "select",
-                            callback({ chartWrapper }) {
-                            var selection = chartWrapper.getChart().getSelection();
-                            console.warn('selection ', selection);
-                            console.warn('selection row', selection[0].row);
-                            var value=selection[0].row;
-                            const {  rows } =  selection[0].row;
-                            alert ('selection row', rows); 
-                            alert(this.getValue(selection[0].row, 0));
-                        }
-                      }
-                ]} */
-        
+                  
+         
+                chartEvents={this.chartEvents }
+
            />}
           </div>
+          <div className={"my-graphFR05-div"}>
+              
+              <GraphFR05    commonValueFR05={this.state}/>
+               
+              </div>
+
            </div>
            );
             }

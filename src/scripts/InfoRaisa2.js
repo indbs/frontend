@@ -6,6 +6,8 @@ import HtmlToolTip from './tooltip';
 import Linkify from 'react-linkify';
 import moment from 'moment';
 import 'moment/locale/ru';
+import GraphRaisa2 from './GraphRaisa2';
+
 var ReactDOMServer = require('react-dom/server');
 
 
@@ -24,7 +26,19 @@ const columns = [
 
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
 export class InfoRaisa2 extends React.Component{
+  
+  
+  constructor(props) {
+    super(props);
+    this.state = { valuePass: "2" };
+    this.handleChange = this.handleChange.bind(this);
+    
+   /* this.handleSubmit = this.handleSubmit.bind(this);*/
+}
 
+  handleChange(value) {
+    this.setState({ valuePass: value });
+  }
     
    
 
@@ -92,8 +106,8 @@ export class InfoRaisa2 extends React.Component{
                                ],
                                ['1',  
                                ,
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTable[i+1]}
                                   toolTipType={"lost"}
@@ -126,6 +140,17 @@ export class InfoRaisa2 extends React.Component{
         this.requestData();  
        
     }
+
+    chartEvents =[
+      {
+      eventName: "select",
+      callback  : ({chartWrapper}) => { 
+             var selection = chartWrapper.getChart().getSelection();
+             var value = chartWrapper.getDataTable().getValue(selection[0].row,1);     
+             this.handleChange(value);
+              }
+         }
+      ];
 
     handleChange(value) {
         this.setState({ valuePass: value });
@@ -179,12 +204,19 @@ export class InfoRaisa2 extends React.Component{
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                         }}    
-                        
-                      
+                        chartEvents={this.chartEvents }
+
            />}
           </div>
-                
-           </div>
+
+          <div className={"my-graphRaisa-div"}>
+              
+          <GraphRaisa2    commonValueRaisa2={this.state}/>
+           
+          </div>
+          </div>
+        
+
         );
             }
    }

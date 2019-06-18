@@ -15,7 +15,7 @@ import InfoFR05 from './scripts/InfoFR05';
 import InfoFR06 from './scripts/InfoFR06';
 
 import GeneralTimeLine from './scripts/GeneralTimeLine';
-import GraphTest from './scripts/GraphTest';
+
 
 
 
@@ -36,7 +36,6 @@ function App()  {
           <Route path = '/fr06' render={ () => <InfoFR06 /> } />
           <Route path = '/fr05' render={ () => <InfoFR05 /> } />
           </div>
-
 
       </div>);
 </BrowserRouter>

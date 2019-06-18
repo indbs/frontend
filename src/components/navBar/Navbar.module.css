@@ -9,21 +9,8 @@
   text-decoration: none;
 }
 
-.active a{
-  color: white;
-  text-decoration: none;
-}
 
-
-.a.item.active {
-  color: gold;
-}
-
-.active activeLink {
-  color: gold;
-}
-
-item.active a{
-  color: gold;
+.item a.activeLink{
+  color: blue;
   text-decoration: none;
 }

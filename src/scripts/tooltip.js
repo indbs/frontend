@@ -29,8 +29,7 @@ export class HtmlToolTip extends React.Component {
 
                 {placeInDiv('Потребление воды')}
                 {placeInDiv(this.props.toolTipData.waterQuant)}
-                {placeInDiv('Пfepf')}
-                {placeInDiv(this.props.toolTipData.pause)}
+               
             </div>)
         }
         if (this.props.toolTipType==="start") {  
