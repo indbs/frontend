@@ -4,35 +4,12 @@ import Chart from "react-google-charts";
 import axios from 'axios';
 import HtmlToolTip from './tooltip';
 import Linkify from 'react-linkify';
+import moment from 'moment';
+import 'moment/locale/ru';
 var ReactDOMServer = require('react-dom/server');
 
 
 require('datejs');  
-
-
-
-
- function plus15Hours (timeValue ) {
-         var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(0.1 * 60 * 60 * 1000));
-     return date; }
-
- function plus30Hours (timeValue ) {
-           var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(0.30 * 60 * 60 * 1000));
-     return date; }
-
- function minus15Hours (timeValue ) {
-           var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(-0.1 * 60 * 60 * 1000));
-     return date; }
-
- function minus30Hours (timeValue ) {
-         var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(-0.3 * 60 * 60 * 1000));
-     return date; }
-
-
 
 const columns = [
     { type: "string", id: "Role" },
@@ -101,7 +78,7 @@ export class InfoRaisa2 extends React.Component{
                                         toolTipType={"stop"}
                                       />),
                                     new Date(dataTimeLine[i].end_time),
-                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
+                                    new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
                                  ],  
                                  ['1', 
                                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
@@ -110,7 +87,7 @@ export class InfoRaisa2 extends React.Component{
                                     toolTipData={dataTable[i]}
                                     toolTipType={"start"}
                                     />) ,	            
-                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
+                                        new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
                                ['1',  
@@ -125,8 +102,8 @@ export class InfoRaisa2 extends React.Component{
                                       toolTipData={dataTable[i+1]}
                                       toolTipType={"pause"}
                                     />),
-                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
-                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
+                                    new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
+                                    new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	      
                                     ]  
                       );
                         

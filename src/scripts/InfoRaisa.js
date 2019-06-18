@@ -3,7 +3,8 @@ import React from 'react';
 import Chart from "react-google-charts";
 import axios from 'axios';
 
-
+import moment from 'moment';
+import 'moment/locale/ru';
 import GraphTest from './GraphTest';
 import Linkify from 'react-linkify';
 
@@ -13,27 +14,6 @@ require('datejs');
 
 
 
-
-
- function plus15Hours (timeValue ) {
-         var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(0.1 * 60 * 60 * 1000));
-     return date; }
-
- function plus30Hours (timeValue ) {
-           var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(0.30 * 60 * 60 * 1000));
-     return date; }
-
- function minus15Hours (timeValue ) {
-           var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(-0.1 * 60 * 60 * 1000));
-     return date; }
-
- function minus30Hours (timeValue ) {
-         var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(-0.3 * 60 * 60 * 1000));
-     return date; }
 
 
 
@@ -76,62 +56,63 @@ export class InfoRaisa extends React.Component{
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
                     for (let i = 0; i < dataTimeLine.length-1; i += 1) {
-                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
-                            rowsTimeLine.push([
-                                        '1',
-                                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
-                                        ReactDOMServer.renderToString(
+                      if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                          rowsTimeLine.push([
+                                      '1',
+                                      dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                      '#b0d1f2',
+                                      ReactDOMServer.renderToString(
                                           <HtmlToolTip 
-                                            toolTipData={dataTable[i]}
+                                            toolTipData={dataTimeLine[i]}
                                             toolTipType={"full"}
                                           />),
-                                        new Date(dataTimeLine[i].STARTUP_TIME),
-                                        new Date(dataTimeLine[i].end_time)
-                                    ],
-                                    
-                                    ['1',  
-                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                    '#003366',
-                                    ReactDOMServer.renderToString(<HtmlToolTip 
-                                      toolTipData={dataTable[i]}
+                                      new Date(dataTimeLine[i].STARTUP_TIME),
+                                      new Date(dataTimeLine[i].end_time)
+                                  ],
+                                  
+                                  ['1',  
+                                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                  '#003366',
+                                  ReactDOMServer.renderToString(<HtmlToolTip 
+                                      toolTipData={dataTimeLine[i]}
                                       toolTipType={"stop"}
                                     />),
-                                    new Date(dataTimeLine[i].end_time),
-                                    new Date(plus15Hours( new Date(dataTimeLine[i].end_time))),
-                                 ],  
-                                
+                                  new Date(dataTimeLine[i].end_time),
+                                  new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),
+                               ],  
+                              
 
-                                 ['1', 
-                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                 '#0080ff',
-                                 ReactDOMServer.renderToString(<HtmlToolTip 
-                                  toolTipData={dataTable[i]}
+                               ['1', 
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                               '#0080ff',
+                               ReactDOMServer.renderToString(<HtmlToolTip 
+                                  toolTipData={dataTimeLine[i]}
                                   toolTipType={"start"}
-                                  />) ,	            
-                                        new Date(minus15Hours( new Date(dataTimeLine[i].STARTUP_TIME))),
-                                        new Date(dataTimeLine[i].STARTUP_TIME)
-                               ],
+                                  />)  ,	            
+                                      new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
+                                      new Date(dataTimeLine[i].STARTUP_TIME)
+                             ],
 
-                               ['1',  
-                               '',
-                               
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
-                                <HtmlToolTip 
-                                  toolTipData={dataTable[i+1]}
-                                  toolTipType={"lost"}
-                                />) :   ReactDOMServer.renderToString(
-                                    <HtmlToolTip 
-                                      toolTipData={dataTable[i+1]}
-                                      toolTipType={"pause"}
-                                    />),
-                                      plus15Hours(new Date(dataTimeLine[i].end_time)),		            
-                                      minus15Hours(new Date(dataTimeLine[i+1].STARTUP_TIME))
-                                    ]        
-                                    );
-                        }
-                    }
+                             ['1',  
+                             dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                             
+                             dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
+                             dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                              <HtmlToolTip 
+                                toolTipData={dataTimeLine[i+1]}
+                                toolTipType={"lost"}
+                              />) :   ReactDOMServer.renderToString(
+                                  <HtmlToolTip 
+                                    toolTipData={dataTimeLine[i+1]}
+                                    toolTipType={"pause"}
+                                  />),
+                                  new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),	
+                                  new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(0.1, 'hours'))	  
+                                  ]       
+                                  );
+                      }
+                  }
+        
                     for (let i = 0; i < dataTable.length-1; i += 1) {
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
                             rowsTable.push(
