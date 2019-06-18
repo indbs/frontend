@@ -13,26 +13,6 @@ require('datejs');
 
 
 
- function plus15Hours (timeValue ) {
-         var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(0.1 * 60 * 60 * 1000));
-     return date; }
-
- function plus30Hours (timeValue ) {
-           var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(0.30 * 60 * 60 * 1000));
-     return date; }
-
- function minus15Hours (timeValue ) {
-           var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(-0.1 * 60 * 60 * 1000));
-     return date; }
-
- function minus30Hours (timeValue ) {
-         var dateStr=timeValue;
-         var date = new Date(  timeValue.setMilliseconds(-0.3 * 60 * 60 * 1000));
-     return date; }
-
 const columns = [
     { type: "string", id: "Role" },
     { type: "string", id: "Name" },
@@ -84,7 +64,7 @@ export class InfoFR06 extends React.Component{
                                     toolTipData={dataTable[i]}
                                     toolTipType={"start"}
                                   />), 	            
-                                  new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
+                                        new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
                                ['1',  
