@@ -32,6 +32,37 @@ export class HtmlToolTip extends React.Component {
                
             </div>)
         }
+        if (this.props.toolTipType==="fullraisa2") {   
+            tooltip= (<div className="TooltipStyle">                
+                {placeInDiv('Обжиг')}
+                {placeInDiv(this.props.toolTipData.PROGRAM_NUMBER)}
+
+                {placeInDiv('Длительность')}
+                {placeInDiv(this.props.toolTipData.duration)}
+
+                {placeInDiv('Активная мощность')}
+                {placeInDiv(this.props.toolTipData.powerkWh)}
+
+                {placeInDiv('Полная мощность')}
+                {placeInDiv(this.props.toolTipData.powerVAh)}
+
+                {placeInDiv('Потребление воды')}
+                {placeInDiv(this.props.toolTipData.waterQuant)}
+               
+            </div>)
+        }
+
+        if (this.props.toolTipType==="fullfr") {   
+            tooltip= (<div className="TooltipStyle">                
+                {placeInDiv('Обжиг')}
+                {placeInDiv(this.props.toolTipData.PROGRAM_NUMBER)}
+                
+                {placeInDiv('Длительность')}
+                {placeInDiv(this.props.toolTipData.duration)}
+
+            </div>)
+        }
+
         if (this.props.toolTipType==="start") {  
             tooltip=                
             <div className="TooltipStyle">                

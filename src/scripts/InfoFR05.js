@@ -59,7 +59,7 @@ export class InfoFR05 extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTable[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullfr"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -106,14 +106,12 @@ export class InfoFR05 extends React.Component{
                    if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
                     rowsTable.push(
                                 [
-                                         new Date(dataTable[i].STARTUP_TIME),
-                                         dataTable[i].PROGRAM_NUMBER,
-                                         new Date(dataTable[i].end_time),
+                                          moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
+                                          dataTable[i].PROGRAM_NUMBER,
+                                          moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].duration.toString(),
-                                         dataTable[i].pause.toString(),
-                                         dataTable[i].TEMPERATURE.toString(),
-                                         dataTable[i].SP.toString(),
-                                         dataTable[i].OUTPUT_POWER.toString()    
+                                         dataTable[i].pause.toString()
+                                          
                             ]         
                           );
                         }
@@ -161,14 +159,12 @@ export class InfoFR05 extends React.Component{
                             chartLanguage = 'ru'
                             rows={this.state.dataTable}
                             columns={[       
-                                { type: 'date', label: 'Start' },
+                                { type: 'string', label: 'Start' },
                                 { type: "number",label:  "N обжига" },
-                                { type: 'date', label: 'Stop' },
+                                { type: 'string', label: 'Stop' },
                                 { type: "string", label: "Продолжительность" },
-                                { type: "string",label: "Пауза" },
-                                { type: "string", label: "Температура" },
-                                { type: "string", label: "SP" },
-                                { type: "string", label: "Сила" },
+                                { type: "string",label: "Пауза" }
+                              
                             ]}    
                             width="100%"
                             height="100%"

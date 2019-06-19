@@ -57,9 +57,9 @@ export class InfoRaisa2 extends React.Component{
                         
                             rowsTable.push(
                                 [
-                                         new Date(dataTable[i].STARTUP_TIME),
-                                         dataTable[i].PROGRAM_NUMBER,
-                                         new Date(dataTable[i].end_time),
+                                          moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
+                                          dataTable[i].PROGRAM_NUMBER,
+                                          moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].duration.toString(),
                                          dataTable[i].n2.toString(),
                                          dataTable[i].waterQuant.toString(),
@@ -79,7 +79,7 @@ export class InfoRaisa2 extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTable[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullraisa2"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -167,9 +167,9 @@ export class InfoRaisa2 extends React.Component{
                             chartLanguage = 'ru'
                             rows={this.state.dataTable}
                             columns={[       
-                                    { type: 'date', label: 'Start' },
+                                    { type: 'string', label: 'Start' },
                                     { type: "number",label:  "N обжига" },
-                                    { type: 'date', label: 'Stop' },
+                                    { type: 'string', label: 'Stop' },
                                     { type: "string", label: "Продолжительность" },
                                     { type: "string", label: "Азот" },
                                     { type: "string", label: "Вода" },
@@ -199,7 +199,7 @@ export class InfoRaisa2 extends React.Component{
                         chartLanguage = 'ru'
                         rows={this.state.dateTimeLine}
                                 columns={columns}
-                        width="100%"
+                        width="973px"
                         height="100px"
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],

@@ -17,7 +17,7 @@ export class GraphFR06 extends React.Component {
         
 
         var chartDataCurrents=[],chartDataAirHeaters=[],chartDataShort=[];
-        const chartDataAll =   [[{ type: 'date', label: 'Время'},'Уставка, °С', 'Температура S, °С', 'Температура K, °С']];
+        const chartDataAll =   [[{ type: 'date', label: 'Время'},'Уставка, °С', 'Температура S, °С', 'Температура K, °С', 'Cкорость вентилятора']];
         axios.get(data_url)
                 .then(function (response) {
                     // handle success
@@ -28,7 +28,8 @@ export class GraphFR06 extends React.Component {
                             new Date(dataTable[i].time), 
                             dataTable[i].MV_HEAT,
                             dataTable[i].TEMP_S,
-                            dataTable[i].TEMP_K 
+                            dataTable[i].TEMP_K,
+                            dataTable[i].fan_speed 
                                                    
                         ]);
 
@@ -74,6 +75,7 @@ export class GraphFR06 extends React.Component {
                                             series:{0: {targetAxisIndex: 0},
                                                     1: {targetAxisIndex: 0},
                                                     2: {targetAxisIndex: 0},
+                                                    3: {targetAxisIndex: 0},
                                                     },
                                                     hAxis: {
                                                         title: 'Время, каждые 5 мин',

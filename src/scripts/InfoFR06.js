@@ -55,7 +55,7 @@ export class InfoFR06 extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTable[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullfr"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -102,9 +102,11 @@ export class InfoFR06 extends React.Component{
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){ 
                             rowsTable.push(
                                 [
-                                         new Date(dataTable[i].STARTUP_TIME),
+                                        /* new Date(dataTable[i].STARTUP_TIME), */
+                                        '#b0d1f2',
+                                         moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].PROGRAM_NUMBER,
-                                         new Date(dataTable[i].end_time),
+                                         moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].duration.toString()
                             ]         
                           );
@@ -155,18 +157,25 @@ export class InfoFR06 extends React.Component{
                             chartLanguage = 'ru'
                             rows={this.state.dataTable}
                             columns={[       
-                                { type: 'date',  label: 'Start' },
-                                { type: "number", label:  "N обжига" },
-                                { type: 'date', label: 'Stop' },
+                                { type: "string", id: 'style', role: 'style' },
+                                { type: 'string',  label: 'Запуск' },
+                                { type: "number", label:  " N обжига " },
+                                { type: 'string', label: 'Остановка' },
                                 { type: "string", label: "Продолжительность" },
                             ]}    
                             width="100%"
                             height="100%"
+                            stroke-width = "100px"
                             options={{
                                 colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                                 showRowNumber: true,
-                                allowHtml: true, 
-                            }}  
+                                allowHtml: true,
+                                backgroundColor: ['green'],
+                                width:"100%"
+                            
+                           
+                            }
+                          }  
                             formatters={[
                              {
                                 type: 'PatternFormat',
@@ -185,8 +194,11 @@ export class InfoFR06 extends React.Component{
                                 columns={columns}
                         width="100%"
                         height="100px"
+                        
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+                         
+
                         }}    
                         
                         chartEvents={this.chartEvents }

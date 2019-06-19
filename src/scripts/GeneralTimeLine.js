@@ -132,7 +132,7 @@ export class GeneralTimeLine extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullraisa2"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -192,7 +192,7 @@ export class GeneralTimeLine extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullfr"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -252,7 +252,7 @@ export class GeneralTimeLine extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullfr"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
