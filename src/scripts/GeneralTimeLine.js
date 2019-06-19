@@ -95,10 +95,10 @@ export class GeneralTimeLine extends React.Component{
                                ],
 
                                ['Раиса',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                               ' ',
                                
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTimeLine[i+1]}
                                   toolTipType={"lost"}
@@ -132,7 +132,7 @@ export class GeneralTimeLine extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullraisa2"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -159,8 +159,8 @@ export class GeneralTimeLine extends React.Component{
                                ],
                                ['Раиса2',  
                                ,
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTimeLine[i+1]}
                                   toolTipType={"lost"}
@@ -192,7 +192,7 @@ export class GeneralTimeLine extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullfr"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -218,9 +218,9 @@ export class GeneralTimeLine extends React.Component{
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
                                ['ФР05',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(), 
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               ' ', 
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTimeLine[i+1]}
                                   toolTipType={"lost"}
@@ -252,7 +252,7 @@ export class GeneralTimeLine extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullfr"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -279,9 +279,9 @@ export class GeneralTimeLine extends React.Component{
                                ],
 
                                ['FR06',  
-                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               ' ',
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTimeLine[i+1]}
                                   toolTipType={"lost"}

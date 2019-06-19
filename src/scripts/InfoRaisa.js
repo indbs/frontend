@@ -12,11 +12,6 @@ import HtmlToolTip from './tooltip';
 var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
-
-
-
-
-
 const columns = [
     { type: "string", id: "Role" },
     { type: "string", id: "Name" },
@@ -28,7 +23,6 @@ const columns = [
 
 
 
-
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
 export class InfoRaisa extends React.Component{
   
@@ -36,7 +30,7 @@ export class InfoRaisa extends React.Component{
     super(props);
     this.state = { valuePass: "12" };
     this.handleChange = this.handleChange.bind(this);
-    const takeValue = this.props.commonValue;
+    
    /* this.handleSubmit = this.handleSubmit.bind(this);*/
 }
 
@@ -93,11 +87,11 @@ export class InfoRaisa extends React.Component{
                                       new Date(dataTimeLine[i].STARTUP_TIME)
                              ],
 
-                             ['1',  
-                             dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                             ['1',  ' '
+                             ,
                              
-                             dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                             dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                             dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                             dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                               <HtmlToolTip 
                                 toolTipData={dataTimeLine[i+1]}
                                 toolTipType={"lost"}
@@ -117,14 +111,11 @@ export class InfoRaisa extends React.Component{
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
                             rowsTable.push(
                                 [
-                                         new Date(dataTable[i].STARTUP_TIME),
-                                         dataTable[i].PROGRAM_NUMBER,
-                                         dataTable[i].PROGRAM_NAME,
-                                         new Date(dataTable[i].end_time),
+                                          moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
+                                          dataTable[i].PROGRAM_NUMBER,
+                                          dataTable[i].PROGRAM_NAME,
+                                          moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].duration.toString(),
-                             
-                                         dataTable[i].heat_st.toString(),
-                                         dataTable[i].gas_st.toString(),
                                          dataTable[i].waterQuant.toString(),
                                          dataTable[i].powerVAh.toString(),
                                          dataTable[i].powerkWh.toString()    
@@ -141,12 +132,21 @@ export class InfoRaisa extends React.Component{
                 })
                 .catch(function (error) {
                     // handle error
-                    console.log(error);
+                    console.log('возникла ошибка соединения с json', error);
+                    alert('возникла ошибка соединения с json',error);
+
                 })
                 .finally(function () {
                     // always executed
                 });
+
+
+               
     }
+   
+
+
+   
 
     componentDidMount() {
         this.requestData();      
@@ -169,6 +169,13 @@ export class InfoRaisa extends React.Component{
       const takeValue = this.props.commonValue;
         return (
     <div className={"my-global-div"} >
+           <div className={"my-table-div"}>
+                <button onclick="activateLasers()">
+                     Последние 5
+                </button>
+
+           </div>
+
          
          <div className={"my-table-div"}>
                     { this.state && this.state.dataTable &&<Chart
@@ -176,13 +183,11 @@ export class InfoRaisa extends React.Component{
                     chartLanguage = 'ru'
                     rows={this.state.dataTable}
                     columns={[ 
-                        { type: 'date', label: 'Start' },
+                        { type: 'string', label: 'Start' },
                         { type: "number",label:  "N обжига" },
                         { type: "string", label: "Название программы" },
-                        { type: 'date', label: 'Stop' },
+                        { type: 'string', label: 'Stop' },
                         { type: "string", label: "Продолжительность" },
-                        { type: "string", label: "Температура" },
-                        { type: "string", label: "Газ" },
                         { type: "string", label: "Вода" },
                         { type: "string", label: "Полная мощность" },
                         { type: "string", label: "Активная мощность" },
@@ -209,16 +214,13 @@ export class InfoRaisa extends React.Component{
                           path: "/GraphRaisa",
                           query: {value1:7},
                         },*/
-                        {
-
-                            type: 'PatternFormat',
-                            column: [1],  
-                          options: <Linkify>
-                           <a href='GraphRaisa value1={0}>{0}'>
-                              
-                           </a>.
-                         </Linkify>, 
-                     }, 
+                   
+                          {
+                             type: 'PatternFormat',
+                             column: [1],
+                             options: '<a href=GraphRaisa%20?value1={0}>{0} </a>' , 
+                          },  
+                      
                    ]}
              
                     />}
@@ -231,7 +233,7 @@ export class InfoRaisa extends React.Component{
       chartLanguage = 'ru'
       rows={this.state.dateTimeLine}
               columns={columns}
-      width="100%"
+      width="1128px"
       height="100px"
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],

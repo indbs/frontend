@@ -6,6 +6,8 @@ import HtmlToolTip from './tooltip';
 import Linkify from 'react-linkify';
 import moment from 'moment';
 import 'moment/locale/ru';
+import GraphRaisa2 from './GraphRaisa2';
+
 var ReactDOMServer = require('react-dom/server');
 
 
@@ -24,7 +26,19 @@ const columns = [
 
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
 export class InfoRaisa2 extends React.Component{
+  
+  
+  constructor(props) {
+    super(props);
+    this.state = { valuePass: "2" };
+    this.handleChange = this.handleChange.bind(this);
+    
+   /* this.handleSubmit = this.handleSubmit.bind(this);*/
+}
 
+  handleChange(value) {
+    this.setState({ valuePass: value });
+  }
     
    
 
@@ -43,9 +57,9 @@ export class InfoRaisa2 extends React.Component{
                         
                             rowsTable.push(
                                 [
-                                         new Date(dataTable[i].STARTUP_TIME),
-                                         dataTable[i].PROGRAM_NUMBER,
-                                         new Date(dataTable[i].end_time),
+                                          moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
+                                          dataTable[i].PROGRAM_NUMBER,
+                                          moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].duration.toString(),
                                          dataTable[i].n2.toString(),
                                          dataTable[i].waterQuant.toString(),
@@ -65,7 +79,7 @@ export class InfoRaisa2 extends React.Component{
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTable[i]}
-                                              toolTipType={"full"}
+                                              toolTipType={"fullraisa2"}
                                             />),
                                         new Date(dataTimeLine[i].STARTUP_TIME),
                                         new Date(dataTimeLine[i].end_time)
@@ -92,8 +106,8 @@ export class InfoRaisa2 extends React.Component{
                                ],
                                ['1',  
                                ,
-                               dataTimeLine[i].pause  == '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause == '00:00:00' ?   ReactDOMServer.renderToString(
+                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
                                   toolTipData={dataTable[i+1]}
                                   toolTipType={"lost"}
@@ -127,6 +141,17 @@ export class InfoRaisa2 extends React.Component{
        
     }
 
+    chartEvents =[
+      {
+      eventName: "select",
+      callback  : ({chartWrapper}) => { 
+             var selection = chartWrapper.getChart().getSelection();
+             var value = chartWrapper.getDataTable().getValue(selection[0].row,1);     
+             this.handleChange(value);
+              }
+         }
+      ];
+
     handleChange(value) {
         this.setState({ valuePass: value });
       }
@@ -142,9 +167,9 @@ export class InfoRaisa2 extends React.Component{
                             chartLanguage = 'ru'
                             rows={this.state.dataTable}
                             columns={[       
-                                    { type: 'date', label: 'Start' },
+                                    { type: 'string', label: 'Start' },
                                     { type: "number",label:  "N обжига" },
-                                    { type: 'date', label: 'Stop' },
+                                    { type: 'string', label: 'Stop' },
                                     { type: "string", label: "Продолжительность" },
                                     { type: "string", label: "Азот" },
                                     { type: "string", label: "Вода" },
@@ -174,17 +199,24 @@ export class InfoRaisa2 extends React.Component{
                         chartLanguage = 'ru'
                         rows={this.state.dateTimeLine}
                                 columns={columns}
-                        width="100%"
+                        width="973px"
                         height="100px"
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                         }}    
-                        
-                      
+                        chartEvents={this.chartEvents }
+
            />}
           </div>
-                
-           </div>
+
+          <div className={"my-graphRaisa-div"}>
+              
+          <GraphRaisa2    commonValueRaisa2={this.state}/>
+           
+          </div>
+          </div>
+        
+
         );
             }
    }
