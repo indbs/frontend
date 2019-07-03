@@ -12,15 +12,10 @@ ul li {
  "h h"
  "n c";
  margin: 0 auto;
- width: 1200px;
+ width: 1500px;
+ height: 900px;
 
- grid-template-columns:  2fr 10fr;
- grid-template-rows: 60px 1fr;
+ grid-template-columns:  14fr 3fr;
+ grid-template-rows: 60px 10fr;
  /*grid-gap:10px;*/
-}
-
-.app-wrapper-content {
-    grid-area: c;
-    background-color: lightblue;
-
 }

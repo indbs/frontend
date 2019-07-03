@@ -1,0 +1,45 @@
+hr12 { padding-bottom: -12px; padding-left: 0px ;  color: #3973ac; font-size: 48px; font-family: 'Signika', sans-serif; padding-bottom: 10px;  text-shadow: 0 0 .5px #5882FA, 0 0 .5px #5882FA;}
+hr2 { color: #0ba37a; font-size: 48px; font-family: 'Signika', sans-serif; padding-bottom: 10px; }
+hr3 { color: #3973ac; font-size: 10px; font-family: 'Signika', sans-serif; padding-bottom: 10px; padding-left: 20px; }
+h4 { color: #3973ac; font-size: 16px; font-family: 'Signika', sans-serif;   text-align:  center; margin-left: -10px; margin-top: 1px; margin-bottom: 0px}
+hr5 { color: #3973ac; font-size: 16px; font-family: 'Signika', sans-serif; padding-bottom: 10px; padding-left: 0px; margin-left: -10px;}
+hr6 { color: #003366; font-size: 16px; font-family: 'Signika', sans-serif; padding-bottom: 10px; }
+hr7 { color: #7a92ff; font-size: 48px; font-family: 'Signika', sans-serif; padding-bottom: 10px; padding-top: 50px;}
+hr1 {
+	font-family: 'Arial', cursive;
+	color: #3973ac; font-size: 36px; }
+
+ hr16 {    
+    font-size: 14px;
+    font-family: 'Signika', sans-serif;
+    color: blue;
+   };
+
+hr10 { color: #3973ac; font-size: 48px; font-family: 'Signika', sans-serif; padding-bottom: 10px; padding-left: 0px; text-shadow: 0 0 .5px #5882FA, 0 0 .5px #5882FA;}
+
+.infoBox {font-style: Italic; text-align: button; color: #3973ac;
+ 
+    margin: 232px 0px 0px -12px;
+}
+
+.butt {
+   background-color: white;
+    border: 2px solid #9fbfdf;
+    color: black;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 7px 0px 15px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    margin-right: 20px; 
+
+}
+.butt:hover {
+    background-color:#b3cce6;
+  }
+
+
+

@@ -106,11 +106,7 @@ export class GraphFR05 extends React.Component {
                             }  
                 />
                         }
-                </div>
-                <div>
-                  <p>  Граф Номер  {takeValue.valuePass}</p>
-                </div>
-                     
+                </div>          
         </div>
       );
     }

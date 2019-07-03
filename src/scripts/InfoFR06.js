@@ -98,12 +98,11 @@ export class InfoFR06 extends React.Component{
                              );
                         }
                     }
-                    for (let i = 0; i < dataTable.length-1; i += 1) {         
+                    for (let i = 0; i < dataTable.length; i += 1) {         
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){ 
                             rowsTable.push(
                                 [
-                                        /* new Date(dataTable[i].STARTUP_TIME), */
-                                        '#b0d1f2',
+                                       
                                          moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].PROGRAM_NUMBER,
                                          moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
@@ -157,7 +156,7 @@ export class InfoFR06 extends React.Component{
                             chartLanguage = 'ru'
                             rows={this.state.dataTable}
                             columns={[       
-                                { type: "string", id: 'style', role: 'style' },
+                                
                                 { type: 'string',  label: 'Запуск' },
                                 { type: "number", label:  " N обжига " },
                                 { type: 'string', label: 'Остановка' },
@@ -192,12 +191,12 @@ export class InfoFR06 extends React.Component{
                         chartLanguage = 'ru'
                         rows={this.state.dateTimeLine}
                                 columns={columns}
-                        width="100%"
+                        width="1200px"
                         height="100px"
                         
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-                         
+                            width:"100%"
 
                         }}    
                         

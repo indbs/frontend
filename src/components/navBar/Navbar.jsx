@@ -13,7 +13,11 @@ let classes = c1 +" "+ c2;
 let classesNew  = '${s.item} ${c2}';
 
 const Navbar = () => {
-return   <nav className = {s.nav} >
+return   (
+
+
+ 
+       <nav className = {s.nav} >
        <div className = {s.item} >
             <NavLink to="/raisa" activeClassName ={s.activeLink} > Раиса </NavLink> </div>
        <div className = { s.item }>
@@ -24,8 +28,14 @@ return   <nav className = {s.nav} >
             <NavLink to="/fr05" activeClassName ={s.activeLink} > ФР05 </NavLink> </div>
      <div className = { s.item }>
             <NavLink to="/generalTimeLine" activeClassName ={s.activeLink} > Диспетчер обжигов </NavLink> </div>
-            
- </nav>
+     <div className = { s.item }>
+            <NavLink to="/simens" activeClassName ={s.activeLink} > Сименс </NavLink> </div>      
+      <div className = { s.item }>
+            <NavLink to="/twoTablesRaisa" activeClassName ={s.activeLink} > TwoTablesRaisa </NavLink> </div> 
 
+    
+
+ </nav>
+)
 }
  export default Navbar;

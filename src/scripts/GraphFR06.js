@@ -10,7 +10,7 @@ export class GraphFR06 extends React.Component {
         const self = this;
         const takeValue = this.props.commonValueFR06;
         var x = Number(takeValue.valuePass);
-      console.log ('takeValue.valuePass',takeValue.valuePass);
+          console.log ('takeValue.valuePass',takeValue.valuePass);
 
 
         const data_url = "http://172.16.20.75:8060/?graph=fr06&program_number="+x+"&year=2019";
@@ -110,9 +110,6 @@ export class GraphFR06 extends React.Component {
                             }  
                 />
                         }
-                </div>
-                <div>
-                  <p>  Граф Номер  {takeValue.valuePass}</p>
                 </div>
                      
         </div>

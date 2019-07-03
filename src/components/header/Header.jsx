@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Header.module.css';
-import logo from './29189.gif';
 
+import logo from './ic_launcher_foreground.svg';
 
 const Header = () => {
   return   <header className = {s.header}>
-       <img src={require('./29189.gif')}  width="100" height="60"  />
+      <img src={logo} className="App-logo" alt="logo" height ="70px" />
     </header>
 }
  export default Header;
