@@ -30,13 +30,20 @@ export class InfoFR05 extends React.Component{
     constructor(props) {
         super(props);
         this.state = { valuePass: "2" };
-        this.handleChange = this.handleChange.bind(this);
-       
+       /* this.handleChange = this.handleChange.bind(this); */
+        this.handleClick = this.handleClick.bind(this);
        /* this.handleSubmit = this.handleSubmit.bind(this);*/
     }
     
       handleChange(value) {
         this.setState({ valuePass: value });
+      }
+
+
+      handleClick(value) {
+        this.setState(state => ({
+          valuePass: value
+        }));
       }
     
     requestData(){
@@ -172,7 +179,10 @@ export class InfoFR05 extends React.Component{
                                 colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                                 showRowNumber: true,
                                 allowHtml: true, 
-                            }}  
+                                width:"100%"
+                            }
+                            
+                          }  
                             formatters={[
                              {
                                  type: 'PatternFormat',
@@ -191,10 +201,11 @@ export class InfoFR05 extends React.Component{
                         chartLanguage = 'ru'
                         rows={this.state.dateTimeLine}
                                 columns={columns}
-                        width="100%"
+                        width="1200px"
                         height="100px"
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+                            width:"1000px"
                         }}    
                         
                   

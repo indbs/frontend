@@ -8,6 +8,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import Linkify from 'react-linkify';
 import HtmlToolTip from './tooltip';
+import './GeneralTimeLine.css';
 
 var ReactDOMServer = require('react-dom/server');
 require('datejs');  
@@ -330,17 +331,17 @@ export class GeneralTimeLine extends React.Component{
         return (
     <div className={"my-global-div"} >
      
-
-     <div className={"my-timelineRaisa-div"}>
+     <div className={"my-timeline-div"}>
       { this.state && this.state.dateTimeLine &&<Chart
       chartType="Timeline"
       chartLanguage = 'ru'
       rows={this.state.dateTimeLine}
               columns={columns}
       width="100%"
-      height="100%"
+      height="110%"
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+         width:"100%"
        }}    
        
       
@@ -348,10 +349,11 @@ export class GeneralTimeLine extends React.Component{
        />}
   </div>
 
-
-
-
-
+  <div className={"my-text-div"}>
+      <p > <a href = "mailto:b.smirnov@rusgates.ru; e.avdeeva@rusgates.ru"> Служба тех. Поддержки </a> </p>  
+      <br />
+       <p > © АО "Ферроприбор" </p>   
+       </div> 
    </div>
    );
     }

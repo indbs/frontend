@@ -6,9 +6,12 @@ import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
 import GraphTest from './GraphTest';
-import Linkify from 'react-linkify';
+
 
 import HtmlToolTip from './tooltip';
+import './InfoRaisa.css';
+import './style.css';
+
 var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
@@ -28,16 +31,13 @@ export class InfoRaisa extends React.Component{
   
   constructor(props) {
     super(props);
-    this.state = { valuePass: "12" };
-    this.handleChange = this.handleChange.bind(this);
+    this.state = { valuePass: "10" };
+    this.handleChange = this.handleChange.bind(this); 
     
-   /* this.handleSubmit = this.handleSubmit.bind(this);*/
+  /*  this.handleSubmit = this.handleSubmit.bind(this); */ 
 }
 
-  handleChange(value) {
-    this.setState({ valuePass: value });
-  }
-
+ 
     requestData(){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa';
@@ -54,7 +54,8 @@ export class InfoRaisa extends React.Component{
                           rowsTimeLine.push([
                                       '1',
                                       dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                      '#b0d1f2',
+                                      
+                                      dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                       ReactDOMServer.renderToString(
                                           <HtmlToolTip 
                                             toolTipData={dataTimeLine[i]}
@@ -74,8 +75,7 @@ export class InfoRaisa extends React.Component{
                                   new Date(dataTimeLine[i].end_time),
                                   new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),
                                ],  
-                              
-
+                            
                                ['1', 
                                dataTimeLine[i].PROGRAM_NUMBER.toString(),
                                '#0080ff',
@@ -86,28 +86,28 @@ export class InfoRaisa extends React.Component{
                                       new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
                                       new Date(dataTimeLine[i].STARTUP_TIME)
                              ],
-
                              ['1',  ' '
-                             ,
-                             
-                             dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
-                             dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
-                              <HtmlToolTip 
-                                toolTipData={dataTimeLine[i+1]}
-                                toolTipType={"lost"}
-                              />) :   ReactDOMServer.renderToString(
-                                  <HtmlToolTip 
-                                    toolTipData={dataTimeLine[i+1]}
-                                    toolTipType={"pause"}
-                                  />),
-                                  new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),	
-                                  new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(0.1, 'hours'))	  
-                                  ]       
+                             , 
+                            dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                            dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
+                            <HtmlToolTip 
+                             toolTipData={dataTimeLine[i+1]}
+                             toolTipType={"lost"}
+                           />) :   ReactDOMServer.renderToString(
+                               <HtmlToolTip 
+                                 toolTipData={dataTimeLine[i+1]}
+                                 toolTipType={"pause"}
+                               />),
+                                 new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
+                                 new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	            
+                               ] 
+
+                              
                                   );
                       }
                   }
         
-                    for (let i = 0; i < dataTable.length-1; i += 1) {
+                    for (let i = 0; i < dataTable.length; i += 1) {
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
                             rowsTable.push(
                                 [
@@ -115,10 +115,10 @@ export class InfoRaisa extends React.Component{
                                           dataTable[i].PROGRAM_NUMBER,
                                           dataTable[i].PROGRAM_NAME,
                                           moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
-                                         dataTable[i].duration.toString(),
-                                         dataTable[i].waterQuant.toString(),
-                                         dataTable[i].powerVAh.toString(),
-                                         dataTable[i].powerkWh.toString()    
+                                          dataTable[i].duration.toString(),
+                                          dataTable[i].waterQuant.toString(),
+                                          dataTable[i].powerVAh.toString(),
+                                          dataTable[i].powerkWh.toString()    
                             ]         
                           );
                         }
@@ -132,8 +132,7 @@ export class InfoRaisa extends React.Component{
                 })
                 .catch(function (error) {
                     // handle error
-                    console.log('возникла ошибка соединения с json', error);
-                    alert('возникла ошибка соединения с json',error);
+                   
 
                 })
                 .finally(function () {
@@ -144,15 +143,10 @@ export class InfoRaisa extends React.Component{
                
     }
    
-
-
-   
-
     componentDidMount() {
-        this.requestData();      
-   
-    }
-
+      this.requestData();  
+     
+  }
     chartEvents =[
       {
       eventName: "select",
@@ -164,20 +158,18 @@ export class InfoRaisa extends React.Component{
          }
       ];
 
+    handleChange(value) {
+        this.setState({ valuePass: value });
+      }
+
+
     render(){
 
       const takeValue = this.props.commonValue;
         return (
     <div className={"my-global-div"} >
-           <div className={"my-table-div"}>
-                <button onclick="activateLasers()">
-                     Последние 5
-                </button>
-
-           </div>
-
-         
-         <div className={"my-table-div"}>
+          <div id="artical">     <hr12>Раиса</hr12>   </div> 
+          <div className={"my-table-div"}>
                     { this.state && this.state.dataTable &&<Chart
                     chartType="Table"
                     chartLanguage = 'ru'
@@ -199,6 +191,7 @@ export class InfoRaisa extends React.Component{
                         colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                         showRowNumber: true,
                         allowHtml: true, 
+                        width:"100%"
                     }}  
                     formatters={[
                      {
@@ -233,20 +226,22 @@ export class InfoRaisa extends React.Component{
       chartLanguage = 'ru'
       rows={this.state.dateTimeLine}
               columns={columns}
-      width="1128px"
+      width="1300px"
       height="100px"
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+         width:"100%"
        }}    
       chartEvents={this.chartEvents }
                  
        />}
   </div>
         <div className={"my-graphRaisa-div"}>
-              
+      
         <GraphTest    commonValue={this.state}/>
-           
+        
         </div>
+        
    </div>
    );
     }

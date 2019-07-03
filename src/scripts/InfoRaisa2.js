@@ -53,7 +53,7 @@ export class InfoRaisa2 extends React.Component{
                     const dataTable=response.data[1];
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTable.length-1; i += 1) {
+                    for (let i = 0; i < dataTable.length; i += 1) {
                         
                             rowsTable.push(
                                 [
@@ -69,13 +69,13 @@ export class InfoRaisa2 extends React.Component{
                           );
                         
                     }
-                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                    for (let i = 0; i < dataTimeLine.length; i += 1) {
           
                             rowsTimeLine.push(
                                 [
                                         '1',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
+                                        dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTable[i]}
@@ -104,6 +104,8 @@ export class InfoRaisa2 extends React.Component{
                                         new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
+
+/*  cLTKFNM J,HF,JNRE IF ELSE if else
                                ['1',  
                                ,
                                dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
@@ -119,6 +121,7 @@ export class InfoRaisa2 extends React.Component{
                                     new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
                                     new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	      
                                     ]  
+                      */
                       );
                         
                     }
@@ -182,6 +185,7 @@ export class InfoRaisa2 extends React.Component{
                                 colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                                 showRowNumber: true,
                                 allowHtml: true, 
+                                width:"100%"
                             }}  
                             formatters={[
                              {
@@ -199,10 +203,11 @@ export class InfoRaisa2 extends React.Component{
                         chartLanguage = 'ru'
                         rows={this.state.dateTimeLine}
                                 columns={columns}
-                        width="973px"
+                        width="1200px"
                         height="100px"
                         options={{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+                            width:"100%"
                         }}    
                         chartEvents={this.chartEvents }
 
