@@ -26,7 +26,7 @@ export class GraphTrend extends React.Component {
                      
                 <div>
              
-                  <p>  Тренд Номер Catch2 {this.props.valueTrend}</p>
+                  <p>  Тренд Номер Catch2 {this.props.vvalueTrend}</p>
                 </div>
                    
         </div>

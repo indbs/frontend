@@ -6,11 +6,14 @@ import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
 import GraphTest from './GraphTest';
-
+import {NavLink} from 'react-router-dom';
 
 import HtmlToolTip from './tooltip';
 import './InfoRaisa.css';
 import './style.css';
+
+import TwoTablesRaisa from './TwoTablesRaisa';
+
 
 var ReactDOMServer = require('react-dom/server');
 require('datejs');  
@@ -207,11 +210,16 @@ export class InfoRaisa extends React.Component{
                           path: "/GraphRaisa",
                           query: {value1:7},
                         },*/
-                   
+                                     /* options: '<a href=/twoTablesRaisa?value1={0}>{0} </a>' ,  */
                           {
                              type: 'PatternFormat',
                              column: [1],
-                             options: '<a href=GraphRaisa%20?value1={0}>{0} </a>' , 
+                             options: '<a href=/TwoTablesRaisa  value1={0}>{0}  </a>    '  , 
+                              /* options: '<NavLink to={/TwoTablesRaisa value1={0}>{0}  } </NavLink>', */
+                            
+                            
+
+                             
                           },  
                       
                    ]}

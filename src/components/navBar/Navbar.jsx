@@ -2,9 +2,7 @@ import React from 'react';
 import s from  './/Navbar.module.css';
 import {NavLink} from 'react-router-dom';
 
-
 console.log(s);
-
 
 let c1 = "item";
 let c2 = "active";
