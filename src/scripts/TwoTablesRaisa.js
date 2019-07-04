@@ -35,7 +35,8 @@ export class TwoTablesRaisa extends React.Component{
                                     dataTable[i].STEP_NO,     
                                     dataTable[i].T_M_MODE,
                                     dataTable[i].T_M_TEMP,
-                                    moment(dataTable[i].T_M_TIME_WIDTH/60  ,'mm').locale("ru").format("hh:mm"),
+                            
+                                    moment.utc().add(155, 'minutes').format('hh:mm'),
                 
                               
                             ]         
