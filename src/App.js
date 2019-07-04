@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {BrowserRouter,Route} from "react-router-dom";
+import {BrowserRouter,Route, Redirect} from "react-router-dom";
 import './App.css';
 import Header from './components/header/Header';
 import Navbar from './components/navBar/Navbar';
@@ -52,7 +52,7 @@ function App()  {
           <Route path = '/simens' render={ () => <Simens /> } />
           <Route path = '/twoTablesRaisa' render={ () => <TwoTablesRaisa /> } />
        
-         
+          <Redirect to = '/generalTimeLine'/>
       <div className = 'app-wrapper-content'>    
       <Header />
       <Navbar />
