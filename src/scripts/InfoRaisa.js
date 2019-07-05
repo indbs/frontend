@@ -34,9 +34,12 @@ export class InfoRaisa extends React.Component{
   
   constructor(props) {
     super(props);
-    this.state = { valuePass: "10" };
+    this.state = { valuePass: 10,
+                    valueTwoTable: 10,
+                    flag: true
+                 };
     this.handleChange = this.handleChange.bind(this); 
-    
+    this.handleChangeTable = this.handleChangeTable .bind(this); 
   /*  this.handleSubmit = this.handleSubmit.bind(this); */ 
 }
 
@@ -154,16 +157,62 @@ export class InfoRaisa extends React.Component{
       {
       eventName: "select",
       callback  : ({chartWrapper}) => { 
+           
              var selection = chartWrapper.getChart().getSelection();
              var value = chartWrapper.getDataTable().getValue(selection[0].row,1);     
              this.handleChange(value);
-              }
+             this.setState({ 
+              valuePass: value,
+              flag:true
+              });
+                       }
          }
+
+
       ];
+      
+      chartEventsTable =[
+     /*   {
+        eventName: "select",
+        callback  : ({chartWrapper}) => { 
+              
+               var selection = chartWrapper.getChart().getSelection();
+               var value = chartWrapper.getDataTable().getValue(selection[0].row,1);    
+               this.handleChange(value);
+                }
+           },*/
+                            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/ 
+           {
+            eventName: "select",
+            callback  : ({chartWrapper}) => { 
+                   var selection = chartWrapper.getChart().getSelection();
+                   var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);
+                   console.log ( "Value", chartWrapper.getChart().getSelection());
+                   console.log ( "ValueRow", chartWrapper.getDataTable().getValue(selection[0].row,4));
+                  
+                   this.handleChangeTable(valueTable);
+                   this.setState({ valueTwoTable: valueTable,
+                    flag:false
+                 })
+                    }
+               }  
+           
+        ];
+
 
     handleChange(value) {
-        this.setState({ valuePass: value });
+        this.setState({ 
+                        valuePass: value,
+                        flag:true
+         });             
       }
+
+      handleChangeTable(valueTable) {
+          this.setState({ valueTwoTable: valueTable,
+          flag:false
+       });
+      }
+  
 
 
     render(){
@@ -196,7 +245,11 @@ export class InfoRaisa extends React.Component{
                         allowHtml: true, 
                         width:"100%"
                     }}  
-                    formatters={[
+                    chartEvents={this.chartEventsTable }
+
+                    
+
+                   /* formatters={[
                      {
                        type: 'PatternFormat',
                        column: [2,1],
@@ -211,19 +264,21 @@ export class InfoRaisa extends React.Component{
                           query: {value1:7},
                         },*/
                                      /* options: '<a href=/twoTablesRaisa?value1={0}>{0} </a>' ,  */
-                          {
+                       /*   {
                              type: 'PatternFormat',
                              column: [1],
-                             options: '<a href=/TwoTablesRaisa  value1={0}>{0}  </a>    '  , 
-                              /* options: '<NavLink to={/TwoTablesRaisa value1={0}>{0}  } </NavLink>', */
+                            options: '<a href=/twoTablesRaisa?value1={0}>{0} </a>' , 
+                             
+                             
+                              /* options: '<NavLink to={/TwoTablesRaisa value1={0}>{0}  } </NavLink>', 
                             
                             
 
                              
-                          },  
+                    }, 
                       
                    ]}
-             
+                  */
                     />}
                 </div> 
 
@@ -244,12 +299,16 @@ export class InfoRaisa extends React.Component{
                  
        />}
   </div>
+        
         <div className={"my-graphRaisa-div"}>
-      
-        <GraphTest    commonValue={this.state}/>
-        
+      {  this.state.flag==true  && <GraphTest    commonValue={this.state}/> }
+       </div>
+ 
+        <div className={"my-graphRaisa-div"}>
+      {  this.state.flag==false  &&       <TwoTablesRaisa    value1={this.state.valueTwoTable}/> }
         </div>
-        
+
+
    </div>
    );
     }

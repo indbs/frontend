@@ -21,21 +21,16 @@ function getTimeFromMins(x) {
 
 
 export class TwoTablesRaisa extends React.Component{
-    constructor(props) {
-        super(props);        
 
-       
-     
-    }
 
     requestData(){
-        var takeValue = this.props.value1;
-        alert("takeValue", takeValue);
-        console.log("takeValue", this.props.value1); 
+        const takeValue = this.props.value1;
+        var x = Number(takeValue.valuePass);
+     
 
         const self = this;
-        const data_urlHeart = "http://172.16.20.75:8060/?heat_table=raisa&program_number=70&year=2019";
-        const data_urlGas =   "http://172.16.20.75:8060/?gas_table=raisa&program_number=70&year=2019";
+        const data_urlHeart = "http://172.16.20.75:8060/?heat_table=raisa&program_number="+x+"&year=2019";
+        const data_urlGas =   "http://172.16.20.75:8060/?gas_table=raisa&program_number="+x+"&year=2019";
 
         const rowsTableHeart= [];
         const rowsTableGaz= [];
@@ -79,16 +74,18 @@ export class TwoTablesRaisa extends React.Component{
                                    });
     }
    
-    componentDidMount() {
-      this.requestData();  
-  }
+ 
+/*
+    componentWillReceiveProps() {
+        this.requestData();      
+    } */
 
     render(){
-        var takeValue = this.props.value1;
+     
 
         return (
     <div className={"my-global-div"} >
-          <div id="artical">     <hr12>Обжиг N </hr12>   </div> 
+          <div id="artical">     <hr12>Обжиг N  {this.props.value1} </hr12>   </div> 
           <div className={"my-tableHeart-div"}>
                     { this.state && this.state.dataTableHeart&&<Chart
                     chartType="Table"

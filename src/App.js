@@ -4,7 +4,8 @@ import {BrowserRouter,Route, Redirect} from "react-router-dom";
 import './App.css';
 import Header from './components/header/Header';
 import Navbar from './components/navBar/Navbar';
-//import Menu from './components/Menu/Menu';
+import MenuWrap from './MenuWrap';
+
 
 
 import { render } from "react-dom";
@@ -16,6 +17,8 @@ import InfoFR05 from './scripts/InfoFR05';
 import InfoFR06 from './scripts/InfoFR06';
 import Simens from './scripts/Simens';
 import TwoTablesRaisa from './scripts/TwoTablesRaisa'; 
+
+
 
 
 import GeneralTimeLine from './scripts/GeneralTimeLine';
@@ -35,7 +38,7 @@ const columns = [
   { type: 'date', id: 'Stop' }
 ];
 
-
+/*  <Redirect to = '/generalTimeLine'/>*/
 
 function App()  {
 
@@ -51,8 +54,9 @@ function App()  {
           <Route path = '/fr05' render={ () => <InfoFR05 /> } />
           <Route path = '/simens' render={ () => <Simens /> } />
           <Route path = '/twoTablesRaisa' render={ () => <TwoTablesRaisa /> } />
-       
-          <Redirect to = '/generalTimeLine'/>
+          <Route path = '/menu' render={ () => <MenuWrap /> } />
+      
+        
       <div className = 'app-wrapper-content'>    
       <Header />
       <Navbar />

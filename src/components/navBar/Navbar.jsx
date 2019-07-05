@@ -30,8 +30,11 @@ return   (
             <NavLink to="/simens" activeClassName ={s.activeLink} > Сименс </NavLink> </div>      
       <div className = { s.item }>
             <NavLink to="/twoTablesRaisa" activeClassName ={s.activeLink} > TwoTablesRaisa </NavLink> </div> 
-
+      
+      <div className = { s.item }>
+            <NavLink to="/menu" activeClassName ={s.activeLink} > Menu </NavLink> </div> 
     
+  
 
  </nav>
 )

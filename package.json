@@ -7,6 +7,7 @@
     "datejs": "^1.0.0-rc3",
     "moment": "^2.24.0",
     "react": "^16.8.6",
+    "react-burger-menu": "^2.6.10",
     "react-dom": "^16.8.6",
     "react-google-charts": "^3.0.13",
     "react-linkify": "^1.0.0-alpha",

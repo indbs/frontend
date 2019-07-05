@@ -338,7 +338,7 @@ export class GeneralTimeLine extends React.Component{
       rows={this.state.dateTimeLine}
               columns={columns}
       width="100%"
-      height="110%"
+      height="300px"
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],
          width:"100%"
