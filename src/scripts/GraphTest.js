@@ -8,8 +8,7 @@ export class GraphTest extends React.Component {
         
     requestData(){
         const self = this;
-        const takeValue = this.props.commonValue;
-        var x = Number(takeValue.valuePass);
+        var x = this.props.commonValue;
       
         const data_url = "http://172.16.20.75:8060/?graph=raisa&program_number="+x+"&year=2019";
 
@@ -22,8 +21,8 @@ export class GraphTest extends React.Component {
 
                     const dataTable=response.data;
                     const dataTable2=response.data2;
-                    console.log('dataTable',dataTable);
-                    console.log('dataTable2',dataTable2);
+                    //console.log('dataTable',dataTable);
+                    //console.log('dataTable2',dataTable2);
                     
                     //if (dataTable){
                     //    throw new Error('Error error error');
@@ -52,13 +51,14 @@ export class GraphTest extends React.Component {
                         chartDataCurrents   = chartDataAll.map(function(row){return row.slice(0,9)});
                         chartDataAirHeaters = chartDataAll.map(function(row){return [...row.slice(0,5),...row.slice(8,11)]});
                     }
-                    console.log('chartDataCurrents ', chartDataCurrents);
+                    //console.log('chartDataCurrents ', chartDataCurrents);
 
                     self.setState({dataToDisplay: chartDataShort});
                     self.setState({dataCurrents: chartDataCurrents});  
                     self.setState({dataAirHeaters: chartDataAirHeaters});  
                     self.setState({dataAll: chartDataAll}); 
-                    self.setState({dataShort: chartDataShort});                
+                    self.setState({dataShort: chartDataShort}); 
+                    console.log('# program to display: ',x);               
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -84,17 +84,20 @@ export class GraphTest extends React.Component {
         this.setState( {dataToDisplay: this.state.dataAirHeaters} );
     }
 
-    componentWillReceiveProps() {
-        this.requestData();      
+    componentWillReceiveProps(nextProps) {
+        console.groupCollapsed('receive props');
+        console.log('before receive props'); 
+        console.log('next props', nextProps.commonValue); 
+        console.log('value pass',this.props.commonValue);   
+        this.requestData();
+        console.log('after receive props');  
+        console.groupEnd();  
     }
 
     render() {
-
-        const takeValue = this.props.commonValue;
-        var x = Number(takeValue.valuePass);
-       
-      return (
-        <div className="GraphPage">    
+        var x = this.props.commonValue;
+        return (
+            <div className="GraphPage">    
                         <div className="Graph" id="chart_div">
                         {this.state && this.state.dataToDisplay &&<Chart
                             width={1300}
