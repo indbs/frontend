@@ -22,7 +22,7 @@ class Menu extends React.Component {
           top: 0,
           right: 0,
           height: this.state.open? '100%': '100%',
-          width: '30%',
+          width: '10%',
           display: 'flex',
           flexDirection: 'column',
           background: '#b3cce6',  /*не трогать*/

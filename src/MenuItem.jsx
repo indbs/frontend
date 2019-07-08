@@ -31,6 +31,7 @@ class MenuItem extends React.Component{
           transition: 'color 0.2s ease-in-out',
           animation: '0.5s slideIn forwards',
           animationDelay:this.props.delay,
+          textDecoration: 'none',
   
         },
         line: {

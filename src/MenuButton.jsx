@@ -29,8 +29,10 @@ class MenuButton extends React.Component {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          alignItems: 'right',
           cursor: 'pointer',
-          padding: '10px',
+          padding: '15px',
+          
         },
         line: {
           height: '5px',
@@ -42,6 +44,7 @@ class MenuButton extends React.Component {
           transform: this.state.open ? 'rotate(45deg)':'none',
           transformOrigin: 'top left',
           marginBottom: '10px',
+          marginRight: 'auto',
           background:   this.state.open ?    '#3F51B5':'white',
         },
         lineMiddle: {

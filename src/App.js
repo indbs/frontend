@@ -59,7 +59,8 @@ function App()  {
         
       <div className = 'app-wrapper-content'>    
       <Header />
-      <Navbar />
+    
+      <Main />
       </div>
       
       </div>);
