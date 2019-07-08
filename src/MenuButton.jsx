@@ -30,27 +30,30 @@ class MenuButton extends React.Component {
           justifyContent: 'center',
           alignItems: 'center',
           cursor: 'pointer',
-          padding: '4px',
+          padding: '10px',
         },
         line: {
-          height: '2px',
-          width: '20px',
+          height: '5px',
+          width: '40px',
           background: this.state.color,
           transition: 'all 0.2s ease',
         },
         lineTop: {
           transform: this.state.open ? 'rotate(45deg)':'none',
           transformOrigin: 'top left',
-          marginBottom: '5px',
+          marginBottom: '10px',
+          background:   this.state.open ?    '#3F51B5':'white',
         },
         lineMiddle: {
           opacity: this.state.open ? 0: 1,
           transform: this.state.open ? 'translateX(-16px)':'none',
+          
         },
         lineBottom: {
           transform: this.state.open ? 'translateX(-1px) rotate(-45deg)':'none',
           transformOrigin: 'top left',
-          marginTop: '5px',
+          marginTop: '10px',
+          background:   this.state.open ?    '#3F51B5':'white',
         },       
       }
       return(
@@ -65,5 +68,3 @@ class MenuButton extends React.Component {
     }
   }
   export default MenuButton;
-
-  

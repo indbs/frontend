@@ -30,19 +30,19 @@ class App2 extends React.Component {
       this.setState({menuOpen: false});
     }
     
-    render(){
+    render(){          /*первое меню*/ 
       const styles= 
         {
           container:{
             position: 'absolute',
             top: 0,
-            left: 0,
+            right:0,
             zIndex: '99',
             opacity: 0.9,
             display:'flex',
             alignItems:'center',
-            background: 'black',
-            width: '100%',
+            background: '#b3cce6',
+            width: '30%',
             color: 'white',
             fontFamily:'Lobster',
           },
@@ -53,8 +53,8 @@ class App2 extends React.Component {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            width: '100vw',
-            height: '100vh',
+            width: '50%',
+            height: '100%',
             filter: this.state.menuOpen ? 'blur(2px)':null,
             transition: 'filter 0.5s ease',
           },

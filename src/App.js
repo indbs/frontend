@@ -4,7 +4,7 @@ import {BrowserRouter,Route, Redirect} from "react-router-dom";
 import './App.css';
 import Header from './components/header/Header';
 import Navbar from './components/navBar/Navbar';
-import MenuWrap from './MenuWrap';
+import Main from './Main';
 
 
 
@@ -54,7 +54,7 @@ function App()  {
           <Route path = '/fr05' render={ () => <InfoFR05 /> } />
           <Route path = '/simens' render={ () => <Simens /> } />
           <Route path = '/twoTablesRaisa' render={ () => <TwoTablesRaisa /> } />
-          <Route path = '/menu' render={ () => <MenuWrap /> } />
+          <Route path = '/menu' render={ () => <Main /> } />
       
         
       <div className = 'app-wrapper-content'>    

@@ -16,7 +16,7 @@ class Main extends React.Component {
           display:'flex',
           flexDirection:'column',
           alignItems: 'center',
-          height: '100vh',
+          height: '100%',
         }
       }
       

@@ -21,7 +21,7 @@
 
 @keyframes shrink {
   0% {
-    width: 95%;
+    width: 90%;
   }
   100% {
     width: 90%;

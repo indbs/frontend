@@ -20,12 +20,12 @@ class Menu extends React.Component {
         container: {
           position: 'absolute',
           top: 0,
-          left: 0,
-          height: this.state.open? '50%': 0,
-          width: '100vw',
+          right: 0,
+          height: this.state.open? '100%': '100%',
+          width: '30%',
           display: 'flex',
           flexDirection: 'column',
-          background: 'black',
+          background: '#b3cce6',  /*не трогать*/
           opacity: 0.95,
           color: '#fafafa',
           transition: 'height 0.3s ease',
