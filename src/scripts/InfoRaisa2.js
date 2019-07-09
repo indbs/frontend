@@ -39,9 +39,6 @@ export class InfoRaisa2 extends React.Component{
   handleChange(value) {
     this.setState({ valuePass: value });
   }
-    
-   
-
     requestData(){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa2';
@@ -70,7 +67,7 @@ export class InfoRaisa2 extends React.Component{
                         
                     }
                     for (let i = 0; i < dataTimeLine.length; i += 1) {
-          
+                        if(i < dataTimeLine.length -1 ) {
                             rowsTimeLine.push(
                                 [
                                         '1',
@@ -104,46 +101,81 @@ export class InfoRaisa2 extends React.Component{
                                         new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
-
-/*  cLTKFNM J,HF,JNRE IF ELSE if else
-                               ['1',  
-                               ,
-                               dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
-                               dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
+                               [ '1',
+                                ' ', 
+                                dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
+                                dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
-                                  toolTipData={dataTable[i+1]}
+                                  toolTipData={dataTimeLine[i+1]}
                                   toolTipType={"lost"}
                                 />) :   ReactDOMServer.renderToString(
-                                    <HtmlToolTip 
-                                      toolTipData={dataTable[i+1]}
-                                      toolTipType={"pause"}
-                                    />),
-                                    new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
-                                    new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	      
-                                    ]  
-                      */
+                                <HtmlToolTip 
+                                  toolTipData={dataTimeLine[i+1]}
+                                  toolTipType={"pause"}
+                                />),
+                                new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
+                                new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	            
+                              ] 
                       );
+
+                            } else {  rowsTimeLine.push(
+                              [
+                                      '1',
+                                      dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                      dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
+                                      ReactDOMServer.renderToString(
+                                          <HtmlToolTip 
+                                            toolTipData={dataTable[i]}
+                                            toolTipType={"fullraisa2"}
+                                          />),
+                                      new Date(dataTimeLine[i].STARTUP_TIME),
+                                      new Date(dataTimeLine[i].end_time)
+                                  ],
+                                  ['1',  
+                                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                  '#003366',
+                                  ReactDOMServer.renderToString(<HtmlToolTip 
+                                      toolTipData={dataTable[i]}
+                                      toolTipType={"stop"}
+                                    />),
+                                  new Date(dataTimeLine[i].end_time),
+                                  new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
+                               ],  
+                               ['1', 
+                               dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                               '#0080ff',
+                               ReactDOMServer.renderToString(<HtmlToolTip 
+                                  toolTipData={dataTable[i]}
+                                  toolTipType={"start"}
+                                  />) ,	            
+                                      new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
+                                      new Date(dataTimeLine[i].STARTUP_TIME)
+                             ],
                         
-                    }
-              
+                    );
+
+
+                            } 
+
+                            } 
+
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({dataTable: rowsTable});
                     self.setState({minDate: minValue});
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-                .finally(function () {
-                    // always executed
-                });     
-    }
-
+          
+                 })         
+                 .catch(function (error) {
+                  // handle error
+                  console.log(error);
+              })
+              .finally(function () {
+                  // always executed
+              });     
+  }
 
     componentDidMount() {
-        this.requestData();  
-       
+        this.requestData();    
     }
-
     chartEvents =[
       {
       eventName: "select",
@@ -158,13 +190,10 @@ export class InfoRaisa2 extends React.Component{
     handleChange(value) {
         this.setState({ valuePass: value });
       }
-
-      
-
     render(){
-        return (
-            <div className={"my-global-div"} >
-             <div className={"my-table-div"}>
+     return (
+      <div className={"my-global-div"} >
+     <div className={"my-table-div"}>
                             { this.state && this.state.dataTable &&<Chart
                             chartType="Table"
                             chartLanguage = 'ru'
@@ -195,9 +224,8 @@ export class InfoRaisa2 extends React.Component{
                              },  
                            ]}
                       />}
-                </div>
-          
-                <div className={"my-timeline-div"}>
+     </div>
+      <div className={"my-timeline-div"}>
                         { this.state && this.state.dateTimeLine &&<Chart
                         chartType="Timeline"
                         chartLanguage = 'ru'
@@ -210,16 +238,12 @@ export class InfoRaisa2 extends React.Component{
                             width:"100%"
                         }}    
                         chartEvents={this.chartEvents }
-
            />}
           </div>
-
           <div className={"my-graphRaisa-div"}>
-              
-          <GraphRaisa2    commonValueRaisa2={this.state}/>
-           
+             <GraphRaisa2    commonValueRaisa2={this.state}/>
           </div>
-          </div>
+     </div>
         
 
         );

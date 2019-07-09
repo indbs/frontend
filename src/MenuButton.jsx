@@ -6,7 +6,7 @@ class MenuButton extends React.Component {
       super(props);
       this.state={
         open: this.props.open? this.props.open:false,
-        color: this.props.color? this.props.color:'black',
+        color: this.props.color? this.props.color:'#b3cce6',
       }
     }
   

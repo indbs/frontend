@@ -15,7 +15,7 @@ function Footer(props) {
         color: props.color,
       },
       line: {
-        height:'1px',
+        height:'0px',
         width:'90%',
         background: props.color,
       },
@@ -28,20 +28,19 @@ function Footer(props) {
       <div style={styles.footer}>
         <div style={styles.line}>
         </div>
-        <div style={styles.text}>{props.title} created by Smashcat &copy; 2017
-        </div>
+        
       </div>
     )
   }
   
   Footer.defaultProps = {
-    color: 'black',
-    title: 'hello world!'
+    color: '',
+    title: ''
   }
   
   Footer.propTypes = {
     color: 'black',
-    title: 'hello world!'
+    title: ''
   }
 
 

@@ -1,4 +1,3 @@
-
 import * as React from "react";
 
 class Menu extends React.Component {
@@ -21,8 +20,8 @@ class Menu extends React.Component {
           position: 'absolute',
           top: 0,
           right: 0,
-          height: this.state.open? '100%': '100%',
-          width: '10%',
+          height: this.state.open? '1250px': '1250px',
+          width: '250px',
           display: 'flex',
           flexDirection: 'column',
           background: '#b3cce6',  /*не трогать*/
@@ -49,3 +48,4 @@ class Menu extends React.Component {
   }
 
   export default Menu;
+

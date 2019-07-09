@@ -25,17 +25,16 @@ const columns = [
 ];
 
 export class InfoRaisa extends React.Component{
-  
-  constructor(props) {
-    super(props);
-    this.state = { 
-      valuePass: 10,
-      valueTwoTable: 10,
-      flag: true
-    };
-    this.handleChange = this.handleChange.bind(this); 
-    this.handleChangeTable = this.handleChangeTable .bind(this); 
-  }
+      constructor(props) {
+        super(props);
+        this.state = { 
+          valuePass: 10,
+          valueTwoTable: 10,
+          flag: true
+        };
+        this.handleChange = this.handleChange.bind(this); 
+        this.handleChangeTable = this.handleChangeTable .bind(this); 
+      }
 
   requestData(){
     const self = this;
@@ -149,7 +148,7 @@ export class InfoRaisa extends React.Component{
       eventName: "select",
       callback  : ({chartWrapper}) => { 
         var selection = chartWrapper.getChart().getSelection();
-        var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);    
+        var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
         this.handleChangeTable(valueTable);
         console.log('value two table',this.state.valueTwoTable);
       }

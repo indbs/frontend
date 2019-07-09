@@ -8,11 +8,9 @@ export class Simens extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { valueTrend: "2"  };
-        
+        this.state = { valueTrend: "2"  };   
       }
-  
-    requestData(){
+      requestData(){
         const self = this;
         const data_url241 = "http://172.16.20.75:8060/?siemens=analiser&year=2019&channel_number=241";
         const data_url181 = "http://172.16.20.75:8060/?siemens=analiser&year=2019&channel_number=181";

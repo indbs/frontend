@@ -12,8 +12,6 @@ export class GraphRaisa2 extends React.Component {
         var x = Number(takeValue.valuePass);
       
         const data_url = "http://172.16.20.75:8060/?graph=raisa2&program_number="+x+"&year=2019";
-        
-
         var chartDataCurrents=[],chartDataAirHeaters=[],chartDataShort=[];
         const chartDataAll =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %','SP','Средняя °С', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 
         'TC411, °С','TC412, °С', 'TC413, °С', 'A, %', 'B, %', 'C, %', 'D, %', 'E, %' ]];
@@ -69,24 +67,19 @@ export class GraphRaisa2 extends React.Component {
     handleClickShort = () => {
         this.setState( {dataToDisplay: this.state.dataShort} );
     }
-
     handleClickCurrents = () => {
         this.setState( {dataToDisplay: this.state.dataCurrents} );
     }
-
     handleClickAirHeaters = () => {
         this.setState( {dataToDisplay: this.state.dataAirHeaters} );
     }
-
     componentWillReceiveProps() {
         this.requestData();      
     }
-
     render() {
 
         const takeValue = this.props.commonValueRaisa2;
         var x = Number(takeValue.valuePass);
-
       return (
         <div className="GraphPage">    
                         <div className="Graph" id="chart_div">
@@ -128,8 +121,8 @@ export class GraphRaisa2 extends React.Component {
                                     chartArea:{left:100,top:50,width:'85%',height:'85%'},vAxis: {format: '####'}
                                 }
                             }  
-                />
-                        }
+                       />
+               }
                 </div>
                 <div>
                   <p>  Граф Номер  {takeValue.valuePass}</p>

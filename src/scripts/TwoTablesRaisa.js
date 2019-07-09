@@ -19,8 +19,8 @@ function getTimeFromMins(x) {
 
 export class TwoTablesRaisa extends React.Component{
 
-    requestData(){
-        var x = this.props.value1;
+    requestData(value1){
+        var x = value1;
     
         const self = this;
         const data_urlHeat = "http://172.16.20.75:8060/?heat_table=raisa&program_number="+x+"&year=2019";
@@ -44,6 +44,7 @@ export class TwoTablesRaisa extends React.Component{
                 }
                 self.setState({dataTableHeat: rowsTableHeat});
             })
+            
         axios.get(data_urlGas)        
             .then(function (response) { 
                 const dataTable=response.data;
@@ -58,11 +59,17 @@ export class TwoTablesRaisa extends React.Component{
                     ]);
                 }
                 self.setState({dataTableGaz: rowsTableGaz});
-            })       
+            })  
     }
 
-    componentWillReceiveProps() {
-        this.requestData();
+    componentWillReceiveProps(nextProps) {
+        console.log('next props', nextProps.value1); 
+        console.log('value pass', this.props.value1);  
+
+        if (this.props.value1 !== nextProps.value1) {
+             this.requestData(nextProps.value1);
+        }
+        else    this.requestData(this.props.value);
     }
    
     render(){
