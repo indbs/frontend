@@ -25,10 +25,6 @@ const columns = [
     { type: 'date', id: 'Start' },
     { type: 'date', id: 'Stop' }
   ];
-
-
-
-
 export class GeneralTimeLine extends React.Component{
 
 
@@ -36,9 +32,7 @@ export class GeneralTimeLine extends React.Component{
             super(props);
             this.state = { value1: "" };
             this.handleChange = this.handleChange.bind(this);
-         
           }
-        
           handleChange(event) {
             this.setState({ value: event.target.value });
           }
@@ -57,12 +51,13 @@ export class GeneralTimeLine extends React.Component{
                     const dataTable=response.data[1];
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                    for (let i = 0; i < dataTimeLine.length; i += 1) {
                         if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                          if ( i < dataTimeLine.length-1) {
                             rowsTimeLine.push([
                                         'Раиса',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
+                                        dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
@@ -73,7 +68,7 @@ export class GeneralTimeLine extends React.Component{
                                     ],
                                     
                                     ['Раиса',  
-                                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                    ' ',
                                     '#003366',
                                     ReactDOMServer.renderToString(<HtmlToolTip 
                                         toolTipData={dataTimeLine[i]}
@@ -85,7 +80,7 @@ export class GeneralTimeLine extends React.Component{
                                 
 
                                  ['Раиса', 
-                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                 ' ',
                                  '#0080ff',
                                  ReactDOMServer.renderToString(<HtmlToolTip 
                                     toolTipData={dataTimeLine[i]}
@@ -94,10 +89,9 @@ export class GeneralTimeLine extends React.Component{
                                         new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
                                         new Date(dataTimeLine[i].STARTUP_TIME)
                                ],
-
+                               
                                ['Раиса',  
                                ' ',
-                               
                                dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
                                dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
                                 <HtmlToolTip 
@@ -110,9 +104,44 @@ export class GeneralTimeLine extends React.Component{
                                     />),
                                     new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),	
                                     new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(0.1, 'hours'))	  
-                                    ]       
+                                    ]   
                                     );
                         }
+                      } else{
+                        rowsTimeLine.push([
+                          'Раиса',
+                          dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                          dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
+                          ReactDOMServer.renderToString(
+                              <HtmlToolTip 
+                                toolTipData={dataTimeLine[i]}
+                                toolTipType={"full"}
+                              />),
+                          new Date(dataTimeLine[i].STARTUP_TIME),
+                          new Date(dataTimeLine[i].end_time)
+                      ],
+                      ['Раиса',  
+                      ' ',
+                      '#003366',
+                      ReactDOMServer.renderToString(<HtmlToolTip 
+                          toolTipData={dataTimeLine[i]}
+                          toolTipType={"stop"}
+                        />),
+                      new Date(dataTimeLine[i].end_time),
+                      new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),
+                   ],  
+                   ['Раиса', 
+                   ' ',
+                   '#0080ff',
+                   ReactDOMServer.renderToString(<HtmlToolTip 
+                      toolTipData={dataTimeLine[i]}
+                      toolTipType={"start"}
+                      />)  ,	            
+                          new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
+                          new Date(dataTimeLine[i].STARTUP_TIME)
+                 ]  
+                      );
+                      }
                     }
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({minDate: minValue});
@@ -123,13 +152,14 @@ export class GeneralTimeLine extends React.Component{
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
            
-                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
-                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){  
+                    for (let i = 0; i < dataTimeLine.length; i += 1) {
+                        if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){ 
+                          if (i < dataTimeLine.length-1) {
                             rowsTimeLine.push(
                                 [
                                         'Раиса2',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
+                                        dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
@@ -149,7 +179,7 @@ export class GeneralTimeLine extends React.Component{
                                     new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
                                  ],  
                                  ['Раиса2', 
-                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                 ' ',
                                  '#0080ff',
                                  ReactDOMServer.renderToString(<HtmlToolTip 
                                     toolTipData={dataTimeLine[i]}
@@ -174,8 +204,45 @@ export class GeneralTimeLine extends React.Component{
                                     new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	 
                                     ]  
                       );
-                       }  
-                    }
+                     }
+                     else {
+                      rowsTimeLine.push(
+                        [
+                                'Раиса2',
+                                dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
+                                ReactDOMServer.renderToString(
+                                    <HtmlToolTip 
+                                      toolTipData={dataTimeLine[i]}
+                                      toolTipType={"fullraisa2"}
+                                    />),
+                                new Date(dataTimeLine[i].STARTUP_TIME),
+                                new Date(dataTimeLine[i].end_time)
+                            ],
+                            ['Раиса2',  
+                            ' ',
+                            '#003366',
+                            ReactDOMServer.renderToString(<HtmlToolTip 
+                                toolTipData={dataTimeLine[i]}
+                                toolTipType={"stop"}
+                              />),
+                            new Date(dataTimeLine[i].end_time),
+                            new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
+                         ],  
+                         ['Раиса2', 
+                         ' ',
+                         '#0080ff',
+                         ReactDOMServer.renderToString(<HtmlToolTip 
+                            toolTipData={dataTimeLine[i]}
+                            toolTipType={"start"}
+                            />) ,	            
+                            new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
+                                new Date(dataTimeLine[i].STARTUP_TIME)
+                       ]
+              );
+                     } 
+                }  
+               }
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({minDate: minValue});
                 })
@@ -184,12 +251,13 @@ export class GeneralTimeLine extends React.Component{
                     // handle success
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                    for (let i = 0; i < dataTimeLine.length; i += 1) {
                         if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                          if (i < dataTimeLine.length-1) {
                             rowsTimeLine.push([
                                         'ФР05',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
+                                        dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
@@ -209,7 +277,7 @@ export class GeneralTimeLine extends React.Component{
                                     new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
                                  ],  
                                  ['ФР05', 
-                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                ' ',
                                  '#0080ff',
                                  ReactDOMServer.renderToString(<HtmlToolTip 
                                     toolTipData={dataTimeLine[i]}
@@ -235,7 +303,43 @@ export class GeneralTimeLine extends React.Component{
                                     ] 
                              );
                         }
-                    }
+                    else {
+                      rowsTimeLine.push([
+                        'ФР05',
+                        dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                        dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
+                        ReactDOMServer.renderToString(
+                            <HtmlToolTip 
+                              toolTipData={dataTimeLine[i]}
+                              toolTipType={"fullfr"}
+                            />),
+                        new Date(dataTimeLine[i].STARTUP_TIME),
+                        new Date(dataTimeLine[i].end_time)
+                    ],
+                    ['ФР05',  
+                    dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                    '#003366',
+                    ReactDOMServer.renderToString(<HtmlToolTip 
+                        toolTipData={dataTimeLine[i]}
+                        toolTipType={"stop"}
+                      />),
+                    new Date(dataTimeLine[i].end_time),
+                    new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
+                 ],  
+                 ['ФР05', 
+                ' ',
+                 '#0080ff',
+                 ReactDOMServer.renderToString(<HtmlToolTip 
+                    toolTipData={dataTimeLine[i]}
+                    toolTipType={"start"}
+                    />)  ,	            
+                        new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
+                        new Date(dataTimeLine[i].STARTUP_TIME)
+               ]
+               );        
+              }    
+           }
+       }
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({minDate: minValue});
                 })
@@ -244,12 +348,13 @@ export class GeneralTimeLine extends React.Component{
                     const dataTimeLine=response.data;
                     const dataTable=response.data;
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                    for (let i = 0; i < dataTimeLine.length; i += 1) {
                         if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                          if (i < dataTimeLine.length-1) {
                             rowsTimeLine.push([
                                         'FR06',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                                        '#b0d1f2',
+                                        dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 
                                               toolTipData={dataTimeLine[i]}
@@ -269,7 +374,7 @@ export class GeneralTimeLine extends React.Component{
                                     new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
                                  ],  
                                  ['FR06', 
-                                 dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                 ' ',
                                  '#0080ff',
                                  ReactDOMServer.renderToString(<HtmlToolTip 
                                     toolTipData={dataTimeLine[i]}
@@ -295,10 +400,45 @@ export class GeneralTimeLine extends React.Component{
                                     new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	  
                                     ] 
                              );
-                        }
-                    }
+                      }
+                     else {    rowsTimeLine.push([
+                      'FR06',
+                      dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                      dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
+                      ReactDOMServer.renderToString(
+                          <HtmlToolTip 
+                            toolTipData={dataTimeLine[i]}
+                            toolTipType={"fullfr"}
+                          />),
+                      new Date(dataTimeLine[i].STARTUP_TIME),
+                      new Date(dataTimeLine[i].end_time)
+                  ],
+                  ['FR06',  
+                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                  '#003366',
+                  ReactDOMServer.renderToString(<HtmlToolTip 
+                      toolTipData={dataTimeLine[i]}
+                      toolTipType={"stop"}
+                    />),
+                  new Date(dataTimeLine[i].end_time),
+                  new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
+               ],  
+               ['FR06', 
+               ' ',
+               '#0080ff',
+               ReactDOMServer.renderToString(<HtmlToolTip 
+                  toolTipData={dataTimeLine[i]}
+                  toolTipType={"start"}
+                  />),	            
+                      new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
+                      new Date(dataTimeLine[i].STARTUP_TIME)
+             ]
+           );
+          }
+         }
+       }
                 
-                    for (let i = 0; i < dataTable.length-1; i += 1) {         
+                    for (let i = 0; i < dataTable.length; i += 1) {         
                         if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){ 
                             rowsTable.push(
                                 [
@@ -337,7 +477,7 @@ export class GeneralTimeLine extends React.Component{
       chartLanguage = 'ru'
       rows={this.state.dateTimeLine}
               columns={columns}
-      width="100%"
+      width="80%"
       height="300px"
       options={{
          colors: ['#98719D', '#A0BD85', '#5DBAD9'],

@@ -57,14 +57,25 @@ class App2 extends React.Component {
       <NavLink to="/raisa2" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > Раиса2 </NavLink>,
       <NavLink to="/fr06" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > ФР06 </NavLink>,
       <NavLink to="/fr05" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > ФР05 </NavLink>,
-      <NavLink to="/simens" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > Сименс </NavLink>, 
+      <NavLink to="/simens" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > Сименс </NavLink>,
+      <NavLink to="/redux" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > Redux </NavLink>,  
+      <NavLink to="/generalTimeLine" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > generalTimeLine </NavLink>,
+      <NavLink to="/GraphTrend" style={{color: 'white', textDecoration: 'none'}}  activeStyle={{color: 'white', textDecoration: 'none'}   }  > GraphTrend </NavLink>,
       'FOR EXAMPLE']
       const menuItems = menu.map((val,index)=>{
         return (
           <MenuItem 
             key={index} 
             delay={`${index * 0.1}s`}
-            onClick={()=>{this.handleLinkClick();}}>{val}</MenuItem>)
+            onClick={()=>{this.handleLinkClick();}}>{val}</MenuItem>
+            
+            
+            
+            
+            )
+
+
+
       });
       
       return(

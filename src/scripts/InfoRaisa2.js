@@ -7,6 +7,7 @@ import Linkify from 'react-linkify';
 import moment from 'moment';
 import 'moment/locale/ru';
 import GraphRaisa2 from './GraphRaisa2';
+import { connect } from 'react-redux';
 
 var ReactDOMServer = require('react-dom/server');
 
@@ -193,6 +194,9 @@ export class InfoRaisa2 extends React.Component{
     render(){
      return (
       <div className={"my-global-div"} >
+       <div id="artical">     
+          <hr12>Раиса2 + {this.props.selcted_oven}</hr12>   
+        </div>
      <div className={"my-table-div"}>
                             { this.state && this.state.dataTable &&<Chart
                             chartType="Table"
@@ -251,4 +255,15 @@ export class InfoRaisa2 extends React.Component{
    }
           
 
-export default InfoRaisa2;
+   const mapStateToProps = function(state) {
+    return {
+      windowTables: state.reduxValues[0].windowTables,
+      windowGraphic: state.reduxValues[0].windowGraphic,
+      id: state.reduxValues[0].id,
+      selcted_oven:state.reduxValues[0].selcted_oven,
+      selectedBorn: state.reduxValues[0].selectedBorn,
+      lastBorn: state.reduxValues[0].lastBorn
+    }
+  }
+  
+  export default connect(mapStateToProps)(InfoRaisa2);

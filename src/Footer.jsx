@@ -39,7 +39,7 @@ function Footer(props) {
   }
   
   Footer.propTypes = {
-    color: 'black',
+    color: '',
     title: ''
   }
 

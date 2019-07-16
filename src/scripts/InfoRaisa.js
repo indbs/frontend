@@ -9,6 +9,7 @@ import GraphTest from './GraphTest';
 import HtmlToolTip from './tooltip';
 import './InfoRaisa.css';
 import './style.css';
+import { connect } from 'react-redux';
 
 import TwoTablesRaisa from './TwoTablesRaisa';
 
@@ -32,6 +33,12 @@ export class InfoRaisa extends React.Component{
           valueTwoTable: 10,
           flag: true
         };
+
+        console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
+      
+
+        
+
         this.handleChange = this.handleChange.bind(this); 
         this.handleChangeTable = this.handleChangeTable .bind(this); 
       }
@@ -47,8 +54,9 @@ export class InfoRaisa extends React.Component{
         const dataTable=response.data[1];
         const dataTimeLine=response.data[1];
         const minValue=(Date.today().addMonths(-1));
-        for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+        for (let i = 0; i < dataTimeLine.length; i += 1) {
           if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+            if(i < dataTimeLine.length -1 ) {  
             rowsTimeLine.push(
               [
                 '1',
@@ -101,6 +109,44 @@ export class InfoRaisa extends React.Component{
                 new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	            
               ] 
             );
+            } else {
+              rowsTimeLine.push(
+                [
+                  '1',
+                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                  dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
+                  ReactDOMServer.renderToString(
+                    <HtmlToolTip 
+                      toolTipData={dataTimeLine[i]}
+                      toolTipType={"full"}
+                    />),
+                  new Date(dataTimeLine[i].STARTUP_TIME),
+                  new Date(dataTimeLine[i].end_time)
+                ],       
+                [
+                  '1',  
+                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                  '#003366',
+                  ReactDOMServer.renderToString(<HtmlToolTip 
+                      toolTipData={dataTimeLine[i]}
+                      toolTipType={"stop"}
+                    />),
+                  new Date(dataTimeLine[i].end_time),
+                  new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),
+                ],  
+                [
+                  '1', 
+                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                  '#0080ff',
+                  ReactDOMServer.renderToString(<HtmlToolTip 
+                    toolTipData={dataTimeLine[i]}
+                    toolTipType={"start"}
+                    />),	            
+                  new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
+                  new Date(dataTimeLine[i].STARTUP_TIME)
+                ]
+              );
+            } 
           }
         }
 
@@ -127,7 +173,7 @@ export class InfoRaisa extends React.Component{
   }
 
   componentDidMount() {
-    this.requestData();   
+    this.requestData();  
   }
       
   chartEvents =[
@@ -170,15 +216,16 @@ export class InfoRaisa extends React.Component{
   }
 
   render(){
+
     return (
       <div className={"my-global-div"} >
 
         <div id="artical">     
-          <hr12>Раиса</hr12>   
+          <hr12>Раиса  + {this.props.selcted_oven}</hr12>   
         </div>
-
+        
         <div className={"my-table-div"}>
-          { this.state && this.state.dataTable &&
+          { this.state && this.state.dataTable && this.props.id !=1000 &&
             <Chart
               chartType="Table"
               chartLanguage = 'ru'
@@ -241,4 +288,15 @@ export class InfoRaisa extends React.Component{
   }
 }
   
-export default InfoRaisa;
+const mapStateToProps = function(state) {
+  return {
+    windowTables: state.reduxValues[0].windowTables,
+    windowGraphic: state.reduxValues[0].windowGraphic,
+    id: state.reduxValues[0].id,
+    selcted_oven:state.reduxValues[0].selcted_oven,
+    selectedBorn: state.reduxValues[0].selectedBorn,
+    lastBorn: state.reduxValues[0].lastBorn
+  }
+}
+
+export default connect(mapStateToProps)(InfoRaisa);

@@ -8,7 +8,7 @@ export class Simens extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { valueTrend: "2"  };   
+        this.state = { valueTrend: "242"  };   
       }
       requestData(){
         const self = this;
@@ -128,6 +128,8 @@ export class Simens extends React.Component {
                             data={[
                                 ['Label', 'Value'],
                                 ['Зона 24',s241],
+                                ['Зона 18',s181],
+                                ['Зона 16',s161],
                               ]}
                             legend_toggle={true}
                             options={{
@@ -145,41 +147,14 @@ export class Simens extends React.Component {
                               }} 
                      />
                         }
-                </div>
-                <div className="Simens181&161" id="chart_div">
-                        {this.state&&this.state.data161&&this.state.data181&&<Chart
-                     width="100%"
-                     height="110%"
-                     chartType="Gauge"
-                     chartLanguage = 'ru'
-                     loader={<div>Загружаем данные...</div>} 
-                     data={[
-                         ['Label', 'Value'],
-                         ['Зона 18',s181],
-                         ['Зона 16',s161],
-                       ]}
-                     legend_toggle={true}
-                     options={{
-                       width: 400, height: 150,
-                       redFrom: 0.8, redTo: 1,
-                       redColor: '#5882FA',
-                       yellowFrom:0.6, yellowTo: 0.8,
-                       yellowColor:'#819FF7',
-                       greenFrom: 0.4, greenTo: 0.6,
-                       greenColor:'#CED8F6',
-                       majorTicks: ['0', '0.2', '0.4', '0.6', '0.8','1' ],
-                       minorTicks: 10,
-                       min: 0,
-                       max: 1 
-                       }} 
-              />
-                        }
-                </div>
-              <div className="Buttons_1" id="chart_div_buttons">
-              <button className='butt'  onClick={() =>this.setState({ valueTrend: "241" })}>ТРЕНД 1-241</button>
-              <button className='butt'  onClick={() =>this.setState({ valueTrend: "181" })}>ТРЕНД 1-181</button>
-              <button className='butt'  onClick={() =>this.setState({ valueTrend: "161" })}>ТРЕНД 1-161</button>
-            </div> 
+                </div>      
+                  <div className="Buttons_2" id="chart_div_buttons">{this.state&&this.state.data241&&this.state.data181&&this.state.data161&&
+                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "241" })}>ТРЕНД 1-241</button> }
+                  {this.state&&this.state.data241&&this.state.data181&&this.state.data161&&
+                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "181" })}>ТРЕНД 1-181</button> }
+                  {this.state&&this.state.data241&&this.state.data181&&this.state.data161&&
+                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "161" })}>ТРЕНД 1-161</button> }
+                  </div> 
 
                 <div className="SimensTitle" id="chart_div_title">
                         <hr4>Второй канал</hr4>
@@ -197,6 +172,8 @@ export class Simens extends React.Component {
                             data={[
                                 ['Label', 'Value'],
                                 ['Зона 24',s242],
+                                ['Зона 18',s182],
+                                ['Зона 16',s162],
                               ]}
                             legend_toggle={true}
                             options={{
@@ -214,40 +191,13 @@ export class Simens extends React.Component {
                               }} 
                      />
                         }
-                </div>
-                <div className="Simens162&182" id="chart_div">
-                        {this.state&&this.state.data162&&this.state.data182&&<Chart
-                     width="100%"
-                     height="110%"
-                     chartType="Gauge"
-                     chartLanguage = 'ru'
-                     loader={<div>Загружаем данные...</div>} 
-                     data={[
-                         ['Label', 'Value'],
-                         ['Зона 18',s182],
-                         ['Зона 16',s162], 
-                       ]}
-                     legend_toggle={true}
-                     options={{
-                       width: 400, height: 150,
-                       redFrom: 0.8, redTo: 1,
-                       redColor: '#5882FA',
-                       yellowFrom:0.6, yellowTo: 0.8,
-                       yellowColor:'#819FF7',
-                       greenFrom: 0.4, greenTo: 0.6,
-                       greenColor:'#CED8F6',
-                       majorTicks: ['0', '0.2', '0.4', '0.6', '0.8','1' ],
-                       minorTicks: 10,
-                       min: 0,
-                       max: 1 
-                       }} 
-              />
-                        }
-                </div>       
-                  <div className="Buttons_2" id="chart_div_buttons">
-                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "242" })}>ТРЕНД 1-242</button>
-                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "182" })}>ТРЕНД 1-182</button>
-                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "162" })}>ТРЕНД 1-162</button>
+                </div>     
+                  <div className="Buttons_2" id="chart_div_buttons"> {this.state&&this.state.data242&&this.state.data182&&this.state.data162&&
+                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "242" })}>ТРЕНД 1-242</button> }
+                  {this.state&&this.state.data242&&this.state.data182&&this.state.data162&&
+                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "182" })}>ТРЕНД 1-182</button> }
+                  {this.state&&this.state.data242&&this.state.data182&&this.state.data162&&
+                  <button className='butt'  onClick={() =>this.setState({ valueTrend: "162" })}>ТРЕНД 1-162</button> }
                 </div> 
 
                 <div>

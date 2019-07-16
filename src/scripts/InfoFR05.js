@@ -57,8 +57,9 @@ export class InfoFR05 extends React.Component{
                     const dataTable=response.data[1];
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
-                    for (let i = 0; i < dataTimeLine.length-1; i += 1) {
+                    for (let i = 0; i < dataTimeLine.length; i += 1) {
                         if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
+                          if(i < dataTimeLine.length -1 ) {
                             rowsTimeLine.push([
                                         '1',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
@@ -108,8 +109,44 @@ export class InfoFR05 extends React.Component{
                                     ] 
                              );
                         }
-                    }
-                for (let i = 0; i < dataTable.length-1; i += 1) {
+                      else {
+                        rowsTimeLine.push([
+                          '1',
+                          dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                          '#b0d1f2',
+                          ReactDOMServer.renderToString(
+                              <HtmlToolTip 
+                                toolTipData={dataTable[i]}
+                                toolTipType={"fullfr"}
+                              />),
+                          new Date(dataTimeLine[i].STARTUP_TIME),
+                          new Date(dataTimeLine[i].end_time)
+                      ],
+                      ['1',  
+                      dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                      '#003366',
+                      ReactDOMServer.renderToString(<HtmlToolTip 
+                          toolTipData={dataTable[i]}
+                          toolTipType={"stop"}
+                        />),
+                      new Date(dataTimeLine[i].end_time),
+                      new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),
+                   ],  
+                   ['1', 
+                   dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                   '#0080ff',
+                   ReactDOMServer.renderToString(<HtmlToolTip 
+                      toolTipData={dataTable[i]}
+                      toolTipType={"start"}
+                    />), 	            
+                          new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
+                          new Date(dataTimeLine[i].STARTUP_TIME)
+                 ]
+                   );
+                }
+               }  
+             }
+                for (let i = 0; i < dataTable.length; i += 1) {
                    if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
                     rowsTable.push(
                                 [
@@ -118,7 +155,6 @@ export class InfoFR05 extends React.Component{
                                           moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
                                          dataTable[i].duration.toString(),
                                          dataTable[i].pause.toString()
-                                          
                             ]         
                           );
                         }

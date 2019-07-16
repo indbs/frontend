@@ -4,26 +4,30 @@ import Chart from 'react-google-charts';
 import './style.css';
 /*  /*  const data_url_test = 'http://172.16.20.75:8060/?graph=raisa&program_number=63&year=2019'; /**/
 
-export class GraphTest extends React.Component {  
-    constructor(props) {
-        super(props);
-        this.state = { 
-          potok: 10
-        };
-     
-      }
+export class GraphTest extends React.Component {
+        
     requestData(nextProps){
         const self = this;
+        const takeValue = this.props.commonValue;
         var x = nextProps;
+      
         const data_url = "http://172.16.20.75:8060/?graph=raisa&program_number="+x+"&year=2019";
-        console.log('data_url', data_url); 
+
         var chartDataCurrents=[],chartDataAirHeaters=[],chartDataShort=[];
         const chartDataAll =   [[{ type: 'date', label: 'Время'},'Азот SP, %', 'Азот PV, %','SP','Средняя °С', 'Ток L1, А', 'Ток L2, А', 'Ток L3, А', 
         'TC411, °С','TC412, °С', 'TC413, °С', 'A, %', 'B, %', 'C, %', 'D, %', 'E, %' ]];
         axios.get(data_url)
                 .then(function (response) {
+                    // handle success
+
                     const dataTable=response.data;
                     const dataTable2=response.data2;
+                    console.log('dataTable',dataTable);
+                    console.log('dataTable2',dataTable2);
+                    
+                    //if (dataTable){
+                    //    throw new Error('Error error error');
+                    //}
                     for (let i = 0; i < dataTable.length-1; i += 1) {
                         chartDataAll.push([
                             new Date(dataTable[i].time), 
@@ -43,16 +47,18 @@ export class GraphTest extends React.Component {
                             dataTable[i].flap_d_percent_position,
                             dataTable[i].flap_e_percent_position                         
                         ]);
+                        //new way
                         chartDataShort      = chartDataAll.map(function(row){return row.slice(0,5)});
                         chartDataCurrents   = chartDataAll.map(function(row){return row.slice(0,9)});
                         chartDataAirHeaters = chartDataAll.map(function(row){return [...row.slice(0,5),...row.slice(8,11)]});
                     }
+                    console.log('chartDataCurrents ', chartDataCurrents);
+
                     self.setState({dataToDisplay: chartDataShort});
                     self.setState({dataCurrents: chartDataCurrents});  
                     self.setState({dataAirHeaters: chartDataAirHeaters});  
                     self.setState({dataAll: chartDataAll}); 
-                    self.setState({dataShort: chartDataShort}); 
-                    console.log('# program to display: ',x);               
+                    self.setState({dataShort: chartDataShort});                
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -65,19 +71,23 @@ export class GraphTest extends React.Component {
     handleClickAll = () => {
         this.setState( {dataToDisplay: this.state.dataAll} );
     }
+
     handleClickShort = () => {
         this.setState( {dataToDisplay: this.state.dataShort} );
     }
+
     handleClickCurrents = () => {
         this.setState( {dataToDisplay: this.state.dataCurrents} );
     }
+
     handleClickAirHeaters = () => {
         this.setState( {dataToDisplay: this.state.dataAirHeaters} );
     }
+
     componentWillReceiveProps(nextProps) {
         console.log('next props', nextProps.commonValue); 
         console.log('value pass', this.props.commonValue);  
-
+  
         if (this.props.commonValue !== nextProps.commonValue) {
              this.requestData(nextProps.commonValue);
         }
@@ -85,9 +95,12 @@ export class GraphTest extends React.Component {
     }
 
     render() {
-        var x = this.props.commonValue;
-        return (
-            <div className="GraphPage">    
+
+        const takeValue = this.props.commonValue;
+        var x = Number(takeValue.valuePass);
+       
+      return (
+        <div className="GraphPage">    
                         <div className="Graph" id="chart_div">
                         {this.state && this.state.dataToDisplay &&<Chart
                             width={1300}
@@ -130,12 +143,12 @@ export class GraphTest extends React.Component {
                 />
                         }
                 </div>
-                {this.state && this.state.dataToDisplay &&<div className="Buttons" id="chart_div_buttons">
+            <div className="Buttons" id="chart_div_buttons">
                 <button className="butt"  onClick={this.handleClickCurrents}>Показать токи</button>
                 <button className="butt"  onClick={this.handleClickAirHeaters}>Показать возд. нагреватели</button>
                 <button className="butt"  onClick={this.handleClickShort}>Показать только темперутру</button>
                 <button className="butt"  onClick={this.handleClickAll}>Показать всё</button>
-             </div>}            
+            </div>             
         </div>
       );
     }
