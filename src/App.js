@@ -8,8 +8,9 @@ import Navbar from './components/navBar/Navbar';
 import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-
-
+import MenuList from './containers/menu-list.js'
+import ContactDetail from './containers/contact-detail'
+import SignIn from './containers/localStorageTest.js'
 
 import { render } from "react-dom";
 import { Chart } from "react-google-charts";
@@ -47,89 +48,6 @@ const columns = [
 
 
 class App extends Component {
- addUser() {
-      console.log('addUser', this.userInput.value);
-      this.props.onAddUser(this.userInput.value);
-      this.userInput.value = '';
-  }
-
-  findUser() {
-    console.log('findUser', this.searchInput.value);
-    this.props.onFindUser(this.searchInput.value);
-  }
-
-
-  handleSubmitRaisa = (e) => {
-    
-   
-    console.log("before CHANGE_VALUES", store.getState());
-    e.preventDefault();
- 
-
-    store.dispatch({
-      
-
-      type: "CHANGE_VALUES",
-      windowTables: false,
-      windowGraphic: true,
-      selcted_oven: 'raisa',
-      selectedBorn: 2,
-      lastBorn: 7
-    })
-    console.log("after CHANGE_VALUES", store.getState());
-
-  
-   
-  }
-
-  handleSubmitRaisa2 = (e) => {
-
-    e.preventDefault();
-    console.log("before CHANGE_VALUES", store.getState());
-    store.dispatch({
-      type: "CHANGE_VALUES",
-      windowTables: false,
-      windowGraphic: true,
-      selcted_oven: 'raisa2',
-      selectedBorn: 2,
-      lastBorn: 7
-    })
-    console.log("after CHANGE_VALUES", store.getState());
-    window.location.assign('http://localhost:3000/raisa2');
-  }
-
-  
-  handleSubmitFR05 = (e) => {
-    e.preventDefault();
-    console.log("before CHANGE_VALUES", store.getState());
-    store.dispatch({
-      type: "CHANGE_VALUES",
-      windowTables: false,
-      windowGraphic: true,
-      selcted_oven: 'FR05',
-      selectedBorn: 2,
-      lastBorn: 7
-    })
-    console.log("after CHANGE_VALUES", store.getState());
-    window.location.assign('http://localhost:3000/fr05');
-  }
-
-  handleSubmitFR06 = (e) => {
-    e.preventDefault();
-    console.log("before CHANGE_VALUES", store.getState());
-    store.dispatch({
-      type: "CHANGE_VALUES",
-      windowTables: false,
-      windowGraphic: true,
-      selcted_oven: 'FR06',
-      selectedBorn: 2,
-      lastBorn: 7
-    })
-    console.log("after CHANGE_VALUES", store.getState());
-    window.location.assign('http://localhost:3000/fr06');
-  }
-
-
   render() {
     console.log("users: ",this.props.users);
     return (
@@ -146,25 +64,20 @@ class App extends Component {
                   <Route path = '/redux' render={ () => <Redux />} />
                   <Route path = '/generalTimeLine' render={ () => <generalTimeLine />} />
                   <Route path = '/GraphTrend' render={ () => <GraphTrend />} />
-              
+                  <Route path = './containers/localStorageTest' render={ () => <SignIn />} />
            <div className = 'app-wrapper-content'>    
            <Main /> 
-  
-
-           </div>
-      
-      </div>
+     <div>
+     <MenuList />
+     <div>
+     <SignIn />
+     </div>
+     </div>
+    </div>
+    </div>
       </BrowserRouter>
     );
   }
 }
-/*
-const mapStateToProps = function(state) {
-  return {
-    windowTables: state.reduxValues[0].windowTables,
-    windowGraphic: state.reduxValues[0].windowGraphic,
-    id: state.reduxValues[0].id
-  }
-}
-*/
+
 export default App;

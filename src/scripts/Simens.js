@@ -3,6 +3,7 @@ import axios from 'axios';
 import Chart from 'react-google-charts';
 import GraphTrend from './GraphTrend';
 import './style.css';
+import './Simens.css';
 
 export class Simens extends React.Component {
 
@@ -155,7 +156,7 @@ export class Simens extends React.Component {
                   {this.state&&this.state.data241&&this.state.data181&&this.state.data161&&
                   <button className='butt'  onClick={() =>this.setState({ valueTrend: "161" })}>ТРЕНД 1-161</button> }
                   </div> 
-
+                <div className="simens2" id="chart_div2">
                 <div className="SimensTitle" id="chart_div_title">
                         <hr4>Второй канал</hr4>
                         <br />
@@ -199,11 +200,7 @@ export class Simens extends React.Component {
                   {this.state&&this.state.data242&&this.state.data182&&this.state.data162&&
                   <button className='butt'  onClick={() =>this.setState({ valueTrend: "162" })}>ТРЕНД 1-162</button> }
                 </div> 
-
-                <div>
-                 <p>   {this.state.valueTrend} </p>
-                </div>
-        
+               </div>
                 <div className={"my-graphTrend-div"}>
                   <GraphTrend    valueTrend={this.state.valueTrend}  />
                 </div>  

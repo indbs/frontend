@@ -17,8 +17,6 @@ export class GraphRaisa2 extends React.Component {
         'TC411, °С','TC412, °С', 'TC413, °С', 'A, %', 'B, %', 'C, %', 'D, %', 'E, %' ]];
         axios.get(data_url)
                 .then(function (response) {
-                    // handle success
-              
                     const dataTable=response.data;
                     for (let i = 0; i < dataTable.length-1; i += 1) {
                         chartDataAll.push([

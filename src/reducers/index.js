@@ -7,10 +7,16 @@ import users from './users';
 import windows from './windows';
 import filterUsers from './filterUsers';
 import reduxValues from './reduxValues';
-
+import ContactsReducer from './reducer_contacts'
+import ActiveContactReducer from './reducer_active_contact'
 
 export default combineReducers({
 
-  reduxValues
+  reduxValues,
+  contacts: ContactsReducer,
+	activeContact: ActiveContactReducer
 
 });
+
+
+

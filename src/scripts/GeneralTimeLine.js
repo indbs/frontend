@@ -26,7 +26,8 @@ const columns = [
     { type: 'date', id: 'Stop' }
   ];
 export class GeneralTimeLine extends React.Component{
-
+         
+   lastWorkRaisa = 0;
 
     constructor(props) {
             super(props);
@@ -45,18 +46,21 @@ export class GeneralTimeLine extends React.Component{
         const data_url4 = 'http://172.16.20.75:8060/?generaltimeline=fr06';
         const  rowsTable=[];
         const  rowsTimeLine=[];
+       
         axios.get(data_url)
                 .then(function (response) {
                     // handle success
                     const dataTable=response.data[1];
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
+                  
                     for (let i = 0; i < dataTimeLine.length; i += 1) {
                         if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
                           if ( i < dataTimeLine.length-1) {
                             rowsTimeLine.push([
                                         'Раиса',
                                         dataTimeLine[i].PROGRAM_NUMBER.toString(),
+                                        
                                         dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
                                         ReactDOMServer.renderToString(
                                             <HtmlToolTip 

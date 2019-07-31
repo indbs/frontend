@@ -171,12 +171,9 @@ export class InfoFR05 extends React.Component{
                     // always executed
                 });     
     }
-
-
     componentDidMount() {
         this.requestData();      
     }
-
     chartEvents =[
         {
         eventName: "select",
@@ -191,7 +188,6 @@ export class InfoFR05 extends React.Component{
         handleChange(value) {
             this.setState({ valuePass: value });
           }
-        
 
     render(){
         return (
@@ -207,7 +203,6 @@ export class InfoFR05 extends React.Component{
                                 { type: 'string', label: 'Stop' },
                                 { type: "string", label: "Продолжительность" },
                                 { type: "string",label: "Пауза" }
-                              
                             ]}    
                             width="100%"
                             height="100%"
@@ -217,15 +212,12 @@ export class InfoFR05 extends React.Component{
                                 allowHtml: true, 
                                 width:"100%"
                             }
-                            
                           }  
                             formatters={[
                              {
                                  type: 'PatternFormat',
                                  column: [1],
                                  options: '<a href=GraphRaisa value1={0}>{0} </a>' , 
-                            
-                            
                              },  
                            ]}
                       />}
@@ -243,22 +235,15 @@ export class InfoFR05 extends React.Component{
                             colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                             width:"1000px"
                         }}    
-                        
-                  
-         
                 chartEvents={this.chartEvents }
-
            />}
           </div>
           <div className={"my-graphFR05-div"}>
-              
-              <GraphFR05    commonValueFR05={this.state}/>
-               
+              <GraphFR05    commonValueFR05={this.state}/> 
               </div>
-
            </div>
            );
-            }
+      }
    }
           
 

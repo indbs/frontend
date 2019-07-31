@@ -1,5 +1,7 @@
 
 
+import { CHANGE_VALUES } from '../actions/actionTypes';
+
 
 
 
@@ -16,12 +18,14 @@ const initialState = [  {
 
 
 
-function reduxValues (state= initialState, action) {
+function reduxValues (state = initialState, action) {
     if (action.type === 'CHANGE_VALUES') {
+      console.log('I got test'); 
+      alert('I got test');
       return [
        /* ...state, */
         {
-                    
+             
             windowTables: action.windowTables,
             windowGraphic: action.windowGraphic,
             selcted_oven: action.selcted_oven,

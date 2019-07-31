@@ -18,11 +18,6 @@ var mockApiData = [
   ];
   
   
-
-
-
-
-  
   export const getUsers = () => dispatch => {
     setTimeout(() => {
       console.log('I got users');

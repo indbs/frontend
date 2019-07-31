@@ -9,6 +9,12 @@ import 'moment/locale/ru';
 import GraphRaisa2 from './GraphRaisa2';
 import { connect } from 'react-redux';
 
+
+import {addToDo } from '../actions/actions';
+
+import {addTodo} from '../actions/actions';
+
+
 var ReactDOMServer = require('react-dom/server');
 
 
@@ -31,7 +37,7 @@ export class InfoRaisa2 extends React.Component{
   
   constructor(props) {
     super(props);
-    this.state = { valuePass: "2" };
+    this.state = { valuePass: this.props.lastBorn };
     this.handleChange = this.handleChange.bind(this);
     
    /* this.handleSubmit = this.handleSubmit.bind(this);*/
@@ -40,6 +46,8 @@ export class InfoRaisa2 extends React.Component{
   handleChange(value) {
     this.setState({ valuePass: value });
   }
+
+
     requestData(){
         const self = this;
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa2';
@@ -64,8 +72,7 @@ export class InfoRaisa2 extends React.Component{
                                          dataTable[i].powerVAh.toString(),
                                          dataTable[i].powerkWh.toString()    
                             ]         
-                          );
-                        
+                          ); 
                     }
                     for (let i = 0; i < dataTimeLine.length; i += 1) {
                         if(i < dataTimeLine.length -1 ) {
@@ -152,18 +159,12 @@ export class InfoRaisa2 extends React.Component{
                                       new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(1, 'hours')),
                                       new Date(dataTimeLine[i].STARTUP_TIME)
                              ],
-                        
                     );
-
-
                             } 
-
-                            } 
-
+                     } 
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({dataTable: rowsTable});
                     self.setState({minDate: minValue});
-          
                  })         
                  .catch(function (error) {
                   // handle error
@@ -175,7 +176,8 @@ export class InfoRaisa2 extends React.Component{
   }
 
     componentDidMount() {
-        this.requestData();    
+        this.requestData();  
+    
     }
     chartEvents =[
       {
@@ -188,14 +190,23 @@ export class InfoRaisa2 extends React.Component{
          }
       ];
 
-    handleChange(value) {
-        this.setState({ valuePass: value });
+      handleSubmitFR05 = (e) => {
+        console.log("hello 2123");
+        alert("hju");
+        this.props.onTodoClick(); 
+
+    console.log("after CHANGE_VALUES");
+  
+    alert("hju");
+
       }
+     
+
     render(){
      return (
       <div className={"my-global-div"} >
        <div id="artical">     
-          <hr12>Раиса2 + {this.props.selcted_oven}</hr12>   
+          <hr12>Раиса2 + {this.props.lastBorn}</hr12>   
         </div>
      <div className={"my-table-div"}>
                             { this.state && this.state.dataTable &&<Chart
@@ -247,11 +258,18 @@ export class InfoRaisa2 extends React.Component{
           <div className={"my-graphRaisa-div"}>
              <GraphRaisa2    commonValueRaisa2={this.state}/>
           </div>
+          <form form onSubmit={this.handleSubmitFR05}>
+      <button>
+          Меню store FR05
+      </button>
+    </form>
+
+
      </div>
         
 
         );
-            }
+    }
    }
           
 
@@ -265,5 +283,24 @@ export class InfoRaisa2 extends React.Component{
       lastBorn: state.reduxValues[0].lastBorn
     }
   }
-  
-  export default connect(mapStateToProps)(InfoRaisa2);
+
+/*
+  const mapDispatchToProps = {
+    addToDo
+  }
+*/
+
+  const mapDispatchToProps = dispatch => {
+    alert("Hello2");
+    console.log("hello 2");
+    return {
+      onTodoClick: () => { // handles onTodoClick prop's call here
+        dispatch(addTodo())
+      }
+      
+    }
+
+    
+  }
+
+  export default connect(mapStateToProps,{mapDispatchToProps})(InfoRaisa2);

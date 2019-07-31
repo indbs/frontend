@@ -33,12 +33,7 @@ export class InfoRaisa extends React.Component{
           valueTwoTable: 10,
           flag: true
         };
-
         console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
-      
-
-        
-
         this.handleChange = this.handleChange.bind(this); 
         this.handleChangeTable = this.handleChangeTable .bind(this); 
       }
@@ -216,10 +211,8 @@ export class InfoRaisa extends React.Component{
   }
 
   render(){
-
     return (
       <div className={"my-global-div"} >
-
         <div id="artical">     
           <hr12>Раиса  + {this.props.selcted_oven}</hr12>   
         </div>
