@@ -1,11 +1,11 @@
 .butt_menu {
     background-color: rgb(210, 232, 247);
     border: 1px solid #9fbfdf;
-    width: 200px;
-    margin-right: 1px;
+    width: 240px;
+    margin-right: 0px;
     margin-bottom: 30px;
     padding: 5px 15px;
-    border-radius: 2px;
+    border-radius: 1px;
     color: black;
     text-align: center;
     text-decoration: none;

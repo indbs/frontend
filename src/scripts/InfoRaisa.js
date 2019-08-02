@@ -4,7 +4,7 @@ import Chart from "react-google-charts";
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
-import GraphTest from './GraphTest';
+import GraphRaisa from './GraphRaisa';
 //import {NavLink} from 'react-router-dom';
 import HtmlToolTip from './tooltip';
 import './InfoRaisa.css';
@@ -233,7 +233,7 @@ export class InfoRaisa extends React.Component{
                 { type: "string", label: "Полная мощность" },
                 { type: "string", label: "Активная мощность" },
               ]}         
-              width="100%"
+              width="1200px"
               height="100%"
               options={{
                 colors: ['#98719D', '#A0BD85', '#5DBAD9'],
@@ -253,7 +253,7 @@ export class InfoRaisa extends React.Component{
               chartLanguage = 'ru'
               rows={this.state.dateTimeLine}
               columns={columns}
-              width="1300px"
+              width="1200px"
               height="100px"
               options={{
                 colors: ['#98719D', '#A0BD85', '#5DBAD9'],
@@ -266,7 +266,7 @@ export class InfoRaisa extends React.Component{
             
         <div className={"my-graphRaisa-div"}>
           { this.state &&this.state.flag && 
-            <GraphTest commonValue={this.state.valuePass}/> 
+            <GraphRaisa commonValue={this.state.valuePass}/> 
           }
         </div>
     

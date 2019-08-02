@@ -4,9 +4,9 @@ import {NavLink} from 'react-router-dom';
 import MenuItem from './verticalMenu/MenuItem';
 import MenuButton from './verticalMenu/MenuButton';
 import Menu from './verticalMenu/Menu';
-import Footer from './verticalMenu/Footer';
+import './verticalMenu/styleMenu.css';
 
-class App2 extends React.Component {
+class VerticalMenu extends React.Component {
   
   constructor(props){
     super(props);
@@ -55,14 +55,13 @@ class App2 extends React.Component {
       }
 
     const menu = [ 
-      <NavLink to="/raisa"            style={{color: 'white', padding: '15px', textDecoration: 'none'}}> Раиса            </NavLink>,
-      <NavLink to="/raisa2"           style={{color: 'white', padding: '15px', textDecoration: 'none'}}> Раиса2           </NavLink>,
-      <NavLink to="/fr06"             style={{color: 'white', padding: '15px', textDecoration: 'none'}}> ФР06             </NavLink>,
-      <NavLink to="/fr05"             style={{color: 'white', padding: '15px', textDecoration: 'none'}}> ФР05             </NavLink>,
-      <NavLink to="/simens"           style={{color: 'white', padding: '15px', textDecoration: 'none'}}> Сименс           </NavLink>,
-      <NavLink to="/redux"            style={{color: 'white', padding: '15px', textDecoration: 'none'}}> Redux            </NavLink>,  
-      <NavLink to="/generalTimeLine"  style={{color: 'white', padding: '15px', textDecoration: 'none'}}> generalTimeLine  </NavLink>,
-      <NavLink to="/GraphTrend"       style={{color: 'white', padding: '15px', textDecoration: 'none'}}> GraphTrend       </NavLink>
+      <NavLink to="/raisa"            style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> Раиса            </NavLink>,
+      <NavLink to="/raisa2"           style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> Раиса2           </NavLink>,
+      <NavLink to="/fr06"             style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> ФР06             </NavLink>,
+      <NavLink to="/fr05"             style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> ФР05             </NavLink>,
+      <NavLink to="/simens"           style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> Сименс           </NavLink>, 
+      <NavLink to="/generalTimeLine"  style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> generalTimeLine  </NavLink>,
+      <NavLink to="/GraphTrend"       style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> GraphTrend       </NavLink>
     ];
 
     const menuItems = menu.map((val,index)=>{
@@ -85,12 +84,9 @@ class App2 extends React.Component {
         <Menu open={this.state.menuOpen}>
           {menuItems}
         </Menu>
-        <div id='VerticalMenuFooter' style={styles.body}>
-          <Footer name='Menu'/>
-        </div>
       </div>
     )
   }
 }
 
-export default App2;
+export default VerticalMenu;

@@ -26,7 +26,8 @@ class MenuItem extends React.Component{
         padding: '1rem 0',
         margin: '0 5%',
         cursor: 'pointer',
-        background: this.state.hover? '#a9bad4':'#b3cce6',
+        color: this.state.hover? '#657687':'white',
+        //background: this.state.hover? '#a9bad4':'#b3cce6',
         transition: 'color 0.2s ease-in-out',
         animation: '0.5s slideIn forwards',
         animationDelay:this.props.delay,
@@ -34,7 +35,7 @@ class MenuItem extends React.Component{
       },
       line: {
         width: '90%',
-        height: '2px',
+        height: '0px',          //Вместо этого можно вообще удалить объект line из разметки.
         'border-radius': '1px',
         background: '#9fbfdf',
         margin: '0 auto',

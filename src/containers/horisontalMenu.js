@@ -5,9 +5,9 @@ import selectOven from '../actions/action_select_test'
 import axios from 'axios';
 import {bindActionCreators} from 'redux'
 import { store } from "../store";
-import './menu-list.css';
+import './horisontalMenu.css';
 
-class MenuList extends Component {
+class HorisontalMenu extends Component {
    renderRaisa = (e) => {
     e.preventDefault();
 
@@ -126,4 +126,4 @@ function mapDispatchToProps(dispatch) {
     selectOven: selectOven}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuList)
+export default connect(mapStateToProps, mapDispatchToProps)(HorisontalMenu)

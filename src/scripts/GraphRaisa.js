@@ -4,7 +4,7 @@ import Chart from 'react-google-charts';
 import './style.css';
 /*  /*  const data_url_test = 'http://172.16.20.75:8060/?graph=raisa&program_number=63&year=2019'; /**/
 
-export class GraphTest extends React.Component {
+export class GraphRaisa extends React.Component {
         
     requestData(nextProps){
         const self = this;
@@ -103,7 +103,7 @@ export class GraphTest extends React.Component {
         <div className="GraphPage">    
                         <div className="Graph" id="chart_div">
                         {this.state && this.state.dataToDisplay &&<Chart
-                            width={1300}
+                            width={1200}
                             height={800}
                             chartType="LineChart"
                             chartLanguage = 'ru'
@@ -154,4 +154,4 @@ export class GraphTest extends React.Component {
     }
   }
  
-  export default GraphTest;
+  export default GraphRaisa;

@@ -33,8 +33,7 @@ const columns = [
 
 //google.charts.load('current', {'packages':['table', 'gauge' ,'controls', 'timeline'],'language': 'ru'});
 export class InfoRaisa2 extends React.Component{
-  
-  
+    
   constructor(props) {
     super(props);
     this.state = { valuePass: this.props.lastBorn };
@@ -46,7 +45,6 @@ export class InfoRaisa2 extends React.Component{
   handleChange(value) {
     this.setState({ valuePass: value });
   }
-
 
     requestData(){
         const self = this;
@@ -204,41 +202,41 @@ export class InfoRaisa2 extends React.Component{
 
     render(){
      return (
-      <div className={"my-global-div"} >
-       <div id="artical">     
+      <div className={"my-global-div"}>
+        <div id="artical">     
           <hr12>Раиса2 + {this.props.lastBorn}</hr12>   
         </div>
      <div className={"my-table-div"}>
-                            { this.state && this.state.dataTable &&<Chart
-                            chartType="Table"
-                            chartLanguage = 'ru'
-                            rows={this.state.dataTable}
-                            columns={[       
-                                    { type: 'string', label: 'Start' },
-                                    { type: "number",label:  "N обжига" },
-                                    { type: 'string', label: 'Stop' },
-                                    { type: "string", label: "Продолжительность" },
-                                    { type: "string", label: "Азот" },
-                                    { type: "string", label: "Вода" },
-                                    { type: "string", label: "Полная мощность" },
-                                    { type: "string", label: "Активная мощность" },
-                            ]}    
-                            width="100%"
-                            height="100%"
-                            options={{
-                                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-                                showRowNumber: true,
-                                allowHtml: true, 
-                                width:"100%"
-                            }}  
-                            formatters={[
-                             {
-                                 type: 'PatternFormat',
-                                 column: [1],
-                                 options: '<a href=GraphRaisa value1={0}>{0} </a>' ,  
-                             },  
-                           ]}
-                      />}
+      { this.state && this.state.dataTable &&<Chart
+        chartType="Table"
+        chartLanguage = 'ru'
+        rows={this.state.dataTable}
+        columns={[       
+                { type: 'string', label: 'Start' },
+                { type: "number",label:  "N обжига" },
+                { type: 'string', label: 'Stop' },
+                { type: "string", label: "Продолжительность" },
+                { type: "string", label: "Азот" },
+                { type: "string", label: "Вода" },
+                { type: "string", label: "Полная мощность" },
+                { type: "string", label: "Активная мощность" },
+        ]}    
+        width="1200px"
+        height="100%"
+        options={{
+            colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+            showRowNumber: true,
+            allowHtml: true, 
+            width:"100%"
+        }}  
+        formatters={[
+          {
+              type: 'PatternFormat',
+              column: [1],
+              options: '<a href=GraphRaisa value1={0}>{0} </a>' ,  
+          },  
+      ]}
+/>}
      </div>
       <div className={"my-timeline-div"}>
                         { this.state && this.state.dateTimeLine &&<Chart
