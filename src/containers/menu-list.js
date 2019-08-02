@@ -48,20 +48,26 @@ class MenuList extends Component {
    //    this.props.selectOven('fr06', value);
   }
 
+  renderSiemens = (e) => {
+    e.preventDefault();
+ //      const value = lastWork('http://172.16.20.75:8060/?generaltimeline=fr06');
+   //    this.props.selectOven('fr06', value);
+  }
+
   render() {
     return (
-        <div className="btn-group">
-         <form  className='butt' onSubmit={this.renderRaisa}><button  margin = '0' padding ='0'>Raisa</button> </form>
-         <form className='butt' margin = '0' padding ='0'   onSubmit={this.renderRaisa2}>< button  >Raisa2</button> </form>
-         <form className='butt' margin = '0' padding ='0'  onSubmit={this.renderFR05}><button>FR05</button> </form>
-         <form className='butt'  margin = '0' padding ='0'  onSubmit={this.renderFR06}><button>FR06</button> </form>
+      <div>
+        <button className='butt_menu' onClick={this.renderRaisa}>     Раиса    </button>
+        <button className='butt_menu' onClick={this.renderRaisa2}>    Раиса 2  </button>
+        <button className='butt_menu' onClick={this.renderFR05}>      ФР05     </button>
+        <button className='butt_menu' onClick={this.renderFR06}>      ФР06     </button>
+        <button className='butt_menu' onClick={this.renderSiemens}>   Сименс   </button>
       </div>
     );
   }
 }
 
-
- async function handleResponse(url){
+async function handleResponse(url){
   var result = 0;
   console.log("result 1", result);
   result = await axiosTest(url);
@@ -70,20 +76,22 @@ class MenuList extends Component {
 
 async function axiosTest (url) {
   const data_url = url;
-return await axios.get(data_url)
-.then(function (response) {
-         const dataTimeLine=response.data[1];  /*  [dataTimeLine.length-1].PROGRAM_NUMBER */ 
-         const value = dataTimeLine[dataTimeLine.length-1].PROGRAM_NUMBER; 
-         console.log("result 2", value);
+ 
+  return  axios.get(data_url)
+  .then(function (response) {
+      const dataTimeLine=response.data[1];  /*  [dataTimeLine.length-1].PROGRAM_NUMBER */ 
+      const value = dataTimeLine[dataTimeLine.length-1].PROGRAM_NUMBER; 
+      console.log("result 2", value);
+      
+      return value; 
+    }
+  )
+  .catch(function (error) {
+      console.log(error);
+    }
+  );
 
-         dispatch(        )
-
-        return value;})
-.catch(function (error) {
-console.log(error);
-});
 }
-
 
 /*
 async function lastWork() {

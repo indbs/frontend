@@ -1,4 +1,3 @@
-
 import * as React from "react";
 
 function Footer(props) {
@@ -42,6 +41,5 @@ function Footer(props) {
     color: '',
     title: ''
   }
-
 
   export default Footer;
