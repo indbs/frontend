@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import pbkdf2 from 'crypto-js/pbkdf2';
 import crypto from 'crypto-js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import  '../bootstrap.min.css';
 
 class SignIn extends Component {
   state = {
