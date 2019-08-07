@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import pbkdf2 from 'crypto-js/pbkdf2';
 import crypto from 'crypto-js';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 class SignIn extends Component {
   state = {
@@ -32,18 +33,54 @@ class SignIn extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <label>
-          Пользователь: <input name="user" value={this.state.user} onChange={this.handleChange} />
-        </label>
-        <label>
-          <input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox" /> 
-          Запомнить меня
-        </label>
-        <button type="submit">
-          Войти
-        </button>
-      </form>
+      <Formik
+        initialValues={{
+          email: '',
+          password: ''
+        }} 
+        validate={values => {
+          let errors = {};
+          if (!values.email) {
+            errors.email = 'Введите email';
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Неправильный email';
+          }
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        {({ values, handleChange, isSubmitting, errors, touched }) => (        
+          <Form>
+
+            <div className="form-group">
+              <label htmlFor="email">email</label>
+              <Field className={'form-control'} name="email" type="email" onChange={handleChange} />
+              <ErrorMessage name="username" component="div" className="invalid-feedback" />
+            </div>
+            {errors.email && touched.email && errors.email}
+            
+            <div className="form-group">
+              <label htmlFor="password">Пароль</label>
+              <Field  className={'form-control'} name="password" type="password" onChange={handleChange} />
+            </div>
+            {errors.password && touched.password && errors.password}
+
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                Войти
+              </button>
+            </div>
+
+          </Form>      
+        )}
+      </Formik>
     );
   }
 }
