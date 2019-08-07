@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import pbkdf2 from 'crypto-js/pbkdf2';
+import crypto from 'crypto-js';
 
 class SignIn extends Component {
   state = {
@@ -11,6 +12,9 @@ class SignIn extends Component {
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
     const user = rememberMe ? localStorage.getItem('user') : '';
     this.setState({ user, rememberMe });
+    console.log('pbkdf2 password:',"password");
+    console.log('pbkdf2 hash:',pbkdf2("password",crypto.lib.WordArray.random(128/8),{ keySize: 512/32, iterations: 1000 }).toString());     //length 128
+    console.log('pbkdf2 hash lenght:',pbkdf2("password",crypto.lib.WordArray.random(128/8),{ keySize: 512/32, iterations: 1000 }).toString().length);
   }
 
   handleChange = (event) => {
@@ -30,14 +34,18 @@ class SignIn extends Component {
     return (
       <form onSubmit={this.handleFormSubmit}>
         <label>
-          User: <input name="user" value={this.state.user} onChange={this.handleChange} /></label>
-        <label>
-          <input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox" /> Remember me
+          Пользователь: <input name="user" value={this.state.user} onChange={this.handleChange} />
         </label>
-        <button type="submit">Sign In</button>
+        <label>
+          <input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox" /> 
+          Запомнить меня
+        </label>
+        <button type="submit">
+          Войти
+        </button>
       </form>
     );
   }
-
 }
+
 export default SignIn;

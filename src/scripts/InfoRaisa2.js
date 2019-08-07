@@ -9,14 +9,9 @@ import 'moment/locale/ru';
 import GraphRaisa2 from './GraphRaisa2';
 import { connect } from 'react-redux';
 
-
-import {addToDo } from '../actions/actions';
-
 import {addTodo} from '../actions/actions';
 
-
 var ReactDOMServer = require('react-dom/server');
-
 
 require('datejs');  
 
@@ -188,85 +183,75 @@ export class InfoRaisa2 extends React.Component{
          }
       ];
 
-      handleSubmitFR05 = (e) => {
-        console.log("hello 2123");
-        alert("hju");
-        this.props.onTodoClick(); 
-
-    console.log("after CHANGE_VALUES");
-  
-    alert("hju");
-
-      }
+    handleSubmitFR05 = (e) => {
+      console.log("hello 2123");
+      this.props.onTodoClick(); 
+      console.log("after CHANGE_VALUES");
+    }
      
-
     render(){
      return (
       <div className={"my-global-div"}>
         <div id="artical">     
           <hr12>Раиса2 + {this.props.lastBorn}</hr12>   
         </div>
-     <div className={"my-table-div"}>
-      { this.state && this.state.dataTable &&<Chart
+      <div className={"my-table-div"}>
+      {this.state && this.state.dataTable &&<Chart
         chartType="Table"
         chartLanguage = 'ru'
         rows={this.state.dataTable}
         columns={[       
-                { type: 'string', label: 'Start' },
-                { type: "number",label:  "N обжига" },
-                { type: 'string', label: 'Stop' },
-                { type: "string", label: "Продолжительность" },
-                { type: "string", label: "Азот" },
-                { type: "string", label: "Вода" },
-                { type: "string", label: "Полная мощность" },
-                { type: "string", label: "Активная мощность" },
+          { type: 'string', label: 'Start' },
+          { type: "number",label:  "N обжига" },
+          { type: 'string', label: 'Stop' },
+          { type: "string", label: "Продолжительность" },
+          { type: "string", label: "Азот" },
+          { type: "string", label: "Вода" },
+          { type: "string", label: "Полная мощность" },
+          { type: "string", label: "Активная мощность" },
         ]}    
         width="1200px"
         height="100%"
         options={{
-            colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-            showRowNumber: true,
-            allowHtml: true, 
-            width:"100%"
+          colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+          showRowNumber: true,
+          allowHtml: true, 
+          width:"100%"
         }}  
         formatters={[
           {
-              type: 'PatternFormat',
-              column: [1],
-              options: '<a href=GraphRaisa value1={0}>{0} </a>' ,  
+            type: 'PatternFormat',
+            column: [1],
+            options: '<a href=GraphRaisa value1={0}>{0} </a>' ,  
           },  
       ]}
 />}
-     </div>
-      <div className={"my-timeline-div"}>
-                        { this.state && this.state.dateTimeLine &&<Chart
-                        chartType="Timeline"
-                        chartLanguage = 'ru'
-                        rows={this.state.dateTimeLine}
-                                columns={columns}
-                        width="1200px"
-                        height="100px"
-                        options={{
-                            colors: ['#98719D', '#A0BD85', '#5DBAD9'],
-                            width:"100%"
-                        }}    
-                        chartEvents={this.chartEvents }
-           />}
-          </div>
-          <div className={"my-graphRaisa-div"}>
-             <GraphRaisa2    commonValueRaisa2={this.state}/>
-          </div>
-          <form form onSubmit={this.handleSubmitFR05}>
-      <button>
+    </div>
+      <div className={"my-timeline-div-info-raisa"}>
+        { this.state && this.state.dateTimeLine &&<Chart
+          chartType="Timeline"
+          chartLanguage = 'ru'
+          rows={this.state.dateTimeLine}
+                  columns={columns}
+          width="1200px"
+          height="100px"
+          options={{
+              colors: ['#98719D', '#A0BD85', '#5DBAD9'],
+              width:"100%"
+          }}    
+          chartEvents={this.chartEvents }
+        />}
+      </div>
+      <div className={"my-graphRaisa-div"}>
+        <GraphRaisa2    commonValueRaisa2={this.state}/>
+      </div>
+      <form form onSubmit={this.handleSubmitFR05}>
+        <button>
           Меню store FR05
-      </button>
-    </form>
-
-
-     </div>
-        
-
-        );
+        </button>
+      </form>
+  </div>
+      );
     }
    }
           

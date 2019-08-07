@@ -217,7 +217,7 @@ export class InfoRaisa extends React.Component{
           <hr12>Раиса  + {this.props.selcted_oven}</hr12>   
         </div>
         
-        <div className={"my-table-div"}>
+        <div id='table' className={"my-table-div"}>
           { this.state && this.state.dataTable && this.props.id !=1000 &&
             <Chart
               chartType="Table"
@@ -246,7 +246,7 @@ export class InfoRaisa extends React.Component{
           }
         </div> 
 
-        <div className={"my-timeline-div"}>
+        <div id='timeline' className={"my-timeline-div-info-raisa"}>
           { this.state && this.state.dateTimeLine &&
             <Chart
               chartType="Timeline"
@@ -264,13 +264,13 @@ export class InfoRaisa extends React.Component{
           }
         </div>
             
-        <div className={"my-graphRaisa-div"}>
+        <div id='graph' className={"my-graphRaisa-div"}>
           { this.state &&this.state.flag && 
             <GraphRaisa commonValue={this.state.valuePass}/> 
           }
         </div>
     
-        <div className={"my-graphRaisa-div"}>
+        <div id='two_tables' className={"my-graphRaisa-div"}>
           { this.state &&!this.state.flag &&       
             <TwoTablesRaisa value1={this.state.valueTwoTable}/>
           }

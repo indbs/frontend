@@ -3,9 +3,9 @@ import axios from 'axios';
 import Chart from 'react-google-charts';
 import GraphTrend from './GraphTrend';
 import './style.css';
-import './Simens.css';
+import './Siemens.css';
 
-export class Simens extends React.Component {
+export class Siemens extends React.Component {
 
     constructor(props) {
         super(props);
@@ -209,4 +209,4 @@ export class Simens extends React.Component {
       );
     }
   }
-  export default Simens;
+  export default Siemens;

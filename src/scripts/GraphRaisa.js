@@ -104,7 +104,7 @@ export class GraphRaisa extends React.Component {
                         <div className="Graph" id="chart_div">
                         {this.state && this.state.dataToDisplay &&<Chart
                             width={1200}
-                            height={800}
+                            height={600}
                             chartType="LineChart"
                             chartLanguage = 'ru'
                             loader={<div>Загружаем данные...</div>}

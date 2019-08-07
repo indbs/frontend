@@ -1,20 +1,13 @@
-
 .my-table-div{
-    margin-bottom: 0px; 
-    margin-top: 0px;
-    background-color: green; 
-    height: 0px;
-  }
+  margin-bottom: 0px; 
+  margin-top: 0px;
+}
 
+.my-timeline-div-info-raisa {
+  margin-bottom: 0px; 
+  margin-top: 0px; 
+}
 
-  .my-timeline-div {
-    margin-bottom: 0px; 
-    margin-top: 1000px; 
-    
-  }
-
-
-
-  .my-text-div {
-    margin-top: 260px; 
-  }
+.my-text-div {
+  margin-top: 260px; 
+}
