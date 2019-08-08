@@ -7,6 +7,7 @@
     "crypto-js": "^3.1.9-1",
     "datejs": "^1.0.0-rc3",
     "formik": "^1.5.8",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-burger-menu": "^2.6.10",
@@ -20,7 +21,8 @@
     "react-scripts": "3.0.1",
     "react-simple-tree-menu": "^1.1.4",
     "redux": "^1.0.0-rc",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rxjs": "^6.5.2"
   },
   "scripts": {
     "start": "react-scripts start",

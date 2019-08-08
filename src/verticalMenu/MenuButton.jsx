@@ -22,8 +22,8 @@ class MenuButton extends React.Component {
   render(){
     const styles = {
       container: {
-        height: '32px',
-        width: '32px',
+        height: '52px',   //32px before import  '../bootstrap.min.css'; in localStorageTest.js
+        width: '52px',
         display:'flex',
         flexDirection: 'column',
         justifyContent: 'center',
