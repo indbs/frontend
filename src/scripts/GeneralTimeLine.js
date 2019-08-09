@@ -46,8 +46,8 @@ export class GeneralTimeLine extends React.Component{
         const data_url4 = 'http://172.16.20.75:8060/?generaltimeline=fr06';
         const  rowsTable=[];
         const  rowsTimeLine=[];
-       
-        axios.get(data_url)
+        const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
+        axios.get(data_url, {headers: {'Authorization': AuthStr.token}})
                 .then(function (response) {
                     // handle success
                     const dataTable=response.data[1];
@@ -151,7 +151,7 @@ export class GeneralTimeLine extends React.Component{
                     self.setState({minDate: minValue});
                 })
 
-                axios.get(data_url2)
+                axios.get(data_url2, {headers: {'Authorization': AuthStr.token}})
                 .then(function (response) {
                     const dataTimeLine=response.data[1];
                     const minValue=(Date.today().addMonths(-1));
@@ -250,7 +250,7 @@ export class GeneralTimeLine extends React.Component{
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({minDate: minValue});
                 })
-                axios.get(data_url3)
+                axios.get(data_url3, {headers: {'Authorization': AuthStr.token}})
                 .then(function (response) {
                     // handle success
                     const dataTimeLine=response.data[1];
@@ -347,7 +347,7 @@ export class GeneralTimeLine extends React.Component{
                     self.setState({dateTimeLine: rowsTimeLine}); 
                     self.setState({minDate: minValue});
                 })
-                axios.get(data_url4)
+                axios.get(data_url4, {headers: {'Authorization': AuthStr.token}})
                 .then(function (response) {
                     const dataTimeLine=response.data;
                     const dataTable=response.data;
@@ -490,11 +490,10 @@ export class GeneralTimeLine extends React.Component{
         />}
       </div>
 
-  <div className={"my-text-div"}>
-      <p > <a href = "mailto:b.smirnov@rusgates.ru; e.avdeeva@rusgates.ru"> Служба тех. Поддержки </a> </p>  
-      <br />
-       <p > © АО "Ферроприбор" </p>   
-       </div> 
+    <div className={"my-text-div"}>
+      <p > <a href = "mailto:b.smirnov@rusgates.ru; e.avdeeva@rusgates.ru"> Служба тех. поддержки </a> </p>  
+      <p > © АО "Ферроприбор" </p>   
+    </div> 
    </div>
    );
     }

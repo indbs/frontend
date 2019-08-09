@@ -41,7 +41,8 @@ export class InfoFR06 extends React.Component{
         const data_url = 'http://172.16.20.75:8060/?generaltimeline=fr06';
         const rowsTimeLine= [];
         const rowsTable= [];
-        axios.get(data_url)
+        const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
+        axios.get(data_url, {headers: {'Authorization': AuthStr.token}})
                 .then(function (response) {
                     const dataTimeLine=response.data;
                     const dataTable=response.data;

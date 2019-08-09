@@ -80,33 +80,21 @@ class App extends Component {
               </div>
             </div>
           }     
-          {currentUser && <Redirect to = '/generalTimeLine'/>}  
-          {/*<div className="jumbotron">
-              <div className="container">
-                  <div className="row">
-                      <div className="col-md-6 offset-md-3">
-                          {/*}
-                          <PrivateRoute     path="/generalTimeLine" component={GeneralTimeLine} />
-                          <Route            path="/welcomePage"     component={WelcomePage} />
-                          */}
-                          <div id= 'content' className = 'app-wrapper' >
-                            <PrivateRoute path =           '/raisa'                      component={InfoRaisa} />
-                            <PrivateRoute path =           '/raisa2'                     component={InfoRaisa2} />
-                            <PrivateRoute path =           '/fr06'                       component={InfoFR06} />
-                            <PrivateRoute path =           '/fr05'                       component={InfoFR05} />
-                            <PrivateRoute path =           '/siemens'                    component={Siemens} />
-                            <PrivateRoute path =           '/twoTablesRaisa'             component={TwoTablesRaisa} />
-                            <PrivateRoute path =           '/generalTimeLine'            component={GeneralTimeLine} />
-                            <PrivateRoute path =           '/GraphTrend'                 component={GraphTrend} />
-                            <Route path =                  '/welcomePage'                component={SignIn} />
-                          </div>
-          {/*}                
-                      </div>
-                  </div>
-              </div>
+
+          <div id= 'content' className = 'app-wrapper' >
+            <PrivateRoute exact path =       '/raisa'                      component={InfoRaisa} />
+            <PrivateRoute exact path =       '/raisa2'                     component={InfoRaisa2} />
+            <PrivateRoute exact path =       '/fr06'                       component={InfoFR06} />
+            <PrivateRoute exact path =       '/fr05'                       component={InfoFR05} />
+            <PrivateRoute exact path =       '/siemens'                    component={Siemens} />
+            <PrivateRoute exact path =       '/twoTablesRaisa'             component={TwoTablesRaisa} />
+            <PrivateRoute exact path =       '/generalTimeLine'            component={GeneralTimeLine} />
+            <PrivateRoute exact path =       '/GraphTrend'                 component={GraphTrend} />
+            <Route path =                    '/welcomePage'                component={SignIn} />
           </div>
-          */}
           
+          <Redirect to = '/welcomePage'/>
+
           {currentUser &&
             <div id='app-wrapper-content' className = 'app-wrapper-content'>    
               <VerticalMenu />

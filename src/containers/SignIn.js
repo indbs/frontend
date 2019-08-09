@@ -104,7 +104,7 @@ class SignIn extends Component {
           authenticationService.login(email, password)
               .then(
                   user => {
-                      const { from } = this.props.location.state || { from: { pathname: "/" } };
+                      const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
                       this.props.history.push(from);
                   },
                   error => {

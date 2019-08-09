@@ -33,7 +33,7 @@ export class InfoRaisa extends React.Component{
           valueTwoTable: 10,
           flag: true
         };
-        console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
+        //console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
         this.handleChange = this.handleChange.bind(this); 
         this.handleChangeTable = this.handleChangeTable .bind(this); 
       }
@@ -43,7 +43,8 @@ export class InfoRaisa extends React.Component{
     const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa';
     const  rowsTable=[];
     const  rowsTimeLine=[];
-    axios.get(data_url)
+    const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
+    axios.get(data_url, {headers: {'Authorization': AuthStr.token}})
       .then(function (response) {
         // handle success
         const dataTable=response.data[1];
@@ -177,9 +178,9 @@ export class InfoRaisa extends React.Component{
       callback  : ({chartWrapper}) => {        
         var selection = chartWrapper.getChart().getSelection();
         var value = chartWrapper.getDataTable().getValue(selection[0].row,1);
-        console.log('value draw before change state',this.state.valuePass);      
+        //console.log('value draw before change state',this.state.valuePass);      
         this.handleChange(value);
-        console.log('value draw after change state',this.state.valuePass);
+        //console.log('value draw after change state',this.state.valuePass);
       }
     }
   ];
@@ -191,7 +192,7 @@ export class InfoRaisa extends React.Component{
         var selection = chartWrapper.getChart().getSelection();
         var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
         this.handleChangeTable(valueTable);
-        console.log('value two table',this.state.valueTwoTable);
+        //console.log('value two table',this.state.valueTwoTable);
       }
     }            
   ];
