@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter,Route, Redirect, Link} from "react-router-dom";
+import {BrowserRouter, Route, Router, Redirect, Link} from "react-router-dom";
 import './App.css';
 import Header from './components/header/Header';
 import Navbar from './components/navBar/Navbar';
@@ -28,6 +28,8 @@ import VerticalMenu from './VerticalMenu';
 import WelcomePage from './welcomePage'
 import { PrivateRoute } from './components/PrivateRoute';
 import { authenticationService } from './services/authentication';
+import { history } from './helpers/history';
+import SignIn from './containers/SignIn'
 
 var ReactDOMServer = require('react-dom/server');
 require('datejs'); 
@@ -48,6 +50,7 @@ class App extends Component {
 
   logout() {
     authenticationService.logout();
+    history.push('/welcomePage');
   }
   
   render() {
@@ -60,61 +63,59 @@ class App extends Component {
       
       <div id='welcome_guys_to_our_best_industrial_information_solution_software'>
         
-        {currentUser &&
-          <div id='HorisontalMenu' style = {{'margin-left': '10%'}} >
-            <HorisontalMenu />
-          </div>
-        } 
-
-        <BrowserRouter>      
-          <div id= 'content' className = 'app-wrapper' >
-             {/*  
-            <div id='logout_navbar'>
-              {currentUser &&
-                <nav className="navbar navbar-expand navbar-dark bg-dark">
-                  <div id='inner_logout_navbar' className="navbar-nav">
-                    <Link to="/" className="nav-item nav-link">Home</Link>
-                    <a onClick={this.logout} className="nav-item nav-link">Logout</a>
-                  </div>
-                </nav>
-              }
+        <Router history={history}>      
+          {/*<div id= 'content' className = 'app-wrapper' >*/}
+          {currentUser &&
+            <div id='HorisontalMenu' style = {{'margin-left': '10%'}} >
+              <HorisontalMenu />
+              <div id='logout_navbar' style = {{'width': '1200px'}} >
+                {currentUser &&
+                  <nav className="navbar navbar-expand navbar-dark bg-dark">
+                    <div id='inner_logout_navbar' className="navbar-nav">
+                      <Link to="/welcomePage" className="nav-item nav-link">Войти</Link>
+                      <a onClick={this.logout} className="nav-item nav-link">Выйти</a>
+                    </div>
+                  </nav>
+                }
+              </div>
             </div>
-                     
-            <div className="jumbotron">
+          }     
+          {currentUser && <Redirect to = '/generalTimeLine'/>}  
+          {/*<div className="jumbotron">
               <div className="container">
-                <div className="row">
-                  <div className="col-md-6 offset-md-3">
-                    <PrivateRoute exact path="/" component={WelcomePage} />
-                    <Route path="/welcomePage" component={WelcomePage} />
+                  <div className="row">
+                      <div className="col-md-6 offset-md-3">
+                          {/*}
+                          <PrivateRoute     path="/generalTimeLine" component={GeneralTimeLine} />
+                          <Route            path="/welcomePage"     component={WelcomePage} />
+                          */}
+                          <div id= 'content' className = 'app-wrapper' >
+                            <PrivateRoute path =           '/raisa'                      component={InfoRaisa} />
+                            <PrivateRoute path =           '/raisa2'                     component={InfoRaisa2} />
+                            <PrivateRoute path =           '/fr06'                       component={InfoFR06} />
+                            <PrivateRoute path =           '/fr05'                       component={InfoFR05} />
+                            <PrivateRoute path =           '/siemens'                    component={Siemens} />
+                            <PrivateRoute path =           '/twoTablesRaisa'             component={TwoTablesRaisa} />
+                            <PrivateRoute path =           '/generalTimeLine'            component={GeneralTimeLine} />
+                            <PrivateRoute path =           '/GraphTrend'                 component={GraphTrend} />
+                            <Route path =                  '/welcomePage'                component={SignIn} />
+                          </div>
+          {/*}                
+                      </div>
                   </div>
-                </div>
               </div>
-            </div>
-            */} 
-            
-            <div>
-              <Route path = '/raisa'              render={ () => <InfoRaisa /> } />
-              <Route path = '/raisa2'             render={ () => <InfoRaisa2 /> } />
-              <Route path = '/fr06'               render={ () => <InfoFR06 /> } />
-              <Route path = '/fr05'               render={ () => <InfoFR05 /> } />
-              <Route path = '/simens'             render={ () => <Siemens /> } />
-              <Route path = '/twoTablesRaisa'     render={ () => <TwoTablesRaisa /> } />
-              <Route path = '/generalTimeLine'    render={ () => <GeneralTimeLine />} />
-              <Route path = '/GraphTrend'         render={ () => <GraphTrend />} />
-              <Route path = '/welcomePage'        render={ () => <WelcomePage />} />
-            </div>
-            
-            <Redirect to = '/welcomePage'/>
-            
-            {currentUser &&
-              <div id='app-wrapper-content' className = 'app-wrapper-content'>    
-                <VerticalMenu />
-              </div>
-            }
-
-
           </div>
-        </BrowserRouter>
+          */}
+          
+          {currentUser &&
+            <div id='app-wrapper-content' className = 'app-wrapper-content'>    
+              <VerticalMenu />
+            </div>
+          }
+
+
+          {/*</div>*/}
+        </Router>
 
       </div>
     );

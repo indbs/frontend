@@ -59,7 +59,7 @@ class VerticalMenu extends React.Component {
       <NavLink to="/raisa2"           style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> Раиса2           </NavLink>,
       <NavLink to="/fr06"             style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> ФР06             </NavLink>,
       <NavLink to="/fr05"             style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> ФР05             </NavLink>,
-      <NavLink to="/simens"           style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> Сименс           </NavLink>, 
+      <NavLink to="/siemens"          style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> Сименс           </NavLink>, 
       <NavLink to="/generalTimeLine"  style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> generalTimeLine  </NavLink>,
       <NavLink to="/GraphTrend"       style={{color: 'inherit', padding: '15px', textDecoration: 'none'}}> GraphTrend       </NavLink>
     ];

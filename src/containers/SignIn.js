@@ -7,6 +7,15 @@ import { authenticationService } from '../services/authentication';
 //import jwt from 'jsonwebtoken';
 
 class SignIn extends Component {
+  constructor(props) {
+    super(props);
+
+    // redirect to home if already logged in
+    if (authenticationService.currentUserValue) { 
+        this.props.history.push('/generalTimeLine');
+    }
+  }
+  
   state = {
     user: '',
     rememberMe: false
@@ -52,6 +61,15 @@ class SignIn extends Component {
 
   render() {
     return (
+			<div id='SignIn' style = {{'margin-left': '30%','margin-right': '30%','margin-top': '15vh'}} >
+				<div id='welcome_words' style = {{'text-align': 'center','margin-bottom': '2%', color: '#3560db', 'font-size': '15pt'}} >
+					Добро пожаловать!
+				</div> 
+				<div id='welcome_describe' style = {{'margin-bottom': '4%','text-align': 'center', color: '#484848'}} >
+					Для продолжения работы необходимо войти в систему!
+				</div>
+
+
       <Formik
         initialValues={{
           email: '',
@@ -65,6 +83,9 @@ class SignIn extends Component {
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
           ) {
             errors.email = 'Неправильный email';
+          }
+          if (!values.password) {
+            errors.password = 'Введите пароль';
           }
           return errors;
         }}
@@ -93,19 +114,19 @@ class SignIn extends Component {
               );
         }}
       >
-      {({ values, handleChange, isSubmitting, errors, touched }) => (        
+      {({ values, status, handleChange, isSubmitting, errors, touched }) => (        
         <Form>
 
           <div className="form-group">
             <label htmlFor="email">email</label>
-            <Field className={'form-control'} name="email" type="email" onChange={handleChange} />
+            <Field className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} name="email" type="email" onChange={handleChange} />
             <ErrorMessage name="email" component="div" className="invalid-feedback" />
           </div>
           {errors.email && touched.email && errors.email}
           
           <div className="form-group">
             <label htmlFor="password">Пароль</label>
-            <Field  className={'form-control'} name="password" type="password" onChange={handleChange} />
+            <Field  className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} name="password" type="password" onChange={handleChange} />
             <ErrorMessage name="password" component="div" className="invalid-feedback" />
           </div>
           {errors.password && touched.password && errors.password}
@@ -114,11 +135,19 @@ class SignIn extends Component {
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
               Войти
             </button>
+            {isSubmitting &&
+              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            }
           </div>
+
+          {status &&
+            <div className={'alert alert-danger'}>{status}</div>
+          }
 
         </Form>      
       )}
       </Formik>
+      </div>  
     );
   }
 }
