@@ -26,17 +26,17 @@ const columns = [
 ];
 
 export class InfoRaisa extends React.Component{
-      constructor(props) {
-        super(props);
-        this.state = { 
-          valuePass: 10,
-          valueTwoTable: 10,
-          flag: true
-        };
-        //console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
-        this.handleChange = this.handleChange.bind(this); 
-        this.handleChangeTable = this.handleChangeTable .bind(this); 
-      }
+  constructor(props) {
+    super(props);
+    this.state = { 
+      valuePass: 10,
+      valueTwoTable: 10,
+      flag: true
+    };
+    //console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
+    this.handleChange = this.handleChange.bind(this); 
+    this.handleChangeTable = this.handleChangeTable.bind(this); 
+  }
 
   requestData(){
     const self = this;
@@ -163,15 +163,15 @@ export class InfoRaisa extends React.Component{
           }
         }
         self.setState({dateTimeLine: rowsTimeLine}); 
-        self.setState({minDate: minValue});
+        //self.setState({minDate: minValue});
         self.setState({dataTable: rowsTable});
     })   
   }
-
+  
   componentDidMount() {
     this.requestData();  
   }
-      
+  
   chartEvents =[
     {
       eventName: "select",
@@ -205,34 +205,36 @@ export class InfoRaisa extends React.Component{
   }
 
   handleChangeTable(valueTable) {
+    console.log('valueTwoTable: valueTable: ', valueTable);
     this.setState({
       valueTwoTable: valueTable,
       flag:false
     });
+    console.log('flag: ', this.state.flag);
   }
 
   render(){
     return (
       <div className={"my-global-div"} >
-        <div id="artical">     
-          <hr12>Раиса  + {this.props.selcted_oven}</hr12>   
-        </div>
+        {/*<div id="artical">     
+          <hr12>Раиса {this.props.selcted_oven}</hr12>   
+        </div>*/}
         
         <div id='table' className={"my-table-div"}>
-          { this.state && this.state.dataTable && this.props.id !=1000 &&
+          { this.state && this.state.dataTable &&
             <Chart
               chartType="Table"
               chartLanguage = 'ru'
               rows={this.state.dataTable}
               columns={[ 
-                { type: 'string', label: 'Start' },
-                { type: "number",label:  "N обжига" },
-                { type: "string", label: "Название программы" },
-                { type: 'string', label: 'Stop' },
-                { type: "string", label: "Продолжительность" },
-                { type: "string", label: "Вода" },
-                { type: "string", label: "Полная мощность" },
-                { type: "string", label: "Активная мощность" },
+                { type: 'string', label: 'Запуск' },
+                { type: "number",label:  "N обж." },
+                { type: "string", label: "Назв. программы" },
+                { type: 'string', label: 'Стоп' },
+                { type: "string", label: "Длительность" },
+                { type: "string", label: "Расх. воды, м³/час" },
+                { type: "string", label: "Потребл., кВА" },
+                { type: "string", label: "Потребл., кВт" },
               ]}         
               width="1200px"
               height="100%"
@@ -271,9 +273,9 @@ export class InfoRaisa extends React.Component{
           }
         </div>
     
-        <div id='two_tables' className={"my-graphRaisa-div"}>
+        <div id='two_tables' className={"my-twoTablesRaisa-div"}>
           { this.state &&!this.state.flag &&       
-            <TwoTablesRaisa value1={this.state.valueTwoTable}/>
+            <TwoTablesRaisa commonValue={this.state.valueTwoTable}/>
           }
         </div>
 

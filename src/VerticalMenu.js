@@ -65,7 +65,7 @@ class VerticalMenu extends React.Component {
     ];
 
     const menuItems = menu.map((val,index)=>{
-      console.log(val);
+      //console.log(val);
       return (
         <MenuItem 
           key={index} 

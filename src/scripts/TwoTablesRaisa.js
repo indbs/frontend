@@ -19,21 +19,18 @@ function getTimeFromMins(x) {
 
 export class TwoTablesRaisa extends React.Component{
 
-    requestData(value1){
-        var x = value1;
+    requestData(dataToRequest){
     
         const self = this;
-        const data_urlHeat = "http://172.16.20.75:8060/?heat_table=raisa&program_number="+x+"&year=2019";
-        const data_urlGas =   "http://172.16.20.75:8060/?gas_table=raisa&program_number="+x+"&year=2019";
-
-        console.log('data_urlHeat',data_urlHeat);    
+        const data_urlHeat = "http://172.16.20.75:8060/?heat_table=raisa&program_number="+dataToRequest+"&year=2019";
+        const data_urlGas  = "http://172.16.20.75:8060/?gas_table=raisa&program_number="+dataToRequest+"&year=2019";
 
         const rowsTableHeat= [];
         const rowsTableGaz= [];
-        axios.get(data_urlHeat)
+        const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
+        axios.get(data_urlHeat, {headers: {'Authorization': AuthStr.token}})
             .then(function (response) {
                 const dataTable=response.data;
-                const minValue=(Date.today().addMonths(-1));
                 for (let i = 0; i < dataTable.length; i += 1) {         
                     rowsTableHeat.push([
                         dataTable[i].STEP_NO,     
@@ -45,10 +42,9 @@ export class TwoTablesRaisa extends React.Component{
                 self.setState({dataTableHeat: rowsTableHeat});
             })
             
-        axios.get(data_urlGas)        
+        axios.get(data_urlGas, {headers: {'Authorization': AuthStr.token}})        
             .then(function (response) { 
                 const dataTable=response.data;
-                const minValue=(Date.today().addMonths(-1));
                 for (let i = 0; i < dataTable.length; i += 1) {         
                     rowsTableGaz.push([
                         dataTable[i].STEP_NO,     
@@ -63,20 +59,26 @@ export class TwoTablesRaisa extends React.Component{
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('next props', nextProps.value1); 
-        console.log('value pass', this.props.value1);  
+        console.log('next props', nextProps.commonValue); 
+        console.log('value pass', this.props.commonValue);  
 
-        if (this.props.value1 !== nextProps.value1) {
-             this.requestData(nextProps.value1);
+        if (this.props.commonValue !== nextProps.commonValue) {
+            this.requestData(nextProps.commonValue);
         }
-        else    this.requestData(this.props.value);
+        else {
+            this.requestData(this.props.commonValue);
+        }
     }
+
+    componentDidMount() {
+        this.requestData(this.props.commonValue);  
+      }
    
     render(){
         return (
             <div className={"my-global-div"} >
                 <div id="artical">     
-                    <hr12>Обжиг N  {this.props.value1} </hr12>
+                    <hr12>Обжиг N  {this.props.commonValue} </hr12>
                 </div> 
                 <div className={"my-tableHeart-div"}>
                     { this.state && this.state.dataTableHeat&&
@@ -124,10 +126,7 @@ export class TwoTablesRaisa extends React.Component{
                                 }}       
                             />
                         }
-                    </div> 
-                <div>
-                    <p>Номер Catch2 {this.props.value1}</p> 
-                </div>              
+                    </div>             
             </div>
         );
     }

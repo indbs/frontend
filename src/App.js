@@ -63,11 +63,10 @@ class App extends Component {
       
       <div id='welcome_guys_to_our_best_industrial_information_solution_software'>
         
-        <Router history={history}>      
+        <Router id='router_here' history={history}>      
           {/*<div id= 'content' className = 'app-wrapper' >*/}
           {currentUser &&
             <div id='HorisontalMenu' style = {{'margin-left': '10%'}} >
-              <HorisontalMenu />
               <div id='logout_navbar' style = {{'width': '1200px'}} >
                 {currentUser &&
                   <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -78,6 +77,7 @@ class App extends Component {
                   </nav>
                 }
               </div>
+              <HorisontalMenu />
             </div>
           }     
 
@@ -100,7 +100,6 @@ class App extends Component {
               <VerticalMenu />
             </div>
           }
-
 
           {/*</div>*/}
         </Router>
