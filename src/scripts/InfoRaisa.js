@@ -219,7 +219,7 @@ export class InfoRaisa extends React.Component{
         {/*<div id="artical">     
           <hr12>Раиса {this.props.selcted_oven}</hr12>   
         </div>*/}
-        
+
         <div id='table' className={"my-table-div"}>
           { this.state && this.state.dataTable &&
             <Chart

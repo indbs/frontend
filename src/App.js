@@ -91,15 +91,17 @@ class App extends Component {
             <PrivateRoute exact path =       '/generalTimeLine'            component={GeneralTimeLine} />
             <PrivateRoute exact path =       '/GraphTrend'                 component={GraphTrend} />
             <Route path =                    '/welcomePage'                component={SignIn} />
-          </div>
           
-          <Redirect to = '/welcomePage'/>
-
-          {currentUser &&
+            {currentUser &&
             <div id='app-wrapper-content' className = 'app-wrapper-content'>    
               <VerticalMenu />
             </div>
           }
+          </div>
+          
+          <Redirect to = '/welcomePage'/>
+
+
 
           {/*</div>*/}
         </Router>

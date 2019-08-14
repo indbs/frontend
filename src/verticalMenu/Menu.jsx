@@ -18,7 +18,7 @@ class Menu extends React.Component {
   render(){
     const styles={
       container: {
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         right: 0,
         height: this.state.open? '100%': '100%',  //Чтобы не отображались бегунки при превышении размеров экрана!
