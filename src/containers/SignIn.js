@@ -61,7 +61,7 @@ class SignIn extends Component {
 
   render() {
     return (
-			<div id='SignIn' style = {{'margin-left': '30%','margin-right': '30%','margin-top': '15vh'}} >
+			<div id='SignIn' style = {{'margin-left': '10%','margin-right': '10%','margin-top': '15vh'}} >
 				<div id='welcome_words' style = {{'text-align': 'center','margin-bottom': '2%', color: '#3560db', 'font-size': '15pt'}} >
 					Добро пожаловать!
 				</div> 

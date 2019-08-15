@@ -33,7 +33,6 @@ export class InfoRaisa extends React.Component{
       valueTwoTable: 10,
       flag: true
     };
-    //console.log("raisa id test!!!!!!!!!!!!!!!!!!!!!!!", props);
     this.handleChange = this.handleChange.bind(this); 
     this.handleChangeTable = this.handleChangeTable.bind(this); 
   }
@@ -163,7 +162,6 @@ export class InfoRaisa extends React.Component{
           }
         }
         self.setState({dateTimeLine: rowsTimeLine}); 
-        //self.setState({minDate: minValue});
         self.setState({dataTable: rowsTable});
     })   
   }
@@ -177,10 +175,8 @@ export class InfoRaisa extends React.Component{
       eventName: "select",
       callback  : ({chartWrapper}) => {        
         var selection = chartWrapper.getChart().getSelection();
-        var value = chartWrapper.getDataTable().getValue(selection[0].row,1);
-        //console.log('value draw before change state',this.state.valuePass);      
+        var value = chartWrapper.getDataTable().getValue(selection[0].row,1);    
         this.handleChange(value);
-        //console.log('value draw after change state',this.state.valuePass);
       }
     }
   ];
@@ -192,7 +188,6 @@ export class InfoRaisa extends React.Component{
         var selection = chartWrapper.getChart().getSelection();
         var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
         this.handleChangeTable(valueTable);
-        //console.log('value two table',this.state.valueTwoTable);
       }
     }            
   ];
@@ -205,20 +200,15 @@ export class InfoRaisa extends React.Component{
   }
 
   handleChangeTable(valueTable) {
-    console.log('valueTwoTable: valueTable: ', valueTable);
     this.setState({
       valueTwoTable: valueTable,
       flag:false
     });
-    console.log('flag: ', this.state.flag);
   }
 
   render(){
     return (
       <div className={"my-global-div"} >
-        {/*<div id="artical">     
-          <hr12>Раиса {this.props.selcted_oven}</hr12>   
-        </div>*/}
 
         <div id='table' className={"my-table-div"}>
           { this.state && this.state.dataTable &&

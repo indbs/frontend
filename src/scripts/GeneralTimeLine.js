@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
@@ -9,6 +7,8 @@ import 'moment/locale/ru';
 import Linkify from 'react-linkify';
 import HtmlToolTip from './tooltip';
 import './GeneralTimeLine.css';
+//import LoadingLogo from '../loading_logo'
+import logo_loading from '../fp_logo_loading.svg';
 
 var ReactDOMServer = require('react-dom/server');
 require('datejs');  
@@ -513,7 +513,7 @@ export class GeneralTimeLine extends React.Component{
               chartType="Timeline"
               chartLanguage = 'ru'
               rows={[...this.state.dateTimeLineRaisa, ...this.state.dateTimeLineRaisa2, ...this.state.dateTimeLineFR05, ...this.state.dateTimeLineFR06]}
-                      columns={columns}
+              columns={columns}
               width="1200px"
               height="300px"
               options={{
@@ -523,7 +523,14 @@ export class GeneralTimeLine extends React.Component{
             />
           }
         </div>
-
+        {this.state &&(
+          !this.state.dateTimeLineRaisa || !this.state.dateTimeLineRaisa2 || !this.state.dateTimeLineFR05 || !this.state.dateTimeLineFR06) &&
+            <div>
+              <p >Загружаем...</p>
+              <img src={logo_loading} className="App-logo-loading" alt="waiting" />
+              {/*<LoadingLogo fillcolor='#444444' width_pt='82pt' height_pt='82pt'/>*/}
+            </div>
+        }
         <div className={"my-text-div"}>
           <p > <a href = "mailto:b.smirnov@rusgates.ru; e.avdeeva@rusgates.ru"> Служба тех. поддержки </a> </p>  
           <p > © АО "Ферроприбор" </p>   

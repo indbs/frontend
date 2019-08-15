@@ -77,10 +77,10 @@ export class TwoTablesRaisa extends React.Component{
     render(){
         return (
             <div className={"my-global-div"} >
-                <div id="artical" style={{'margin-left': '20%'}}>     
-                    <hr12>Обжиг N  {this.props.commonValue} </hr12>
+                <div id="artical" style={{'text-align':'left'}}>     
+                    <hr5>Обжиг N  {this.props.commonValue} </hr5>
                 </div> 
-                <div id='tableHeat' style={{'margin-left': '20%'}}>
+                <div id='tableHeat'>
                     { this.state && this.state.dataTableHeat&&
                         <Chart
                             chartType="Table"
@@ -103,7 +103,7 @@ export class TwoTablesRaisa extends React.Component{
                         />
                     }
                 </div>
-                    <div  id='tableGas' style={{'margin-left': '20%'}}>
+                    <div  id='tableGas'>
                         { this.state && this.state.dataTableGaz&& 
                             <Chart
                                 chartType="Table"

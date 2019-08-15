@@ -4608,6 +4608,12 @@ input[type=submit].btn-block {
   -ms-flex-pack  : start;
   justify-content: flex-start
 }
+.navbar-expand-fp {
+  -ms-flex-flow  : row nowrap;
+  flex-flow      : row nowrap;
+  -ms-flex-pack  : end;
+  justify-content: flex-end
+}
 
 .navbar-expand>.container,
 .navbar-expand>.container-fluid {

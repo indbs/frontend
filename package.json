@@ -22,7 +22,8 @@
     "react-simple-tree-menu": "^1.1.4",
     "redux": "^1.0.0-rc",
     "redux-thunk": "^2.3.0",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.2",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

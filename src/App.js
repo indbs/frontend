@@ -30,6 +30,8 @@ import { PrivateRoute } from './components/PrivateRoute';
 import { authenticationService } from './services/authentication';
 import { history } from './helpers/history';
 import SignIn from './containers/SignIn'
+import logo from './fp_logo.svg';
+import LogoutLogo from './logout_logo'
 
 var ReactDOMServer = require('react-dom/server');
 require('datejs'); 
@@ -45,6 +47,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    document.title = "General Timeline React"
     authenticationService.currentUser.subscribe(x => this.setState({ currentUser: x }));
   }
 
@@ -61,23 +64,28 @@ class App extends Component {
 
     return (
       
-      <div id='welcome_guys_to_our_best_industrial_information_solution_software'>
+      <div id='welcome_guys_to_our_best_industrial_information_solution_software' style = {{'text-align': 'center'}}>
         
         <Router id='router_here' history={history}>      
           {/*<div id= 'content' className = 'app-wrapper' >*/}
           {currentUser &&
-            <div id='HorisontalMenu' style = {{'margin-left': '10%'}} >
+            <div id='HorisontalMenu' style = {{'display': 'inline-block'}} >
               <div id='logout_navbar' style = {{'width': '1200px'}} >
                 {currentUser &&
                   <nav className="navbar navbar-expand navbar-dark bg-dark">
+                    <img src={logo} className="App-logo" alt="logo" />
                     <div id='inner_logout_navbar' className="navbar-nav">
-                      <Link to="/welcomePage" className="nav-item nav-link">Войти</Link>
-                      <a onClick={this.logout} className="nav-item nav-link">Выйти</a>
+                      <Link to="/generalTimeLine" className="nav-item nav-link">Обзор</Link>
+                      <Link to="/raisa"           className="nav-item nav-link">Раиса</Link>
+                      <Link to="/raisa2"          className="nav-item nav-link">Раиса2</Link>
+                      <Link to="/fr05"            className="nav-item nav-link">ФР05</Link>
+                      <Link to="/fr06"            className="nav-item nav-link">ФР06</Link>
                     </div>
+                    <LogoutLogo/>
                   </nav>
                 }
               </div>
-              <HorisontalMenu />
+              {/*<HorisontalMenu />*/}
             </div>
           }     
 
@@ -91,12 +99,13 @@ class App extends Component {
             <PrivateRoute exact path =       '/generalTimeLine'            component={GeneralTimeLine} />
             <PrivateRoute exact path =       '/GraphTrend'                 component={GraphTrend} />
             <Route path =                    '/welcomePage'                component={SignIn} />
-          
-            {currentUser &&
+          {/*
+          {currentUser &&
             <div id='app-wrapper-content' className = 'app-wrapper-content'>    
               <VerticalMenu />
             </div>
           }
+          */}
           </div>
           
           <Redirect to = '/welcomePage'/>

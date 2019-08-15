@@ -6,17 +6,59 @@ ul li {
   text-align: center;
 }
 
-.app-wrapper {
-  display: grid;
-  grid-template-areas:
-  "h h"
-  "n c";
-  margin-top: 1%;
-  margin-left: 10%;
-  width: 90%;
-  height: 99%;
+.App-logo {
+  pointer-events: none;
+  height: 56px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.App-logo-loading {
+  animation: App-logo-spin infinite 5s linear;
+  pointer-events: none;
+  height: 112px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 
-  grid-template-columns:  14fr 3fr;
-  grid-template-rows: 10px 10fr;
-  /*grid-gap:10px;*/
+
+.logout-logo {
+  margin-left: 10px;
+  pointer-events: none;
+  height: 32px;
+  opacity: 0.9;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.logout-logo-hover {
+  margin-left: 10px;
+  pointer-events: none;
+  height: 32px;
+  opacity: 0.7;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.app-wrapper {
+  display: inline-block;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
