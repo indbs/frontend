@@ -109,9 +109,7 @@ class App extends Component {
           </div>
           
           <Redirect to = '/welcomePage'/>
-
-
-
+          
           {/*</div>*/}
         </Router>
 
