@@ -7,3 +7,16 @@
     margin-top: 100px; 
     line-height: 1.5;
   }
+
+  .timeline-burn-color {
+    color:#b0d1f2;
+  }
+
+  :export { 
+    burn_color: #b0d1f2;
+    lost_color:#708090;
+    pause_color:#d9e6f2;
+    stop_color:#003366;
+    start_color:#0080ff;
+    running_color:#50D050;
+  }

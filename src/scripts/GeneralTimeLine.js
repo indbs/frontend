@@ -1,17 +1,11 @@
 import React from 'react';
-//import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
-import axios from 'axios';
-import moment from 'moment';
 import 'moment/locale/ru';
-import Linkify from 'react-linkify';
-import HtmlToolTip from './tooltip';
 import './GeneralTimeLine.css';
 //import LoadingLogo from '../loading_logo'
 import logo_loading from '../fp_logo_loading.svg';
 import {RequestDataRaisa, RequestDataRaisa2, RequestDataFR05, RequestDataFR06} from './receivers/requestData'
 
-var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
 const columns = [
