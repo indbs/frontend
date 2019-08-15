@@ -4,7 +4,7 @@ import 'moment/locale/ru';
 import './GeneralTimeLine.css';
 //import LoadingLogo from '../loading_logo'
 import logo_loading from '../fp_logo_loading.svg';
-import {RequestDataRaisa, RequestDataRaisa2, RequestDataFR05, RequestDataFR06} from './receivers/requestData'
+import {RequestTimelineDataData} from './receivers/requestData'
 
 require('datejs');  
 
@@ -34,19 +34,19 @@ export class GeneralTimeLine extends React.Component{
     const self = this;
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
      
-    RequestDataRaisa('http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(rowsTimeLine=>{
+    RequestTimelineDataData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(rowsTimeLine=>{
       self.setState({dateTimeLineRaisa: rowsTimeLine});
     });
     
-    RequestDataRaisa2('http://172.16.20.75:8060/?generaltimeline=raisa2', AuthStr).then(rowsTimeLine=>{
+    RequestTimelineDataData('Раиса2', 'http://172.16.20.75:8060/?generaltimeline=raisa2', AuthStr).then(rowsTimeLine=>{
       self.setState({dateTimeLineRaisa2: rowsTimeLine});
     });
 
-    RequestDataFR05('http://172.16.20.75:8060/?generaltimeline=fr05', AuthStr).then(rowsTimeLine=>{
+    RequestTimelineDataData('ФР05', 'http://172.16.20.75:8060/?generaltimeline=fr05', AuthStr).then(rowsTimeLine=>{
       self.setState({dateTimeLineFR05: rowsTimeLine});
     });
   
-    RequestDataFR06('http://172.16.20.75:8060/?generaltimeline=fr06', AuthStr).then(rowsTimeLine=>{
+    RequestTimelineDataData('ФР06', 'http://172.16.20.75:8060/?generaltimeline=fr06', AuthStr).then(rowsTimeLine=>{
       self.setState({dateTimeLineFR06: rowsTimeLine});
     });
   }
