@@ -1,4 +1,5 @@
 import {timelineCommonRowBurn, timelineCommonRowStop, timelineCommonRowStart, timelineCommonRowPauseLost} from './timelineCommonDataTracker';
+import {tableCommonDataTracker} from '../receivers/tableCommonDataTracker';
 
 export function handleResponseCommon (kilntype, response) {
   var HtmltooltipProperty='';
@@ -9,10 +10,13 @@ export function handleResponseCommon (kilntype, response) {
     case 'ФР06'   : HtmltooltipProperty ='fullfr';
   }
   
-  const rowsTimeLine=[];
+  const rowsTimeLine=[], rowsTable=[];
   const dataTimeLine=response.data[1];
 
   for (let i = 0; i < dataTimeLine.length; i += 1) { 
+    rowsTable.push(
+      tableCommonDataTracker(kilntype, dataTimeLine[i])      
+    );
     rowsTimeLine.push(
       timelineCommonRowBurn(kilntype, dataTimeLine[i], HtmltooltipProperty),   
       timelineCommonRowStop(kilntype, dataTimeLine[i], 'stop'),  
@@ -20,5 +24,6 @@ export function handleResponseCommon (kilntype, response) {
     );
     if (i !== dataTimeLine.length-1) rowsTimeLine.push(timelineCommonRowPauseLost(kilntype, dataTimeLine[i], dataTimeLine[i + 1]));
   }
-  return rowsTimeLine;
+
+  return {rowsTimeLine: rowsTimeLine, rowsTable: rowsTable};
 }

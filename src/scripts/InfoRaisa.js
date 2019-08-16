@@ -1,19 +1,17 @@
 import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
-import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/ru';
 import GraphRaisa from './GraphRaisa';
 //import {NavLink} from 'react-router-dom';
-import HtmlToolTip from './tooltip';
 import './InfoRaisa.css';
 import './style.css';
 import { connect } from 'react-redux';
+import {RequestTimelineData} from './receivers/requestData'
 
 import TwoTablesRaisa from './TwoTablesRaisa';
 
-var ReactDOMServer = require('react-dom/server');
 require('datejs');  
 
 const columns = [
@@ -39,131 +37,12 @@ export class InfoRaisa extends React.Component{
 
   requestData(){
     const self = this;
-    const data_url = 'http://172.16.20.75:8060/?generaltimeline=raisa';
-    const  rowsTable=[];
-    const  rowsTimeLine=[];
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
-    axios.get(data_url, {headers: {'Authorization': AuthStr.token}})
-      .then(function (response) {
-        // handle success
-        const dataTable=response.data[1];
-        const dataTimeLine=response.data[1];
-        const minValue=(Date.today().addMonths(-1));
-        for (let i = 0; i < dataTimeLine.length; i += 1) {
-          if (Date.compare(new Date(dataTimeLine[i].STARTUP_TIME),minValue)===1){
-            if(i < dataTimeLine.length -1 ) {  
-            rowsTimeLine.push(
-              [
-                '1',
-                dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
-                ReactDOMServer.renderToString(
-                  <HtmlToolTip 
-                    toolTipData={dataTimeLine[i]}
-                    toolTipType={"full"}
-                  />),
-                new Date(dataTimeLine[i].STARTUP_TIME),
-                new Date(dataTimeLine[i].end_time)
-              ],       
-              [
-                '1',  
-                dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                '#003366',
-                ReactDOMServer.renderToString(<HtmlToolTip 
-                    toolTipData={dataTimeLine[i]}
-                    toolTipType={"stop"}
-                  />),
-                new Date(dataTimeLine[i].end_time),
-                new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),
-              ],  
-              [
-                '1', 
-                dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                '#0080ff',
-                ReactDOMServer.renderToString(<HtmlToolTip 
-                  toolTipData={dataTimeLine[i]}
-                  toolTipType={"start"}
-                  />),	            
-                new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
-                new Date(dataTimeLine[i].STARTUP_TIME)
-              ],
-              [
-                '1',
-                ' ', 
-                dataTimeLine[i].pause  === '00:00:00' ? '#708090' :'#d9e6f2',
-                dataTimeLine[i].pause === '00:00:00' ?   ReactDOMServer.renderToString(
-                <HtmlToolTip 
-                  toolTipData={dataTimeLine[i+1]}
-                  toolTipType={"lost"}
-                />) :   ReactDOMServer.renderToString(
-                <HtmlToolTip 
-                  toolTipData={dataTimeLine[i+1]}
-                  toolTipType={"pause"}
-                />),
-                new Date(moment( dataTimeLine[i].end_time ).add(1, 'hours')),	
-                new Date(moment( dataTimeLine[i+1].STARTUP_TIME ).subtract(1, 'hours'))	            
-              ] 
-            );
-            } else {
-              rowsTimeLine.push(
-                [
-                  '1',
-                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                  dataTimeLine[i].currentWork <= 300  ? '#50D050' :'#b0d1f2',
-                  ReactDOMServer.renderToString(
-                    <HtmlToolTip 
-                      toolTipData={dataTimeLine[i]}
-                      toolTipType={"full"}
-                    />),
-                  new Date(dataTimeLine[i].STARTUP_TIME),
-                  new Date(dataTimeLine[i].end_time)
-                ],       
-                [
-                  '1',  
-                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                  '#003366',
-                  ReactDOMServer.renderToString(<HtmlToolTip 
-                      toolTipData={dataTimeLine[i]}
-                      toolTipType={"stop"}
-                    />),
-                  new Date(dataTimeLine[i].end_time),
-                  new Date(moment( dataTimeLine[i].end_time ).add(0.1, 'hours')),
-                ],  
-                [
-                  '1', 
-                  dataTimeLine[i].PROGRAM_NUMBER.toString(),
-                  '#0080ff',
-                  ReactDOMServer.renderToString(<HtmlToolTip 
-                    toolTipData={dataTimeLine[i]}
-                    toolTipType={"start"}
-                    />),	            
-                  new Date(moment( dataTimeLine[i].STARTUP_TIME ).subtract(0.1, 'hours')),
-                  new Date(dataTimeLine[i].STARTUP_TIME)
-                ]
-              );
-            } 
-          }
-        }
 
-        for (let i = 0; i < dataTable.length; i += 1) {
-          if (Date.compare(new Date(dataTable[i].STARTUP_TIME),minValue)===1){
-            rowsTable.push(
-              [
-                moment(dataTable[i].STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
-                dataTable[i].PROGRAM_NUMBER,
-                dataTable[i].PROGRAM_NAME,
-                moment(dataTable[i].end_time).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),
-                dataTable[i].duration.toString(),
-                dataTable[i].waterQuant.toString(),
-                dataTable[i].powerVAh.toString(),
-                dataTable[i].powerkWh.toString()    
-              ]         
-            );
-          }
-        }
-        self.setState({dateTimeLine: rowsTimeLine}); 
-        self.setState({dataTable: rowsTable});
-    })   
+    RequestTimelineData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(resultArrayTwoDataPresets=>{
+      self.setState({dataTimeLine: resultArrayTwoDataPresets.rowsTimeLine});
+      self.setState({dataTable: resultArrayTwoDataPresets.rowsTable});
+    });      
   }
   
   componentDidMount() {
@@ -240,11 +119,11 @@ export class InfoRaisa extends React.Component{
         </div> 
 
         <div id='timeline' className={"my-timeline-div-info-raisa"}>
-          { this.state && this.state.dateTimeLine &&
+          { this.state && this.state.dataTimeLine &&
             <Chart
               chartType="Timeline"
               chartLanguage = 'ru'
-              rows={this.state.dateTimeLine}
+              rows={this.state.dataTimeLine}
               columns={columns}
               width="1200px"
               height="100px"

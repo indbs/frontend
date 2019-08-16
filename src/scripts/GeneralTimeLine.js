@@ -4,7 +4,7 @@ import 'moment/locale/ru';
 import './GeneralTimeLine.css';
 //import LoadingLogo from '../loading_logo'
 import logo_loading from '../fp_logo_loading.svg';
-import {RequestTimelineDataData} from './receivers/requestData'
+import {RequestTimelineData} from './receivers/requestData'
 
 require('datejs');  
 
@@ -34,26 +34,22 @@ export class GeneralTimeLine extends React.Component{
     const self = this;
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
      
-    RequestTimelineDataData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(rowsTimeLine=>{
-      self.setState({dateTimeLineRaisa: rowsTimeLine});
+    RequestTimelineData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(resultArrayTwoDataPresets=>{
+      self.setState({dateTimeLineRaisa: resultArrayTwoDataPresets.rowsTimeLine});
+    });   
+    RequestTimelineData('Раиса2', 'http://172.16.20.75:8060/?generaltimeline=raisa2', AuthStr).then(resultArrayTwoDataPresets=>{
+      self.setState({dateTimeLineRaisa2: resultArrayTwoDataPresets.rowsTimeLine});
     });
-    
-    RequestTimelineDataData('Раиса2', 'http://172.16.20.75:8060/?generaltimeline=raisa2', AuthStr).then(rowsTimeLine=>{
-      self.setState({dateTimeLineRaisa2: rowsTimeLine});
+    RequestTimelineData('ФР05', 'http://172.16.20.75:8060/?generaltimeline=fr05', AuthStr).then(resultArrayTwoDataPresets=>{
+      self.setState({dateTimeLineFR05: resultArrayTwoDataPresets.rowsTimeLine});
     });
-
-    RequestTimelineDataData('ФР05', 'http://172.16.20.75:8060/?generaltimeline=fr05', AuthStr).then(rowsTimeLine=>{
-      self.setState({dateTimeLineFR05: rowsTimeLine});
-    });
-  
-    RequestTimelineDataData('ФР06', 'http://172.16.20.75:8060/?generaltimeline=fr06', AuthStr).then(rowsTimeLine=>{
-      self.setState({dateTimeLineFR06: rowsTimeLine});
+    RequestTimelineData('ФР06', 'http://172.16.20.75:8060/?generaltimeline=fr06', AuthStr).then(resultArrayTwoDataPresets=>{
+      self.setState({dateTimeLineFR06: resultArrayTwoDataPresets.rowsTimeLine});
     });
   }
 
   componentDidMount() {
     this.requestData();      
-    /*  this.requestDataRaisa2();      */
   }
 
   render(){
@@ -67,7 +63,7 @@ export class GeneralTimeLine extends React.Component{
               rows={[...this.state.dateTimeLineRaisa, ...this.state.dateTimeLineRaisa2, ...this.state.dateTimeLineFR05, ...this.state.dateTimeLineFR06]}
               columns={columns}
               width="1200px"
-              height="300px"
+              height="250px"
               options={{
                 colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                 width:"100%"

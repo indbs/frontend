@@ -1,11 +1,9 @@
 ul li {
   list-style: georgian;
 }
-
 .App {
   text-align: center;
 }
-
 .App-logo {
   pointer-events: none;
   height: 56px;
@@ -25,8 +23,6 @@ ul li {
   -o-user-select: none;
   user-select: none;
 }
-
-
 .logout-logo {
   margin-left: 10px;
   pointer-events: none;
@@ -49,11 +45,10 @@ ul li {
   -o-user-select: none;
   user-select: none;
 }
-
 .app-wrapper {
   display: inline-block;
+  height:100vh-72px;
 }
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

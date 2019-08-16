@@ -1,13 +1,17 @@
-  .my-timeline-div {
-    margin-top: 222px; 
+  .my-global-div {
+    position: relative;
+    height:20vh;
   }
-
+  .my-timeline-div {
+    position: relative;
+    margin-top: calc(30vh/2);
+  }
   .my-text-div {
+    position: relative;
+    margin-top: calc(30vh/2);
     width:1200px;
-    margin-top: 100px; 
     line-height: 1.5;
   }
-
   .timeline-burn-color {
     color:#b0d1f2;
   }
