@@ -1,9 +1,8 @@
 import React from 'react';
 import Chart from "react-google-charts";
-import './InfoRaisa.css';
-import './style.css';
-import {RequestTwoTablesData} from './receivers/requestData';
-import {TwoTablesColumnsHeat, TwoTablesColumnsGas} from './receivers/handleDataResponse';
+import '../style.css';
+import {RequestTwoTablesData} from '../receivers/requestData';
+import {TwoTablesColumnsHeat, TwoTablesColumnsGas} from '../receivers/handleDataResponse';
 
 export class TwoTablesRaisa extends React.Component{
 

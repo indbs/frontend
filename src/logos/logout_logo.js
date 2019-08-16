@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logout from './logout.svg';
-import { authenticationService } from './services/authentication';
-import { history } from './helpers/history';
+import { authenticationService } from '../services/authentication';
+import { history } from '../helpers/history';
 
 class LogoutLogo extends Component {
   constructor(props) {

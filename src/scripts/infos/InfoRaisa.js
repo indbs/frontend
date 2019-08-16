@@ -1,15 +1,14 @@
 import React from 'react';
-//import ReactDOM from "react-dom";
-import Chart from "react-google-charts";
-import GraphRaisa from './GraphRaisa';
+//import ReactDOM from 'react-dom';
+import Chart from 'react-google-charts';
+import GraphRaisa from '../graphs/GraphRaisa';
 //import {NavLink} from 'react-router-dom';
-import './InfoRaisa.css';
-import './style.css';
+//import './InfoRaisa.css';
+import '../style.css';
 import { connect } from 'react-redux';
-import {RequestTimelineData} from './receivers/requestData'
-import {TimelineColumns} from './receivers/handleDataResponse';
-
-import TwoTablesRaisa from './TwoTablesRaisa';
+import {RequestTimelineData} from '../receivers/requestData'
+import {TimelineColumns, TableColumns} from '../receivers/handleDataResponse';
+import TwoTablesRaisa from '../twoTables/TwoTablesRaisa';
 
 export class InfoRaisa extends React.Component{
   constructor(props) {
@@ -38,7 +37,7 @@ export class InfoRaisa extends React.Component{
   }
   
   chartEvents =[{
-    eventName: "select",
+    eventName: 'select',
     callback  : ({chartWrapper}) => {        
       var selection = chartWrapper.getChart().getSelection();
       var value = chartWrapper.getDataTable().getValue(selection[0].row,1);    
@@ -47,7 +46,7 @@ export class InfoRaisa extends React.Component{
   }];
       
   chartEventsTable =[{
-    eventName: "select",
+    eventName: 'select',
     callback  : ({chartWrapper}) => { 
       var selection = chartWrapper.getChart().getSelection();
       var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
@@ -71,60 +70,51 @@ export class InfoRaisa extends React.Component{
 
   render(){
     return (
-      <div className={"my-global-div"} >
+      <div className={'my-global-div'} >
 
-        <div id='table' className={"my-table-div"}>
+        <div id='table' className={'my-table-div'}>
           { this.state && this.state.dataTable &&
             <Chart
-              chartType="Table"
+              chartType='Table'
               chartLanguage = 'ru'
               rows={this.state.dataTable}
-              columns={[ 
-                { type: 'string', label: 'Запуск' },
-                { type: "number", label:  "N обж." },
-                { type: "string", label: "Назв. программы" },
-                { type: 'string', label: 'Стоп' },
-                { type: "string", label: "Длительность" },
-                { type: "string", label: "Расх. воды, м³/час" },
-                { type: "string", label: "Потребл., кВА" },
-                { type: "string", label: "Потребл., кВт" },
-              ]}         
-              width="1200px"
-              height="100%"
+              columns={TableColumns}         
+              width='1200px'
+              height='100%'
               options={{
                 showRowNumber: true,
                 allowHtml: true, 
-                width:"100%"
+                width:'100%'
               }}  
               chartEvents={this.chartEventsTable }
             />
           }
         </div> 
 
-        <div id='timeline' className={"my-timeline-div-info-raisa"}>
+        <div id='timeline' className={'my-timeline-div-info-raisa'}>
           { this.state && this.state.dataTimeLine &&
             <Chart
-              chartType="Timeline"
+              chartType='Timeline'
               chartLanguage = 'ru'
               rows={this.state.dataTimeLine}
               columns={TimelineColumns}
-              width="1200px"
-              height="100px"
+              width='1200px'
+              height='100px'
               options={{
-                width:"100%"
+                width:'100%'
               }}    
               chartEvents={this.chartEvents }          
             />
           }
         </div>
             
-        <div id='graph' className={"my-graphRaisa-div"}>
+        <div id='graph' className={'my-graphRaisa-div'}>
           { this.state &&this.state.flag && 
             <GraphRaisa commonValue={this.state.valuePass}/> 
           }
         </div>
     
-        <div id='two_tables' className={"my-twoTablesRaisa-div"}>
+        <div id='two_tables' className={'my-twoTablesRaisa-div'}>
           { this.state &&!this.state.flag &&       
             <TwoTablesRaisa commonValue={this.state.valueTwoTable}/>
           }

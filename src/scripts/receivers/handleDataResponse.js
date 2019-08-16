@@ -16,11 +16,22 @@ export const TimelineColumns = [
   { type: 'date',   id: 'Stop' }
 ];
 
+export const TableColumns = [
+  { type: 'string', label: 'Запуск' },
+  { type: 'number', label: 'N обж' },
+  { type: 'string', label: 'Назв. программы' },
+  { type: 'string', label: 'Стоп' },
+  { type: 'string', label: 'Длительность' },
+  { type: 'string', label: 'Расх. воды, м³/час' },
+  { type: 'string', label: 'Потребл., кВА' },
+  { type: 'string', label: 'Потребл., кВт' }
+];
+
 export const TwoTablesColumnsHeat = [
   { type: "number", label:  "Шаг" },
   { type: "number", label:  "Режим нагрева" },
   { type: "number", label:  "Температура, °С" },
-  { type: "string", label:  "Время Шага" },
+  { type: "string", label:  "Время Шага" }
 ];
 
 export const TwoTablesColumnsGas = [
@@ -28,16 +39,17 @@ export const TwoTablesColumnsGas = [
   { type: "number", label:  "Режим нагрева" },
   { type: "number", label:  "Возд, м³/час" },
   { type: "string", label:  "Кислород, %" },
-  { type: "string", label:  "Время Шага" },
+  { type: "string", label:  "Время Шага" }
 ];
 
 export function handleTimelineResponseCommon (kilntype, response) {
   var HtmltooltipProperty='';
+
   switch (kilntype) {
-    case 'Раиса'  : HtmltooltipProperty ='full';
-    case 'Раиса2' : HtmltooltipProperty ='fullraisa2';
-    case 'ФР05'   : HtmltooltipProperty ='fullfr';
-    case 'ФР06'   : HtmltooltipProperty ='fullfr';
+    case 'Раиса'  : HtmltooltipProperty ='full';        break;
+    case 'Раиса2' : HtmltooltipProperty ='full';        break;
+    case 'ФР05'   : HtmltooltipProperty ='fullfr';      break;
+    case 'ФР06'   : HtmltooltipProperty ='fullfr';      break;
   }
   
   const rowsTimeLine=[], rowsTable=[];

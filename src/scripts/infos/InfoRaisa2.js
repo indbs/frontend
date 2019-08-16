@@ -1,21 +1,12 @@
 import React from 'react';
-//import ReactDOM from "react-dom";
-import Chart from "react-google-charts";
-import 'moment/locale/ru';
-import GraphRaisa2 from './GraphRaisa2';
+//import ReactDOM from 'react-dom';
+import Chart from 'react-google-charts';
+import GraphRaisa2 from '../graphs/GraphRaisa2';
 import { connect } from 'react-redux';
-import {RequestTimelineData} from './receivers/requestData'
+import {RequestTimelineData} from '../receivers/requestData'
+import {TimelineColumns, TableColumns} from '../receivers/handleDataResponse';
 
-import {addTodo} from '../actions/actions';
-
-const columns = [
-    { type: "string", id: "Role" },
-    { type: "string", id: "Name" },
-    { type: "string", id: 'style', role: 'style' },
-    { type: 'string', role: 'tooltip','p': {'html': true}},
-    { type: 'date', id: 'Start' },
-    { type: 'date', id: 'Stop' }
-  ];
+import {addTodo} from '../../actions/actions';
 
 export class InfoRaisa2 extends React.Component{
     
@@ -44,7 +35,7 @@ export class InfoRaisa2 extends React.Component{
   }
 
   chartEvents =[{
-    eventName: "select",
+    eventName: 'select',
     callback  : ({chartWrapper}) => { 
       var selection = chartWrapper.getChart().getSelection();
       var value = chartWrapper.getDataTable().getValue(selection[0].row,1);     
@@ -54,57 +45,41 @@ export class InfoRaisa2 extends React.Component{
      
   render(){
     return (
-    <div className={"my-global-div"}>  
+    <div className={'my-global-div'}>  
 
-      <div className={"my-table-div"}>
+      <div className={'my-table-div'}>
       {this.state && this.state.dataTable &&
         <Chart
-          chartType="Table"
+          chartType='Table'
           chartLanguage = 'ru'
           rows={this.state.dataTable}
-          columns={[       
-            { type: 'string', label: 'Start' },
-            { type: "number",label:  "N обжига" },
-            { type: 'string', label: 'Stop' },
-            { type: "string", label: "Продолжительность" },
-            { type: "string", label: "Азот" },
-            { type: "string", label: "Вода" },
-            { type: "string", label: "Полная мощность" },
-            { type: "string", label: "Активная мощность" },
-          ]}    
-          width="1200px"
-          height="100%"
+          columns={TableColumns}    
+          width='1200px'
+          height='100%'
           options={{
             showRowNumber: true,
             allowHtml: true, 
-            width:"100%"
+            width:'100%'
           }}  
-          formatters={[
-            {
-              type: 'PatternFormat',
-              column: [1],
-              options: '<a href=GraphRaisa value1={0}>{0} </a>',  
-            },  
-        ]}
         />}
       </div>
 
-      <div className={"my-timeline-div-info-raisa"}>
+      <div className={'my-timeline-div-info-raisa'}>
         { this.state && this.state.dataTimeLine &&
           <Chart
-            chartType="Timeline"
+            chartType='Timeline'
             chartLanguage = 'ru'
             rows={this.state.dataTimeLine}
-            columns={columns}
-            width="1200px"
-            height="100px"
+            columns={TimelineColumns}
+            width='1200px'
+            height='100px'
             options={{
-              width:"100%"
+              width:'100%'
             }}    
             chartEvents={this.chartEvents }
           />}
       </div>
-      <div className={"my-graphRaisa-div"}>
+      <div className={'my-graphRaisa-div'}>
         <GraphRaisa2 commonValueRaisa2={this.state}/>
       </div>
     </div>
@@ -130,8 +105,8 @@ export class InfoRaisa2 extends React.Component{
 */
 
   const mapDispatchToProps = dispatch => {
-    alert("Hello2");
-    console.log("hello 2");
+    alert('Hello2');
+    console.log('hello 2');
     return {
       onTodoClick: () => { // handles onTodoClick prop's call here
         dispatch(addTodo())

@@ -1,9 +1,9 @@
 import * as React from "react";
 import {NavLink} from 'react-router-dom';
 //import {BrowserRouter,Route, Redirect} from "react-router-dom";
-import MenuItem from './verticalMenu/MenuItem';
-import MenuButton from './verticalMenu/MenuButton';
-import Menu from './verticalMenu/Menu';
+import MenuItem from './MenuItem';
+import MenuButton from './MenuButton';
+import Menu from './Menu';
 import './verticalMenu/styleMenu.css';
 
 class VerticalMenu extends React.Component {

@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Chart from 'react-google-charts';
-import GraphTrend from './GraphTrend';
-import './style.css';
+import GraphTrend from '../graphs/GraphTrend';
+import '../style.css';
 import './Siemens.css';
 
 export class Siemens extends React.Component {

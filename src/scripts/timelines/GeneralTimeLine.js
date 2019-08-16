@@ -1,9 +1,9 @@
 import React                  from 'react';
-import Chart                  from "react-google-charts";
+import Chart                  from 'react-google-charts';
 import                             './GeneralTimeLine.css';
-import logo_loading           from '../fp_logo_loading.svg';
-import {RequestTimelineData}  from './receivers/requestData';
-import {TimelineColumns}     from './receivers/handleDataResponse';
+import logo_loading           from '../../logos/fp_logo_loading.svg';
+import {RequestTimelineData}  from '../receivers/requestData';
+import {TimelineColumns}      from '../receivers/handleDataResponse';
 
 export class GeneralTimeLine extends React.Component{
 

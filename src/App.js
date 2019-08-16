@@ -1,40 +1,25 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Router, Redirect, Link} from "react-router-dom";
+import {Route, Router, Redirect, Link} from "react-router-dom";
 import './App.css';
-import Header from './components/header/Header';
-import Navbar from './components/navBar/Navbar';
 import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-import HorisontalMenu from './containers/horisontalMenu.js'
-import ContactDetail from './containers/contact-detail'
-
-import { render } from "react-dom";
-import { Chart } from "react-google-charts";
-import * as axios  from 'axios';
-import InfoRaisa from './scripts/InfoRaisa';
-import InfoRaisa2 from './scripts/InfoRaisa2';
-import InfoFR05 from './scripts/InfoFR05';
-import InfoFR06 from './scripts/InfoFR06';
-import Siemens from './scripts/Siemens';
-import TwoTablesRaisa from './scripts/TwoTablesRaisa'; 
-//import { connect } from 'react-redux';  // ретиратор из реакт-редакс
-import { getUsers } from './actions/users';
-import GeneralTimeLine from './scripts/GeneralTimeLine';
+import InfoRaisa from './scripts/infos/InfoRaisa';
+import InfoRaisa2 from './scripts/infos/InfoRaisa2';
+import InfoFR05 from './scripts/infos/InfoFR05';
+import InfoFR06 from './scripts/infos/InfoFR06';
+import Siemens from './scripts/siemens/Siemens';
+import TwoTablesRaisa from './scripts/twoTables/TwoTablesRaisa'; 
+import GeneralTimeLine from './scripts/timelines/GeneralTimeLine';
 import Redux from './scripts/Redux';
 import { store } from "./store";
-import GraphTrend from './scripts/GraphTrend';
-import VerticalMenu from './VerticalMenu';
-import WelcomePage from './welcomePage'
+import GraphTrend from './scripts/graphs/GraphTrend';
 import { PrivateRoute } from './components/PrivateRoute';
 import { authenticationService } from './services/authentication';
 import { history } from './helpers/history';
 import SignIn from './containers/SignIn'
-import logo from './fp_logo.svg';
-import LogoutLogo from './logout_logo'
-
-var ReactDOMServer = require('react-dom/server');
-require('datejs'); 
+import logo from './logos/fp_logo.svg';
+import LogoutLogo from './logos/logout_logo'
 
 class App extends Component {
  

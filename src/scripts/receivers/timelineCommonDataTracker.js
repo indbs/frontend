@@ -1,10 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-import HtmlToolTip from '../tooltip';
-import timelineStyle from '../GeneralTimeLine.css';
+import HtmlToolTip from '../tooltips/Tooltip';
+import timelineStyle from '../timelines/GeneralTimeLine.css';
 var ReactDOMServer = require('react-dom/server');
 
-export function timelineCommonRowBurn(kilnLabel, dataTimeLineRow, burn){
+export function timelineCommonRowBurn(kilnLabel, dataTimeLineRow, HtmltooltipProperty){
   return [
     kilnLabel,
     dataTimeLineRow.PROGRAM_NUMBER.toString(),
@@ -12,7 +12,7 @@ export function timelineCommonRowBurn(kilnLabel, dataTimeLineRow, burn){
     ReactDOMServer.renderToString(
       <HtmlToolTip 
         toolTipData={dataTimeLineRow}
-        toolTipType={burn}
+        toolTipType={HtmltooltipProperty}
       />),
     new Date(dataTimeLineRow.STARTUP_TIME),
     new Date(dataTimeLineRow.end_time)

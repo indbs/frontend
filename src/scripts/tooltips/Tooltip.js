@@ -1,5 +1,5 @@
 import React from 'react';
-import TooltipStyle from ".//cssFiles/tooltip.css";
+import TooltipStyle from "../cssFiles/tooltip.css";
 import moment from 'moment';
 import 'moment/locale/ru';
 
