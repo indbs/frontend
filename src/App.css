@@ -47,7 +47,6 @@ ul li {
 }
 .app-wrapper {
   display: inline-block;
-  height:100vh-72px;
 }
 @keyframes App-logo-spin {
   from {
