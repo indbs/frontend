@@ -1,24 +1,11 @@
-import React from 'react';
-import Chart from "react-google-charts";
-import 'moment/locale/ru';
-import './GeneralTimeLine.css';
-//import LoadingLogo from '../loading_logo'
-import logo_loading from '../fp_logo_loading.svg';
-import {RequestTimelineData} from './receivers/requestData'
+import React                  from 'react';
+import Chart                  from "react-google-charts";
+import                             './GeneralTimeLine.css';
+import logo_loading           from '../fp_logo_loading.svg';
+import {RequestTimelineData}  from './receivers/requestData';
+import {TimelineColumns}     from './receivers/handleDataResponse';
 
-require('datejs');  
-
-const columns = [
-    { type: "string", id: "Role" },
-    { type: "string", id: "Name" },
-    { type: "string", id: 'style', role: 'style' },
-    { type: 'string', role: 'tooltip','p': {'html': true}},
-    { type: 'date', id: 'Start' },
-    { type: 'date', id: 'Stop' }
-  ];
 export class GeneralTimeLine extends React.Component{
-         
-  lastWorkRaisa = 0;
 
   constructor(props) {
     super(props);
@@ -61,11 +48,10 @@ export class GeneralTimeLine extends React.Component{
               chartType="Timeline"
               chartLanguage = 'ru'
               rows={[...this.state.dateTimeLineRaisa, ...this.state.dateTimeLineRaisa2, ...this.state.dateTimeLineFR05, ...this.state.dateTimeLineFR06]}
-              columns={columns}
+              columns={TimelineColumns}
               width="1200px"
               height="250px"
               options={{
-                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                 width:"100%"
               }}    
             />

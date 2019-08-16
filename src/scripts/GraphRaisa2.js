@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Chart from 'react-google-charts';
 
-
-
 export class GraphRaisa2 extends React.Component {
         
     requestData(){
@@ -126,10 +124,10 @@ export class GraphRaisa2 extends React.Component {
                   <p>  Граф Номер  {takeValue.valuePass}</p>
                 </div>
             <div className="Buttons" id="chart_div_buttons">
-                <button onClick={this.handleClickCurrents}>Показать токи</button>
-                <button onClick={this.handleClickAirHeaters}>Показать возд. нагреватели</button>
-                <button onClick={this.handleClickShort}>Показать только темперутру</button>
-                <button onClick={this.handleClickAll}>Показать всё</button>
+                <button className="butt" onClick={this.handleClickCurrents}>Показать токи</button>
+                <button className="butt" onClick={this.handleClickAirHeaters}>Показать возд. нагреватели</button>
+                <button className="butt" onClick={this.handleClickShort}>Показать только темперутру</button>
+                <button className="butt" onClick={this.handleClickAll}>Показать всё</button>
             </div>             
         </div>
       );

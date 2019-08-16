@@ -1,27 +1,15 @@
 import React from 'react';
 //import ReactDOM from "react-dom";
 import Chart from "react-google-charts";
-import moment from 'moment';
-import 'moment/locale/ru';
 import GraphRaisa from './GraphRaisa';
 //import {NavLink} from 'react-router-dom';
 import './InfoRaisa.css';
 import './style.css';
 import { connect } from 'react-redux';
 import {RequestTimelineData} from './receivers/requestData'
+import {TimelineColumns} from './receivers/handleDataResponse';
 
 import TwoTablesRaisa from './TwoTablesRaisa';
-
-require('datejs');  
-
-const columns = [
-  { type: "string", id: "Role" },
-  { type: "string", id: "Name" },
-  { type: "string", id: 'style', role: 'style' },
-  { type: 'string', role: 'tooltip','p': {'html': true}},
-  { type: 'date',   id: 'Start' },
-  { type: 'date',   id: 'Stop' }
-];
 
 export class InfoRaisa extends React.Component{
   constructor(props) {
@@ -40,8 +28,8 @@ export class InfoRaisa extends React.Component{
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
     RequestTimelineData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(resultArrayTwoDataPresets=>{
-      self.setState({dataTimeLine: resultArrayTwoDataPresets.rowsTimeLine});
-      self.setState({dataTable: resultArrayTwoDataPresets.rowsTable});
+      self.setState({dataTimeLine:  resultArrayTwoDataPresets.rowsTimeLine});
+      self.setState({dataTable:     resultArrayTwoDataPresets.rowsTable});
     });      
   }
   
@@ -49,27 +37,23 @@ export class InfoRaisa extends React.Component{
     this.requestData();  
   }
   
-  chartEvents =[
-    {
-      eventName: "select",
-      callback  : ({chartWrapper}) => {        
-        var selection = chartWrapper.getChart().getSelection();
-        var value = chartWrapper.getDataTable().getValue(selection[0].row,1);    
-        this.handleChange(value);
-      }
+  chartEvents =[{
+    eventName: "select",
+    callback  : ({chartWrapper}) => {        
+      var selection = chartWrapper.getChart().getSelection();
+      var value = chartWrapper.getDataTable().getValue(selection[0].row,1);    
+      this.handleChange(value);
     }
-  ];
+  }];
       
-  chartEventsTable =[
-    {
-      eventName: "select",
-      callback  : ({chartWrapper}) => { 
-        var selection = chartWrapper.getChart().getSelection();
-        var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
-        this.handleChangeTable(valueTable);
-      }
-    }            
-  ];
+  chartEventsTable =[{
+    eventName: "select",
+    callback  : ({chartWrapper}) => { 
+      var selection = chartWrapper.getChart().getSelection();
+      var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
+      this.handleChangeTable(valueTable);
+    }
+  }];
 
   handleChange(value) {
     this.setState({ 
@@ -97,7 +81,7 @@ export class InfoRaisa extends React.Component{
               rows={this.state.dataTable}
               columns={[ 
                 { type: 'string', label: 'Запуск' },
-                { type: "number",label:  "N обж." },
+                { type: "number", label:  "N обж." },
                 { type: "string", label: "Назв. программы" },
                 { type: 'string', label: 'Стоп' },
                 { type: "string", label: "Длительность" },
@@ -108,7 +92,6 @@ export class InfoRaisa extends React.Component{
               width="1200px"
               height="100%"
               options={{
-                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                 showRowNumber: true,
                 allowHtml: true, 
                 width:"100%"
@@ -124,11 +107,10 @@ export class InfoRaisa extends React.Component{
               chartType="Timeline"
               chartLanguage = 'ru'
               rows={this.state.dataTimeLine}
-              columns={columns}
+              columns={TimelineColumns}
               width="1200px"
               height="100px"
               options={{
-                colors: ['#98719D', '#A0BD85', '#5DBAD9'],
                 width:"100%"
               }}    
               chartEvents={this.chartEvents }          
