@@ -1,0 +1,15 @@
+.TooltipStyle {
+    display: grid;
+    grid-template-columns: 180px 90px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #505050;
+    user-select: none;
+    pointer-events: none;
+    padding: 15px;
+    background: #f5f5f5;
+    border: 1px solid #8f8f8f;
+    border-radius: 2px;
+    -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+    transition: width 2s, height 2s, background-color 2s, transform 2s
+}
