@@ -14,7 +14,6 @@ export const authenticationService = {
 };
 
 function login(email, password) {
-  //var hashedPassword = pbkdf2(password, crypto.lib.WordArray.random(128/8), { keySize: 512/32, iterations: 1000 }).toString();
   var hashedPassword = pbkdf2(password, 'ferropriborsalt', { keySize: 512/32, iterations: 1000 }).toString();
   var userDataPairToken = jwt.sign({email: email, hash: hashedPassword}, 'ferropribor');
   const requestOptions = {
@@ -25,14 +24,9 @@ function login(email, password) {
     body: JSON.stringify({userDataPairToken})
   };
 
-  //console.log('entered password: ', password);
-  //console.log('hash: ', hashedPassword);
-  //console.log('requestOptions.body: ', requestOptions.body);
-
   return fetch(`http://172.16.20.75:8060/`, requestOptions)
     .then(handleResponse)
     .then(user => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
       localStorage.setItem('currentUser', JSON.stringify(user));
       currentUserSubject.next(user);
 
@@ -41,7 +35,6 @@ function login(email, password) {
 }
 
 function logout() {
-  // remove user from local storage to log user out
   localStorage.removeItem('currentUser');
   currentUserSubject.next(null);
 }

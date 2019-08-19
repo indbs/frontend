@@ -124,7 +124,7 @@ export class InfoRaisa extends React.Component{
     );
   }
 }
-  
+/*  
 const mapStateToProps = function(state) {
   return {
     windowTables: state.reduxValues[0].windowTables,
@@ -136,4 +136,5 @@ const mapStateToProps = function(state) {
   }
 }
 
-export default connect(mapStateToProps)(InfoRaisa);
+export default connect(mapStateToProps)(InfoRaisa);*/
+export default InfoRaisa;

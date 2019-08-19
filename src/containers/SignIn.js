@@ -1,65 +1,36 @@
 import React, { Component } from 'react';
-import pbkdf2 from 'crypto-js/pbkdf2';
-import crypto from 'crypto-js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import  '../bootstrap.min.css';
 import { authenticationService } from '../services/authentication';
+import { connect } from 'react-redux';
+import {login_action, logout_action} from '../actions/user_actions';
 //import jwt from 'jsonwebtoken';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
 
-    // redirect to home if already logged in
     if (authenticationService.currentUserValue) { 
         this.props.history.push('/generalTimeLine');
     }
   }
-  
-  state = {
-    user: '',
-    rememberMe: false
-  };
 
-  componentDidMount() {
-    const rememberMe = localStorage.getItem('rememberMe') === 'true';
-    const user = rememberMe ? localStorage.getItem('user') : '';
-    this.setState({ user, rememberMe });
-    
-    /*
-    //var hashedPassword = pbkdf2("password",crypto.lib.WordArray.random(128/8),{ keySize: 512/32, iterations: 1000 }).toString();
-    var hashedPassword = pbkdf2("password",'ferropriborsalt',{ keySize: 512/32, iterations: 1000 }).toString();
-    console.log('test pbkdf2 password:',"password");
-    console.log('test pbkdf2 hashedPassword:', hashedPassword);                     //length 128
-    console.log('pbkdf2 hashedPassword lenght:',hashedPassword.length);
-    var tokenHashedPassword = jwt.sign({hash: hashedPassword}, 'signature');
-    console.log('pbkdf2 token for hashedPassword :',tokenHashedPassword);
-    var untokenHashedPassword = jwt.verify(tokenHashedPassword, 'signature');
-    console.log('pbkdf2 untoken for hashedPassword :',untokenHashedPassword);
-    */
-    //email - test@test.ru
-    //password:
-    //password
-    //salt:
-    //ferropriborsalt
-    //hash:
-    //b11970e7f116120d7fdf4bfb7b5d2b6500fd64b7986e58b1a2fd1b3cece5b65dd4e1ffcee349ddd64f11aec2f0caed534773e34c0ea832e478f3317709e67092
-  }
-
-  handleChange = (event) => {
-    const input = event.target;
-    const value = input.type === 'checkbox' ? input.checked : input.value;
-
-    this.setState({ [input.name]: value });
-  };
-
-  handleFormSubmit = () => {
-    const { user, rememberMe } = this.state;
-    localStorage.setItem('rememberMe', rememberMe);
-    localStorage.setItem('user', rememberMe ? user : '');
-  };
+  /*
+  //var hashedPassword = pbkdf2("password",crypto.lib.WordArray.random(128/8),{ keySize: 512/32, iterations: 1000 }).toString();
+  var hashedPassword = pbkdf2("password",'ferropriborsalt',{ keySize: 512/32, iterations: 1000 }).toString();
+  var tokenHashedPassword = jwt.sign({hash: hashedPassword}, 'signature');
+  var untokenHashedPassword = jwt.verify(tokenHashedPassword, 'signature');
+  */
+  //email - test@test.ru
+  //password:
+  //password
+  //salt:
+  //ferropriborsalt
+  //hash:
+  //b11970e7f116120d7fdf4bfb7b5d2b6500fd64b7986e58b1a2fd1b3cece5b65dd4e1ffcee349ddd64f11aec2f0caed534773e34c0ea832e478f3317709e67092      //length - 128
 
   render() {
+    
     return (
 			<div id='SignIn' style = {{'margin-left': '10%','margin-right': '10%','margin-top': '15vh'}} >
 				<div id='welcome_words' style = {{'text-align': 'center','margin-bottom': '2%', color: '#3560db', 'font-size': '15pt'}} >
@@ -68,7 +39,6 @@ class SignIn extends Component {
 				<div id='welcome_describe' style = {{'margin-bottom': '4%','text-align': 'center', color: '#484848'}} >
 					Для продолжения работы необходимо войти в систему!
 				</div>
-
 
       <Formik
         initialValues={{
@@ -89,27 +59,19 @@ class SignIn extends Component {
           }
           return errors;
         }}
-        /*
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-        */
+
         onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
           setStatus();
-          console.log('authenticationService: ', email+' '+password);
-
           authenticationService.login(email, password)
               .then(
                   user => {
-                      const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
-                      this.props.history.push(from);
+                    this.props.handleLogin(user.NAME);
+                    const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
+                    this.props.history.push(from);
                   },
                   error => {
-                      setSubmitting(false);
-                      setStatus(error);
+                    setSubmitting(false);
+                    setStatus(error);
                   }
               );
         }}
@@ -152,4 +114,14 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = state => ({
+  logged_in: state.logged_in
+})
+
+const mapDispatchToProps = dispatch => ({
+  handleLogin(user_name){
+    dispatch(login_action(user_name));
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

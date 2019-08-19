@@ -1,12 +1,9 @@
 import React from 'react';
-//import ReactDOM from 'react-dom';
 import Chart from 'react-google-charts';
 import GraphRaisa2 from '../graphs/GraphRaisa2';
 import { connect } from 'react-redux';
 import {RequestTimelineData} from '../receivers/requestData'
 import {TimelineColumns, TableColumns} from '../receivers/handleDataResponse';
-
-import {addTodo} from '../../actions/actions';
 
 export class InfoRaisa2 extends React.Component{
     
@@ -86,7 +83,7 @@ export class InfoRaisa2 extends React.Component{
       );
     }
   }
-          
+/*          
   const mapStateToProps = function(state) {
     return {
       windowTables: state.reduxValues[0].windowTables,
@@ -98,23 +95,15 @@ export class InfoRaisa2 extends React.Component{
     }
   }
 
-/*
-  const mapDispatchToProps = {
-    addToDo
-  }
-*/
-
   const mapDispatchToProps = dispatch => {
     alert('Hello2');
     console.log('hello 2');
     return {
       onTodoClick: () => { // handles onTodoClick prop's call here
         dispatch(addTodo())
-      }
-      
-    }
-
-    
+      } 
+    } 
   }
-
-  export default connect(mapStateToProps,{mapDispatchToProps})(InfoRaisa2);
+*/
+  //export default connect(mapStateToProps,{mapDispatchToProps})(InfoRaisa2);
+  export default InfoRaisa2;

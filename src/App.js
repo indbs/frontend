@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import {Route, Router, Redirect, Link} from "react-router-dom";
 import './App.css';
-import { combineReducers } from 'redux';
-import { Provider } from 'react-redux';
 
-import InfoRaisa from './scripts/infos/InfoRaisa';
-import InfoRaisa2 from './scripts/infos/InfoRaisa2';
-import InfoFR05 from './scripts/infos/InfoFR05';
-import InfoFR06 from './scripts/infos/InfoFR06';
-import Siemens from './scripts/siemens/Siemens';
-import TwoTablesRaisa from './scripts/twoTables/TwoTablesRaisa'; 
-import GeneralTimeLine from './scripts/timelines/GeneralTimeLine';
-import Redux from './scripts/Redux';
-import { store } from "./store";
-import GraphTrend from './scripts/graphs/GraphTrend';
-import { PrivateRoute } from './components/PrivateRoute';
-import { authenticationService } from './services/authentication';
-import { history } from './helpers/history';
-import SignIn from './containers/SignIn'
-import logo from './logos/fp_logo.svg';
-import LogoutLogo from './logos/logout_logo'
+import InfoRaisa                      from './scripts/infos/InfoRaisa';
+import InfoRaisa2                     from './scripts/infos/InfoRaisa2';
+import InfoFR05                       from './scripts/infos/InfoFR05';
+import InfoFR06                       from './scripts/infos/InfoFR06';
+import Siemens                        from './scripts/siemens/Siemens';
+import TwoTablesRaisa                 from './scripts/twoTables/TwoTablesRaisa'; 
+import GeneralTimeLine                from './scripts/timelines/GeneralTimeLine';
+import GraphTrend                     from './scripts/graphs/GraphTrend';
+import { PrivateRoute }               from './components/PrivateRoute';
+import { authenticationService }      from './services/authentication';
+import { history }                    from './helpers/history';
+import SignIn                         from './containers/SignIn'
+import logo                           from './logos/fp_logo.svg';
+import LogoutLogo                     from './logos/logout_logo'
 
 class App extends Component {
  
@@ -35,16 +31,8 @@ class App extends Component {
     document.title = "General Timeline React"
     authenticationService.currentUser.subscribe(x => this.setState({ currentUser: x }));
   }
-
-  logout() {
-    authenticationService.logout();
-    history.push('/welcomePage');
-  }
   
   render() {
-    //Создаются объекты Router, которые потом передаются в вертикальное меню списком как объекты NavLink.
-    console.log("users: ", this.props.users);
-
     const { currentUser } = this.state;
 
     return (
@@ -52,7 +40,6 @@ class App extends Component {
       <div id='welcome_guys_to_our_best_industrial_information_solution_software' style = {{'text-align': 'center'}}>
         
         <Router id='router_here' history={history}>      
-          {/*<div id= 'content' className = 'app-wrapper' >*/}
           {currentUser &&
             <div id='HorisontalMenu' style = {{'display': 'inline-block'}} >
               <div id='logout_navbar' style = {{'width': '1200px'}} >
@@ -70,7 +57,6 @@ class App extends Component {
                   </nav>
                 }
               </div>
-              {/*<HorisontalMenu />*/}
             </div>
           }     
 
@@ -84,18 +70,10 @@ class App extends Component {
             <PrivateRoute exact path =       '/generalTimeLine'            component={GeneralTimeLine} />
             <PrivateRoute exact path =       '/GraphTrend'                 component={GraphTrend} />
             <Route path =                    '/welcomePage'                component={SignIn} />
-          {/*
-          {currentUser &&
-            <div id='app-wrapper-content' className = 'app-wrapper-content'>    
-              <VerticalMenu />
-            </div>
-          }
-          */}
           </div>
           
           <Redirect to = '/welcomePage'/>
           
-          {/*</div>*/}
         </Router>
 
       </div>
