@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import  '../bootstrap.min.css';
-import { authenticationService } from '../services/authentication';
-import { connect } from 'react-redux';
-import {login_action, logout_action} from '../actions/user_actions';
+import React, { Component }                       from 'react';
+import { Formik, Form, Field, ErrorMessage }      from 'formik';
+import                                                 '../bootstrap.min.css';
+import { authenticationService }                  from '../services/authentication';
+import { connect }                                from 'react-redux';
+import {login_action}                             from '../actions/user_actions';
 //import jwt from 'jsonwebtoken';
 
 class SignIn extends Component {
@@ -65,7 +65,7 @@ class SignIn extends Component {
           authenticationService.login(email, password)
               .then(
                   user => {
-                    this.props.handleLogin(user.NAME);
+                    this.props.dispatch(user.NAME);
                     const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
                     this.props.history.push(from);
                   },
@@ -114,14 +114,10 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  logged_in: state.logged_in
-})
-
 const mapDispatchToProps = dispatch => ({
-  handleLogin(user_name){
+  dispatch(user_name){
     dispatch(login_action(user_name));
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

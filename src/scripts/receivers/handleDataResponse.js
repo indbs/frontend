@@ -96,9 +96,9 @@ export function handleGraphResponseCommon (kilntype, response) {
     chartDataAll.push(graphCommonRow(kilntype, dataTable[i]));
   }
   
-  chartDataShort      = chartDataAll.map(function(row){return row.slice(0,5)});
-  chartDataCurrents   = chartDataAll.map(function(row){return row.slice(0,9)});
-  chartDataAirHeaters = chartDataAll.map(function(row){return [...row.slice(0,5),...row.slice(8,11)]});
+  chartDataShort      = chartDataAll.map(row => {return row.slice(0,5)});
+  chartDataCurrents   = chartDataAll.map(row => {return row.slice(0,9)});
+  chartDataAirHeaters = chartDataAll.map(row => {return [...row.slice(0,5),...row.slice(8,11)]});
   
   return {chartDataAll: chartDataAll, chartDataShort: chartDataShort, chartDataCurrents: chartDataCurrents, chartDataAirHeaters: chartDataAirHeaters};
 }

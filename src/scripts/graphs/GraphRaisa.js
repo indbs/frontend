@@ -1,8 +1,8 @@
-import React from 'react';
-import Chart from 'react-google-charts';
-import '../style.css';
-import {RequestGraphData} from '../receivers/requestData';
-import {graphOptionsRaisa} from './GraphOptions'
+import React                    from 'react';
+import Chart                    from 'react-google-charts';
+import                               '../style.css';
+import {RequestGraphData}       from '../receivers/requestData';
+import {graphOptionsRaisa}      from './GraphOptions'
 
 export class GraphRaisa extends React.Component {
         
@@ -43,12 +43,15 @@ export class GraphRaisa extends React.Component {
   }
 
   componentDidMount() {
-    this.requestData(this.props.commonValue);  
+    this.requestData(this.props.commonValue);
   }
 
   render() {
     return (
       <div className="GraphPage">    
+        <div id="artical" style={{'text-align':'left'}}>     
+          <hr5>Обжиг N  {this.props.commonValue} </hr5>
+        </div> 
         <div className="Graph" id="chart_div">
           {this.state && this.state.dataToDisplay &&<Chart
             width={1200}

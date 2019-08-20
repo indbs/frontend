@@ -1,24 +1,20 @@
-import React from 'react';
-//import ReactDOM from 'react-dom';
-import Chart from 'react-google-charts';
-import GraphRaisa from '../graphs/GraphRaisa';
-//import {NavLink} from 'react-router-dom';
-//import './InfoRaisa.css';
-import '../style.css';
-import { connect } from 'react-redux';
-import {RequestTimelineData} from '../receivers/requestData'
-import {TimelineColumns, TableColumns} from '../receivers/handleDataResponse';
-import TwoTablesRaisa from '../twoTables/TwoTablesRaisa';
+import React                                from 'react';
+import Chart                                from 'react-google-charts';
+import GraphRaisa                           from '../graphs/GraphRaisa';
+import                                           '../style.css';
+import {connect}                            from 'react-redux';
+import {RequestTimelineData}                from '../receivers/requestData'
+import {TimelineColumns, TableColumns}      from '../receivers/handleDataResponse';
+import TwoTablesRaisa                       from '../twoTables/TwoTablesRaisa';
+import {last_burn_graph_number_received}    from '../../actions/aux_data_receiving_action';
 
 export class InfoRaisa extends React.Component{
   constructor(props) {
     super(props);
     this.state = { 
-      valuePass: 10,
       valueTwoTable: 10,
       flag: true
     };
-    this.handleChange = this.handleChange.bind(this); 
     this.handleChangeTable = this.handleChangeTable.bind(this); 
   }
 
@@ -33,15 +29,15 @@ export class InfoRaisa extends React.Component{
   }
   
   componentDidMount() {
-    this.requestData();  
+    this.requestData(); 
   }
   
-  chartEvents =[{
+  chartEventsTimeline =[{
     eventName: 'select',
     callback  : ({chartWrapper}) => {        
       var selection = chartWrapper.getChart().getSelection();
-      var value = chartWrapper.getDataTable().getValue(selection[0].row,1);    
-      this.handleChange(value);
+      var selectedValue = chartWrapper.getDataTable().getValue(selection[0].row,1);    
+      this.props.dispatch(last_burn_graph_number_received('Раиса', selectedValue)); 
     }
   }];
       
@@ -53,13 +49,6 @@ export class InfoRaisa extends React.Component{
       this.handleChangeTable(valueTable);
     }
   }];
-
-  handleChange(value) {
-    this.setState({ 
-      valuePass: value,
-      flag:true
-    });             
-  }
 
   handleChangeTable(valueTable) {
     this.setState({
@@ -86,7 +75,7 @@ export class InfoRaisa extends React.Component{
                 allowHtml: true, 
                 width:'100%'
               }}  
-              chartEvents={this.chartEventsTable }
+              chartEvents={this.chartEventsTable}
             />
           }
         </div> 
@@ -103,14 +92,14 @@ export class InfoRaisa extends React.Component{
               options={{
                 width:'100%'
               }}    
-              chartEvents={this.chartEvents }          
+              chartEvents={this.chartEventsTimeline}          
             />
           }
         </div>
             
         <div id='graph' className={'my-graphRaisa-div'}>
-          { this.state &&this.state.flag && 
-            <GraphRaisa commonValue={this.state.valuePass}/> 
+          { this.props.aux_data_received &&this.props.aux_data_received.number && 
+            <GraphRaisa commonValue={this.props.aux_data_received.number}/> 
           }
         </div>
     
@@ -124,17 +113,15 @@ export class InfoRaisa extends React.Component{
     );
   }
 }
-/*  
-const mapStateToProps = function(state) {
-  return {
-    windowTables: state.reduxValues[0].windowTables,
-    windowGraphic: state.reduxValues[0].windowGraphic,
-    id: state.reduxValues[0].id,
-    selcted_oven:state.reduxValues[0].selcted_oven,
-    selectedBorn: state.reduxValues[0].selectedBorn,
-    lastBorn: state.reduxValues[0].lastBorn
-  }
-}
 
-export default connect(mapStateToProps)(InfoRaisa);*/
-export default InfoRaisa;
+const mapStateToProps = state => ({
+  aux_data_received: state.aux_data_received.filter(c => c.kiln=='Раиса')[0]
+}) 
+
+const mapDispatchToProps = dispatch => ({
+  dispatch(params){
+    dispatch(params);
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoRaisa);

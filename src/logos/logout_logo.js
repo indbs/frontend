@@ -1,9 +1,10 @@
-import React, { Component }           from 'react';
+import React, {Component}             from 'react';
 import logout                         from './logout.svg';
-import { authenticationService }      from '../services/authentication';
-import { history }                    from '../helpers/history';
-import { connect }                    from 'react-redux';
-import {login_action, logout_action}  from '../actions/user_actions';
+import {authenticationService}        from '../services/authentication';
+import {history}                      from '../helpers/history';
+import {connect}                      from 'react-redux';
+import {logout_action}                from '../actions/user_actions';
+import {last_burn_graph_number_clean} from '../actions/aux_data_receiving_action'
 
 class LogoutLogo extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class LogoutLogo extends Component {
   }
 
   handleClick = () => {
-    this.props.handleLogout();
+    this.props.dispatch();
     authenticationService.logout();
     history.push('/welcomePage');
   }
@@ -39,14 +40,11 @@ class LogoutLogo extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  logged_in: state.logged_in
-})
-
 const mapDispatchToProps = dispatch => ({
-  handleLogout(){
+  dispatch(){
     dispatch(logout_action());
+    dispatch(last_burn_graph_number_clean());
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogoutLogo);
+export default connect(null, mapDispatchToProps)(LogoutLogo);
