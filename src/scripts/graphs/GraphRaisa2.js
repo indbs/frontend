@@ -1,22 +1,22 @@
-import React from 'react';
-import Chart from 'react-google-charts';
-import {RequestGraphData} from '../receivers/requestData';
-import {graphOptionsRaisa} from './GraphOptions'
+import React                    from 'react';
+import Chart                    from 'react-google-charts';
+import {RequestGraphData}       from '../receivers/requestData';
+import {graphOptionsRaisa}      from './GraphOptions'
 
 export class GraphRaisa2 extends React.Component {
        
-  requestData(){
+  requestData(dataToRequest){
     const self = this;
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
-    RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=raisa2&program_number='+this.props.commonValueRaisa2.valuePass+'&year=2019', AuthStr).then(resultArrayTablePresets=>{
+    console.log('dataToRequest raisa2 ', dataToRequest);
+    RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=raisa2&program_number='+dataToRequest+'&year=2019', AuthStr).then(resultArrayTablePresets=>{
       self.setState({dataToDisplay:   resultArrayTablePresets.chartDataShort});
       self.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
       self.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
       self.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
-      self.setState({dataShort:       resultArrayTablePresets.chartDataShort}); 
+      self.setState({dataShort:       resultArrayTablePresets.chartDataShort});
     }); 
-    
   }
 
   handleClickAll = () => {
@@ -31,13 +31,23 @@ export class GraphRaisa2 extends React.Component {
   handleClickAirHeaters = () => {
       this.setState( {dataToDisplay: this.state.dataAirHeaters} );
   }
-  componentWillReceiveProps() {
-      this.requestData();      
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.programNumber !== nextProps.programNumber) {
+      this.requestData(nextProps.programNumber);
+    }
+  }
+
+  componentDidMount() {
+    this.requestData(this.props.programNumber);
   }
 
   render() {
     return (
-      <div className="GraphPage">    
+      <div className="GraphPage">   
+        <div id="artical" style={{'text-align':'left'}}>     
+          <span className='hr5'>Обжиг N {this.props.programNumber} </span>
+        </div>  
         <div className="Graph" id="chart_div">
           {this.state && this.state.dataToDisplay &&
             <Chart
@@ -51,9 +61,6 @@ export class GraphRaisa2 extends React.Component {
               options= {graphOptionsRaisa}  
             />
           }
-        </div>
-        <div>
-          <p>  Граф Номер  {this.props.commonValueRaisa2.valuePass}</p>
         </div>
         <div className="Buttons" id="chart_div_buttons">
           <button className="butt" onClick={this.handleClickCurrents}>Показать токи</button>

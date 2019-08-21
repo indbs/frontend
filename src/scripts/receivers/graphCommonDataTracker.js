@@ -1,6 +1,6 @@
 export function graphCommonRow(kilnLabel, dataGraphRow){
   return [
-    new Date(dataGraphRow.time), 
+    (kilnLabel=='Раиса')?new Date(dataGraphRow.time):new Date(dataGraphRow.time1), 
     dataGraphRow.oxygen_predict_sp,
     dataGraphRow.analiser_calc,
     dataGraphRow.setpoint, 

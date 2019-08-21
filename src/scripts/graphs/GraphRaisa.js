@@ -36,21 +36,20 @@ export class GraphRaisa extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.commonValue !== nextProps.commonValue) {
-      this.requestData(nextProps.commonValue);
-      this.setState( {currentProgramNumber: nextProps.commonValue} );
+    if (this.props.programNumber !== nextProps.programNumber) {
+      this.requestData(nextProps.programNumber);
     }
   }
 
   componentDidMount() {
-    this.requestData(this.props.commonValue);
+    this.requestData(this.props.programNumber);
   }
 
   render() {
     return (
       <div className="GraphPage">    
         <div id="artical" style={{'text-align':'left'}}>     
-          <hr5>Обжиг N  {this.props.commonValue} </hr5>
+          <span className='hr5'>Обжиг N {this.props.programNumber} </span>
         </div> 
         <div className="Graph" id="chart_div">
           {this.state && this.state.dataToDisplay &&<Chart
@@ -73,7 +72,8 @@ export class GraphRaisa extends React.Component {
           </div>
         }             
       </div>
-    );}
+    );
   }
+}
  
-  export default GraphRaisa;
+export default GraphRaisa;

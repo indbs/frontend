@@ -1,21 +1,20 @@
 import React                                from 'react';
 import Chart                                from 'react-google-charts';
 import GraphRaisa                           from '../graphs/GraphRaisa';
+import                                           './info.css';
 import                                           '../style.css';
+import logo_loading                         from '../../logos/fp_logo_loading.svg';
 import {connect}                            from 'react-redux';
 import {RequestTimelineData}                from '../receivers/requestData'
 import {TimelineColumns, TableColumns}      from '../receivers/handleDataResponse';
 import TwoTablesRaisa                       from '../twoTables/TwoTablesRaisa';
-import {last_burn_graph_number_received}    from '../../actions/aux_data_receiving_action';
+import {
+  burn_graph_number_received,
+  burn_two_tables_number_received}          from '../../actions/aux_data_receiving_action';
 
 export class InfoRaisa extends React.Component{
   constructor(props) {
     super(props);
-    this.state = { 
-      valueTwoTable: 10,
-      flag: true
-    };
-    this.handleChangeTable = this.handleChangeTable.bind(this); 
   }
 
   requestData(){
@@ -35,27 +34,20 @@ export class InfoRaisa extends React.Component{
   chartEventsTimeline =[{
     eventName: 'select',
     callback  : ({chartWrapper}) => {        
-      var selection = chartWrapper.getChart().getSelection();
-      var selectedValue = chartWrapper.getDataTable().getValue(selection[0].row,1);    
-      this.props.dispatch(last_burn_graph_number_received('Раиса', selectedValue)); 
+      var selection =               chartWrapper.getChart().getSelection();
+      var selectedTimelineValue =   chartWrapper.getDataTable().getValue(selection[0].row,1);  
+      this.props.dispatch(burn_graph_number_received('Раиса', parseInt(selectedTimelineValue))); 
     }
   }];
       
   chartEventsTable =[{
     eventName: 'select',
     callback  : ({chartWrapper}) => { 
-      var selection = chartWrapper.getChart().getSelection();
-      var valueTable = chartWrapper.getDataTable().getValue(selection[0].row,1);   
-      this.handleChangeTable(valueTable);
+      var selection =               chartWrapper.getChart().getSelection();
+      var selectedTableValue =      chartWrapper.getDataTable().getValue(selection[0].row,1); 
+      this.props.dispatch(burn_two_tables_number_received('Раиса', parseInt(selectedTableValue))); 
     }
   }];
-
-  handleChangeTable(valueTable) {
-    this.setState({
-      valueTwoTable: valueTable,
-      flag:false
-    });
-  }
 
   render(){
     return (
@@ -96,19 +88,28 @@ export class InfoRaisa extends React.Component{
             />
           }
         </div>
-            
+        
+        {(!this.state || !this.state.dataTimeLine || !this.state.dataTable)  &&
+          <div className='logoWidth'>
+            <div>
+              <p >Загружаем...</p>
+              <img src={logo_loading} className="App-logo-loading" alt="waiting" />
+            </div>
+          </div>
+        }
+        
         <div id='graph' className={'my-graphRaisa-div'}>
-          { this.props.aux_data_received &&this.props.aux_data_received.number && 
-            <GraphRaisa commonValue={this.props.aux_data_received.number}/> 
+          { this.state && this.state.dataTimeLine && this.props.aux_data_received &&this.props.aux_data_received.number && !this.props.aux_data_received.two_tables_number &&
+            <GraphRaisa programNumber={this.props.aux_data_received.number}/> 
           }
         </div>
     
         <div id='two_tables' className={'my-twoTablesRaisa-div'}>
-          { this.state &&!this.state.flag &&       
-            <TwoTablesRaisa commonValue={this.state.valueTwoTable}/>
+          { this.state && this.state.dataTimeLine && this.props.aux_data_received &&this.props.aux_data_received.two_tables_number &&       
+            <TwoTablesRaisa programNumber={this.props.aux_data_received.two_tables_number}/>
           }
         </div>
-
+        
       </div>
     );
   }

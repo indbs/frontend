@@ -1,0 +1,11 @@
+.my-global-div {
+  position: relative;
+}
+.my-timeline-div {
+  position: relative;
+  margin-top: calc(30vh/2);
+}
+.logoWidth {
+  width: 1200px;
+  margin-top: calc(30vh/2);
+}

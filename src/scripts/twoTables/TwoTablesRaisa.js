@@ -1,8 +1,8 @@
-import React from 'react';
-import Chart from "react-google-charts";
-import '../style.css';
-import {RequestTwoTablesData} from '../receivers/requestData';
-import {TwoTablesColumnsHeat, TwoTablesColumnsGas} from '../receivers/handleDataResponse';
+import React                                        from 'react';
+import Chart                                        from 'react-google-charts';
+import                                                   '../style.css';
+import {RequestTwoTablesData}                       from '../receivers/requestData';
+import {TwoTablesColumnsHeat, TwoTablesColumnsGas}  from '../receivers/handleDataResponse';
 
 export class TwoTablesRaisa extends React.Component{
 
@@ -20,23 +20,23 @@ export class TwoTablesRaisa extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.commonValue !== nextProps.commonValue) {
-      this.requestData(nextProps.commonValue);
+    if (this.props.programNumber !== nextProps.programNumber) {
+      this.requestData(nextProps.programNumber);
     }
     else {
-      this.requestData(this.props.commonValue);
+      this.requestData(this.props.programNumber);
     }
   }
 
   componentDidMount() {
-    this.requestData(this.props.commonValue);  
+    this.requestData(this.props.programNumber);  
   }
   
   render(){
     return (
       <div className={"my-global-div"} >
         <div id="artical" style={{'text-align':'left'}}>     
-          <hr5>Обжиг N  {this.props.commonValue} </hr5>
+          <span className='hr5'>Обжиг N {this.props.programNumber} </span>
         </div> 
         <div id='tableHeat'>
           { this.state && this.state.dataTableHeat&&
@@ -45,16 +45,16 @@ export class TwoTablesRaisa extends React.Component{
               chartLanguage = 'ru'
               rows={this.state.dataTableHeat}
               columns={TwoTablesColumnsHeat} 
-              width="500px"
               height="100%"
               options={{
                 showRowNumber: false,
                 allowHtml: true, 
-                width:"500px"
+                width:"800px"
               }}       
             />
           }
         </div>
+        <br/>
         <div  id='tableGas'>
           { this.state && this.state.dataTableGas&& 
             <Chart
@@ -62,12 +62,11 @@ export class TwoTablesRaisa extends React.Component{
               chartLanguage = 'ru'
               rows={this.state.dataTableGas}
               columns={TwoTablesColumnsGas} 
-              width="500px"
               height="100%"
               options={{
                 showRowNumber: false,
                 allowHtml: true, 
-                width:"500px"
+                width:"800px"
               }}       
             />
           }

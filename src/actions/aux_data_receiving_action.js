@@ -1,9 +1,15 @@
-export const last_burn_graph_number_received = (kiln, number) => ({
-  type: 'BURN_GRAPH_NUMBER_RECEIVED',
-  kiln: kiln,
-  number: number
+export const burn_graph_number_received = (kiln, graph_number) => ({
+  type:               'BURN_GRAPH_NUMBER_RECEIVED',
+  kiln:               kiln,
+  number:             graph_number
 })
 
-export const last_burn_graph_number_clean = () => ({
-  type: 'BURN_GRAPH_NUMBERS_CLEAN'
+export const burn_two_tables_number_received = (kiln, two_tables_number) => ({
+  type:               'BURN_TWO_TABLES_NUMBER_RECEIVED',
+  kiln:               kiln,
+  two_tables_number:  two_tables_number
+})
+
+export const burn_graph_number_clean = () => ({
+  type:               'BURN_GRAPH_NUMBERS_CLEAN'
 })
