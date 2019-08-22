@@ -36,7 +36,6 @@ export class GeneralTimeLine extends React.Component{
 
   componentDidMount() {
     this.requestData();  
-    console.log('this.props gtml did mount ', this.props);     
   }
 
   render(){

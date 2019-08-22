@@ -23,21 +23,25 @@ hr10 { color: #3973ac; font-size: 48px; font-family: 'Signika', sans-serif; padd
 }
 
 .butt {
-   background-color: white;
-    border: 2px solid #9fbfdf;
-    color: black;
-    padding: 5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 7px 0px 15px;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    margin-right: 20px; 
+  background-color: white;
+  border: 2px solid #9fbfdf;
+  color: black;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 7px 0px 15px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  margin-right: 20px; 
 }
 
 .butt:hover {
+  background-color:#b3cce6;
+}
+
+.butt.cl {
   background-color:#b3cce6;
 }
 

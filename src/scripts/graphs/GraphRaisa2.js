@@ -1,7 +1,9 @@
-import React                    from 'react';
-import Chart                    from 'react-google-charts';
-import {RequestGraphData}       from '../receivers/requestData';
-import {graphOptionsRaisa}      from './GraphOptions'
+import React                                              from 'react';
+import Chart                                              from 'react-google-charts';
+import {connect}                                          from 'react-redux';
+import {RequestGraphData}                                 from '../receivers/requestData';
+import {graphOptionsRaisa}                                from './GraphOptions'
+import GraphButtons, {buttonSelectionPreset}              from './GraphRaisaButtons'
 
 export class GraphRaisa2 extends React.Component {
        
@@ -9,25 +11,11 @@ export class GraphRaisa2 extends React.Component {
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
     RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=raisa2&program_number='+dataToRequest+'&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
-      this.setState({dataToDisplay:   resultArrayTablePresets.chartDataShort});
       this.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
       this.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
       this.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
       this.setState({dataShort:       resultArrayTablePresets.chartDataShort});
     }); 
-  }
-
-  handleClickAll = () => {
-      this.setState( {dataToDisplay: this.state.dataAll} );
-  }
-  handleClickShort = () => {
-      this.setState( {dataToDisplay: this.state.dataShort} );
-  }
-  handleClickCurrents = () => {
-      this.setState( {dataToDisplay: this.state.dataCurrents} );
-  }
-  handleClickAirHeaters = () => {
-      this.setState( {dataToDisplay: this.state.dataAirHeaters} );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,34 +29,42 @@ export class GraphRaisa2 extends React.Component {
   }
 
   render() {
+    var displayParameter =buttonSelectionPreset(this.props.graph_mode_selection, 'Раиса2');
     return (
       <div className="GraphPage">   
         <div id="artical" style={{'text-align':'left'}}>     
           <span className='hr5'>Обжиг N {this.props.programNumber} </span>
         </div>  
         <div className="Graph" id="chart_div">
-          {this.state && this.state.dataToDisplay &&
+          {this.state && this.state.dataShort &&
             <Chart
               width={1200}
               height={500}
               chartType="LineChart"
               chartLanguage = 'ru'
               loader={<div>Загружаем данные...</div>}
-              data={this.state.dataToDisplay}
+              data={(()=>{
+                switch(displayParameter)
+                {
+                  case 'short':         return this.state.dataShort;
+                  case 'currents':      return this.state.dataCurrents;
+                  case 'airHeaters':    return this.state.dataAirHeaters;
+                  case 'all':           return this.state.dataAll;
+                }
+              })()}
               legend_toggle={true}
               options= {graphOptionsRaisa}  
             />
           }
         </div>
-        <div className="Buttons" id="chart_div_buttons">
-          <button className="butt" onClick={this.handleClickCurrents}>Показать токи</button>
-          <button className="butt" onClick={this.handleClickAirHeaters}>Показать возд. нагреватели</button>
-          <button className="butt" onClick={this.handleClickShort}>Показать только температуру</button>
-          <button className="butt" onClick={this.handleClickAll}>Показать всё</button>
-        </div>             
+        <GraphButtons kiln='Раиса2'/>      
       </div>
     );
   }
 }
  
-export default GraphRaisa2;
+const mapStateToProps = state => ({
+  graph_mode_selection: state.graph_mode_selection,
+}) 
+ 
+export default connect(mapStateToProps)(GraphRaisa2);

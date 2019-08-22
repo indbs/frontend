@@ -97,7 +97,7 @@ export function handleGraphResponseCommon (kilntype, response) {
   }
   
   chartDataShort      = chartDataAll.map(row => {return row.slice(0,5)});
-  chartDataCurrents   = chartDataAll.map(row => {return row.slice(0,9)});
+  chartDataCurrents   = chartDataAll.map(row => {return row.slice(0,8)});
   chartDataAirHeaters = chartDataAll.map(row => {return [...row.slice(0,5),...row.slice(8,11)]});
   
   return {chartDataAll: chartDataAll, chartDataShort: chartDataShort, chartDataCurrents: chartDataCurrents, chartDataAirHeaters: chartDataAirHeaters};
