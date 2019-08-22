@@ -6,16 +6,14 @@ import {graphOptionsRaisa}      from './GraphOptions'
 export class GraphRaisa2 extends React.Component {
        
   requestData(dataToRequest){
-    const self = this;
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
-    console.log('dataToRequest raisa2 ', dataToRequest);
-    RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=raisa2&program_number='+dataToRequest+'&year=2019', AuthStr).then(resultArrayTablePresets=>{
-      self.setState({dataToDisplay:   resultArrayTablePresets.chartDataShort});
-      self.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
-      self.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
-      self.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
-      self.setState({dataShort:       resultArrayTablePresets.chartDataShort});
+    RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=raisa2&program_number='+dataToRequest+'&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
+      this.setState({dataToDisplay:   resultArrayTablePresets.chartDataShort});
+      this.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
+      this.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
+      this.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
+      this.setState({dataShort:       resultArrayTablePresets.chartDataShort});
     }); 
   }
 
@@ -52,7 +50,7 @@ export class GraphRaisa2 extends React.Component {
           {this.state && this.state.dataToDisplay &&
             <Chart
               width={1200}
-              height={800}
+              height={500}
               chartType="LineChart"
               chartLanguage = 'ru'
               loader={<div>Загружаем данные...</div>}

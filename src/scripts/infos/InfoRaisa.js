@@ -10,7 +10,7 @@ import {TimelineColumns, TableColumns}      from '../receivers/handleDataRespons
 import TwoTablesRaisa                       from '../twoTables/TwoTablesRaisa';
 import {
   burn_graph_number_received,
-  burn_two_tables_number_received}          from '../../actions/aux_data_receiving_action';
+  burn_two_tables_number_received}          from '../../actions/aux_data_receiving_actions';
 
 export class InfoRaisa extends React.Component{
   constructor(props) {
@@ -18,12 +18,11 @@ export class InfoRaisa extends React.Component{
   }
 
   requestData(){
-    const self = this;
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
     RequestTimelineData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(resultArrayTwoDataPresets=>{
-      self.setState({dataTimeLine:  resultArrayTwoDataPresets.rowsTimeLine});
-      self.setState({dataTable:     resultArrayTwoDataPresets.rowsTable});
+      this.setState({dataTimeLine:  resultArrayTwoDataPresets.rowsTimeLine});
+      this.setState({dataTable:     resultArrayTwoDataPresets.rowsTable});
     });      
   }
   

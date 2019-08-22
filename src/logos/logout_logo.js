@@ -4,7 +4,7 @@ import {authenticationService}        from '../services/authentication';
 import {history}                      from '../helpers/history';
 import {connect}                      from 'react-redux';
 import {logout_action}                from '../actions/user_actions';
-import {burn_graph_number_clean}      from '../actions/aux_data_receiving_action'
+import {burn_graph_number_clean}      from '../actions/aux_data_receiving_actions'
 
 class LogoutLogo extends Component {
   constructor(props) {

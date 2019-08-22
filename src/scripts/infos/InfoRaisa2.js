@@ -9,7 +9,7 @@ import {TimelineColumns, TableColumns}      from '../receivers/handleDataRespons
 import TwoTablesRaisa2                      from '../twoTables/TwoTablesRaisa2';
 import {
   burn_graph_number_received,
-  burn_two_tables_number_received}          from '../../actions/aux_data_receiving_action';
+  burn_two_tables_number_received}          from '../../actions/aux_data_receiving_actions';
 
 export class InfoRaisa2 extends React.Component{
   constructor(props) {
