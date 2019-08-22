@@ -16,6 +16,7 @@ import { history }                    from './helpers/history';
 import SignIn                         from './containers/SignIn'
 import logo                           from './logos/fp_logo.svg';
 import LogoutLogo                     from './logos/logout_logo'
+import RegistrationForm               from './containers/Registration'
 
 class App extends Component {
  
@@ -47,11 +48,11 @@ class App extends Component {
                   <nav className="navbar navbar-expand navbar-dark bg-dark">
                     <img src={logo} className="App-logo" alt="logo" />
                     <div id='inner_logout_navbar' className="navbar-nav">
-                      <Link to="/generalTimeLine" className="nav-item nav-link">Обзор</Link>
-                      <Link to="/raisa"           className="nav-item nav-link">Раиса</Link>
+                      <Link to="/generalTimeLine" className="nav-item nav-link">Обзор </Link>
+                      <Link to="/raisa"           className="nav-item nav-link">Раиса </Link>
                       <Link to="/raisa2"          className="nav-item nav-link">Раиса2</Link>
-                      <Link to="/fr05"            className="nav-item nav-link">ФР05</Link>
-                      <Link to="/fr06"            className="nav-item nav-link">ФР06</Link>
+                      <Link to="/fr05"            className="nav-item nav-link">ФР05  </Link>
+                      <Link to="/fr06"            className="nav-item nav-link">ФР06  </Link>
                     </div>
                     <LogoutLogo/>
                   </nav>
@@ -70,6 +71,7 @@ class App extends Component {
             <PrivateRoute exact path =       '/generalTimeLine'            component={GeneralTimeLine} />
             <PrivateRoute exact path =       '/GraphTrend'                 component={GraphTrend} />
             <Route path =                    '/welcomePage'                component={SignIn} />
+            <Route path =                    '/registration'               component={RegistrationForm} />
           </div>
           
           <Redirect to = '/welcomePage'/>

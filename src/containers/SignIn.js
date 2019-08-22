@@ -3,7 +3,9 @@ import { Formik, Form, Field, ErrorMessage }      from 'formik';
 import                                                 '../bootstrap.min.css';
 import { authenticationService }                  from '../services/authentication';
 import { connect }                                from 'react-redux';
-import {login_action}                             from '../actions/user_actions';
+import { login_action }                           from '../actions/user_actions';
+import { validateForm }                           from './FormFunctions'
+import { RegisterRememberButtons, SubmitButton }  from './Buttons'
 //import jwt from 'jsonwebtoken';
 
 class SignIn extends Component {
@@ -30,7 +32,6 @@ class SignIn extends Component {
   //b11970e7f116120d7fdf4bfb7b5d2b6500fd64b7986e58b1a2fd1b3cece5b65dd4e1ffcee349ddd64f11aec2f0caed534773e34c0ea832e478f3317709e67092      //length - 128
 
   render() {
-    
     return (
 			<div id='SignIn' style = {{'margin-left': '10%','margin-right': '10%','margin-top': '15vh'}} >
 				<div id='welcome_words' style = {{'text-align': 'center','margin-bottom': '2%', color: '#3560db', 'font-size': '15pt'}} >
@@ -40,75 +41,54 @@ class SignIn extends Component {
 					Для продолжения работы необходимо войти в систему!
 				</div>
 
-      <Formik
-        initialValues={{
-          email: '',
-          password: ''
-        }} 
-        validate={values => {
-          let errors = {};
-          if (!values.email) {
-            errors.email = 'Введите email';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Неправильный email';
-          }
-          if (!values.password) {
-            errors.password = 'Введите пароль';
-          }
-          return errors;
-        }}
+        <Formik
+          initialValues={{
+            email: '',
+            password: ''
+          }} 
+          validate={(values) => validateForm(values, 'signIn')}
 
-        onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
-          setStatus();
-          authenticationService.login(email, password)
-              .then(
-                  user => {
-                    this.props.dispatch(user.NAME);
-                    const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
-                    this.props.history.push(from);
-                  },
-                  error => {
-                    setSubmitting(false);
-                    setStatus(error);
-                  }
-              );
-        }}
-      >
-      {({ values, status, handleChange, isSubmitting, errors, touched }) => (        
-        <Form>
+          onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
+            setStatus();
+            authenticationService.login(email, password)
+                .then(
+                    user => {
+                      this.props.dispatch(user.NAME);
+                      const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
+                      this.props.history.push(from);
+                    },
+                    error => {
+                      setSubmitting(false);
+                      setStatus(error);
+                    }
+                );
+          }}
+        >
+        {({ values, status, handleChange, isSubmitting, errors, touched }) => (        
+          <Form>
+            <div className="form-group">
+              <label htmlFor="email">email</label>
+              <Field className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} name="email" type="email" /*onChange={handleChange}*/ />
+              <ErrorMessage name="email" component="div" className="invalid-feedback" />
+            </div>
+            {/*{errors.email && touched.email && errors.email}*/}
+            
+            <div className="form-group">
+              <label htmlFor="password">Пароль</label>
+              <Field  className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} name="password" type="password" /*onChange={handleChange}*/ />
+              <ErrorMessage name="password" component="div" className="invalid-feedback" />
+            </div>
+            {/*{errors.password && touched.password && errors.password}*/}
 
-          <div className="form-group">
-            <label htmlFor="email">email</label>
-            <Field className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} name="email" type="email" onChange={handleChange} />
-            <ErrorMessage name="email" component="div" className="invalid-feedback" />
-          </div>
-          {errors.email && touched.email && errors.email}
-          
-          <div className="form-group">
-            <label htmlFor="password">Пароль</label>
-            <Field  className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} name="password" type="password" onChange={handleChange} />
-            <ErrorMessage name="password" component="div" className="invalid-feedback" />
-          </div>
-          {errors.password && touched.password && errors.password}
+            <SubmitButton isSubmitting={isSubmitting} errors={errors}/>
+            <RegisterRememberButtons history={this.props.history}/>
 
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-              Войти
-            </button>
-            {isSubmitting &&
-              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            {status &&
+              <div className={'alert alert-danger'}>{status}</div>
             }
-          </div>
-
-          {status &&
-            <div className={'alert alert-danger'}>{status}</div>
-          }
-
-        </Form>      
-      )}
-      </Formik>
+          </Form>      
+        )}
+        </Formik>
       </div>  
     );
   }
