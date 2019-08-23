@@ -6,6 +6,7 @@ import {graphOptionsRaisa}                                from './GraphOptions'
 import GraphButtons, {buttonSelectionPreset}              from './GraphRaisaButtons'
 import { kiln_constants_ru,
          kiln_constants_en }                              from '../../constants/kiln_constants'
+import { button_constants }                               from '../../constants/button_constants'
 
 export class GraphRaisa2 extends React.Component {
        
@@ -48,10 +49,10 @@ export class GraphRaisa2 extends React.Component {
               data={(()=>{
                 switch(displayParameter)
                 {
-                  case 'short':         return this.state.dataShort;
-                  case 'currents':      return this.state.dataCurrents;
-                  case 'airHeaters':    return this.state.dataAirHeaters;
-                  case 'all':           return this.state.dataAll;
+                  case button_constants.short:         return this.state.dataShort;
+                  case button_constants.currents:      return this.state.dataCurrents;
+                  case button_constants.airHeaters:    return this.state.dataAirHeaters;
+                  case button_constants.all:           return this.state.dataAll;
                 }
               })()}
               legend_toggle={true}

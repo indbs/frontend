@@ -58,12 +58,12 @@ export function handleTimelineResponseCommon (kilntype, response) {
 
   for (let i = 0; i < dataTimeLine.length; i += 1) { 
     rowsTable.push(
-      tableCommonDataTracker(kilntype, dataTimeLine[i])      
+      tableCommonDataTracker  (kilntype, dataTimeLine[i])      
     );
     rowsTimeLine.push(
-      timelineCommonRowBurn(kilntype, dataTimeLine[i], HtmltooltipProperty),   
-      timelineCommonRowStop(kilntype, dataTimeLine[i], 'stop'),  
-      timelineCommonRowStart(kilntype, dataTimeLine[i], 'start'),
+      timelineCommonRowBurn   (kilntype, dataTimeLine[i],  HtmltooltipProperty),   
+      timelineCommonRowStop   (kilntype, dataTimeLine[i], 'stop'),  
+      timelineCommonRowStart  (kilntype, dataTimeLine[i], 'start'),
     );
     if (i !== dataTimeLine.length-1) rowsTimeLine.push(timelineCommonRowPauseLost(kilntype, dataTimeLine[i], dataTimeLine[i + 1]));
   }

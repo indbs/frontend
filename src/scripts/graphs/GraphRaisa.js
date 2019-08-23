@@ -1,19 +1,20 @@
-import React                                              from 'react';
-import Chart                                              from 'react-google-charts';
-import                                                         '../style.css';
-import { connect }                                        from 'react-redux';
-import { RequestGraphData }                               from '../receivers/requestData';
-import { graphOptionsRaisa }                              from './GraphOptions'
-import GraphButtons, { buttonSelectionPreset }            from './GraphRaisaButtons'
+import   React                                              from 'react';
+import   Chart                                              from 'react-google-charts';
+import                                                           '../style.css';
+import { connect }                                          from 'react-redux';
+import { RequestGraphData }                                 from '../receivers/requestData';
+import { graphOptionsRaisa }                                from './GraphOptions'
+import   GraphButtons, { buttonSelectionPreset }            from './GraphRaisaButtons'
 import { kiln_constants_ru,
-         kiln_constants_en }                              from '../../constants/kiln_constants'
+         kiln_constants_en }                                from '../../constants/kiln_constants'
+import { button_constants }                                 from '../../constants/button_constants'
 
 export class GraphRaisa extends React.Component {
         
   requestData(dataToRequest){
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
-    RequestGraphData('Раиса', 'http://172.16.20.75:8060/?graph=' + kiln_constants_en.Раиса + '&program_number=' + dataToRequest + '&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
+    RequestGraphData(kiln_constants_ru.Раиса, 'http://172.16.20.75:8060/?graph=' + kiln_constants_en.Раиса + '&program_number=' + dataToRequest + '&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
       this.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
       this.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
       this.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
@@ -48,10 +49,10 @@ export class GraphRaisa extends React.Component {
             data={(()=>{
               switch(displayParameter)
               {
-                case 'short':         return this.state.dataShort;
-                case 'currents':      return this.state.dataCurrents;
-                case 'airHeaters':    return this.state.dataAirHeaters;
-                case 'all':           return this.state.dataAll;
+                case button_constants.short:         return this.state.dataShort;
+                case button_constants.currents:      return this.state.dataCurrents;
+                case button_constants.airHeaters:    return this.state.dataAirHeaters;
+                case button_constants.all:           return this.state.dataAll;
               }
             })()}         
             legend_toggle={true}

@@ -14,7 +14,7 @@ export class GraphButtons extends React.Component {
   }
 
   render(){
-    var butt_st =bc;
+    var butt_st =bc.short;
     const button_state_preset = this.props.graph_mode_selection.filter((row) => {return row.kiln==this.props.kiln});
     if (button_state_preset.length>0) butt_st = button_state_preset[0].graph_mode;
     return(
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export function buttonSelectionPreset(buttonStateToFilter, kiln){
-  var displayParameter = bc;
+  var displayParameter = bc.short;
   const gr_mode_preset = buttonStateToFilter.filter((row) => {return row.kiln==kiln});
   if (gr_mode_preset.length>0) displayParameter = gr_mode_preset[0].graph_mode;
   return displayParameter;

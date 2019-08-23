@@ -1,15 +1,16 @@
-import React                                from 'react';
-import Chart                                from 'react-google-charts';
-import GraphRaisa2                          from '../graphs/GraphRaisa2';
-import { connect }                          from 'react-redux';
-import                                           './info.css';
-import {RequestTimelineData}                from '../receivers/requestData'
-import logo_loading                         from '../../logos/fp_logo_loading.svg';
-import {TimelineColumns, TableColumns}      from '../receivers/handleDataResponse';
-import TwoTablesRaisa2                      from '../twoTables/TwoTablesRaisa2';
-import {
-  burn_graph_number_received,
-  burn_two_tables_number_received}          from '../../actions/aux_data_receiving_actions';
+import   React                                from 'react';
+import   Chart                                from 'react-google-charts';
+import   GraphRaisa2                          from '../graphs/GraphRaisa2';
+import { connect }                            from 'react-redux';
+import                                             './info.css';
+import { RequestTimelineData }                from '../receivers/requestData'
+import   logo_loading                         from '../../logos/fp_logo_loading.svg';
+import { TimelineColumns, TableColumns }      from '../receivers/handleDataResponse';
+import   TwoTablesRaisa2                      from '../twoTables/TwoTablesRaisa2';
+import { burn_graph_number_received,
+         burn_two_tables_number_received}     from '../../actions/aux_data_receiving_actions';
+import { kiln_constants_ru,
+         kiln_constants_en }                  from '../../constants/kiln_constants'
 
 export class InfoRaisa2 extends React.Component{
   constructor(props) {
@@ -20,7 +21,7 @@ export class InfoRaisa2 extends React.Component{
     const self = this;
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
-    RequestTimelineData('Раиса2', 'http://172.16.20.75:8060/?generaltimeline=raisa2', AuthStr).then(resultArrayTwoDataPresets=>{
+    RequestTimelineData(kiln_constants_ru.Раиса2, 'http://172.16.20.75:8060/?generaltimeline=' + kiln_constants_en.Раиса2, AuthStr).then(resultArrayTwoDataPresets=>{
       self.setState({dataTimeLine:  resultArrayTwoDataPresets.rowsTimeLine});
       self.setState({dataTable:     resultArrayTwoDataPresets.rowsTable});
     });    
@@ -35,7 +36,7 @@ export class InfoRaisa2 extends React.Component{
     callback  : ({chartWrapper}) => { 
       var selection =             chartWrapper.getChart().getSelection();
       var selectedTimelineValue = chartWrapper.getDataTable().getValue(selection[0].row,1);     
-      this.props.dispatch(burn_graph_number_received('Раиса2', parseInt(selectedTimelineValue)));
+      this.props.dispatch(burn_graph_number_received(kiln_constants_ru.Раиса2, parseInt(selectedTimelineValue)));
       }
   }];
 
@@ -44,7 +45,7 @@ export class InfoRaisa2 extends React.Component{
     callback  : ({chartWrapper}) => { 
       var selection =               chartWrapper.getChart().getSelection();
       var selectedTableValue =      chartWrapper.getDataTable().getValue(selection[0].row,1); 
-      this.props.dispatch(burn_two_tables_number_received('Раиса2', parseInt(selectedTableValue))); 
+      this.props.dispatch(burn_two_tables_number_received(kiln_constants_ru.Раиса2, parseInt(selectedTableValue))); 
     }
   }];
      
@@ -111,7 +112,7 @@ export class InfoRaisa2 extends React.Component{
 }
 
 const mapStateToProps = state => ({
-  aux_data_received: state.aux_data_received.filter(c => c.kiln=='Раиса2')[0]
+  aux_data_received: state.aux_data_received.filter(c => c.kiln==kiln_constants_ru.Раиса2)[0]
 }) 
 
 const mapDispatchToProps = dispatch => ({
