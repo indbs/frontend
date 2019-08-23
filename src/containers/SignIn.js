@@ -32,6 +32,7 @@ class SignIn extends Component {
   //b11970e7f116120d7fdf4bfb7b5d2b6500fd64b7986e58b1a2fd1b3cece5b65dd4e1ffcee349ddd64f11aec2f0caed534773e34c0ea832e478f3317709e67092      //length - 128
 
   render() {
+    console.log('this.props.user_behavior.registered: ', this.props.user_behavior.registered);
     return (
 			<div id='SignIn' style = {{'margin-left': '10%','margin-right': '10%','margin-top': '15vh'}} >
 				<div id='welcome_words' style = {{'text-align': 'center','margin-bottom': '2%', color: '#3560db', 'font-size': '15pt'}} >
@@ -66,6 +67,7 @@ class SignIn extends Component {
         >
         {({ values, status, handleChange, isSubmitting, errors, touched }) => (        
           <Form>
+            {this.props.user_behavior.registered&&<h5>Успешно! Регистрация закончена<span class="badge badge-secondary">Можно войти</span></h5>}
             <div className="form-group">
               <label htmlFor="email">email</label>
               <Field className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} name="email" type="email" /*onChange={handleChange}*/ />
@@ -93,6 +95,9 @@ class SignIn extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  user_behavior: state.user_behavior
+})
 
 const mapDispatchToProps = dispatch => ({
   dispatch(user_name){
@@ -100,4 +105,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

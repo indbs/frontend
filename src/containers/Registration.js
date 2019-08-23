@@ -2,6 +2,8 @@ import React, { Component }                       from 'react';
 import                                                 '../bootstrap.min.css';
 import { Formik, Form, Field, ErrorMessage }      from 'formik';
 import { authenticationService }                  from '../services/authentication';
+import { registeration_complete_action }          from '../actions/user_actions';
+import { connect }                                from 'react-redux';
 import { validateForm }                           from './FormFunctions'
 import { RegisterButton }                         from './Buttons'
 
@@ -28,11 +30,13 @@ export class RegistrationForm extends Component {
             authenticationService.register(email, password, name, surname )
                 .then(
                     user => {
-                      //this.props.dispatch(user.NAME);
-                      //const { from } = this.props.location.state || { from: { pathname: "/generalTimeLine" } };
-                      //this.props.history.push(from);
+                      console.log('congrats! user logged in! ', user);
+                      this.props.dispatch(registeration_complete_action());
+                      const { from } = this.props.location.state || { from: { pathname: "/welcomePage" } };
+                      this.props.history.push(from);
                     },
                     error => {
+                      console.log('ng ', error);
                       setSubmitting(false);
                       setStatus(error);
                     }
@@ -65,9 +69,9 @@ export class RegistrationForm extends Component {
             
             <RegisterButton isSubmitting={isSubmitting} errors={errors}/>
 
-            {status &&
+            {/*{status &&
               <div className={'alert alert-danger'}>{status}</div>
-            }
+            }*/}
           </Form>      
         )}
         </Formik>
@@ -76,4 +80,10 @@ export class RegistrationForm extends Component {
   }
 }
 
-export default RegistrationForm;
+const mapDispatchToProps = dispatch => ({
+  dispatch(params){
+    dispatch(params);
+  }
+})
+
+export default connect(null, mapDispatchToProps)(RegistrationForm);

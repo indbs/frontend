@@ -1,8 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
-import { handleResponse } from '../helpers/handleResponse';
-import pbkdf2 from 'crypto-js/pbkdf2';
-import crypto from 'crypto-js';
-import jwt from 'jsonwebtoken';
+import { BehaviorSubject }          from 'rxjs';
+import { handleResponse }           from '../helpers/handleResponse';
+import pbkdf2                       from 'crypto-js/pbkdf2';
+import crypto                       from 'crypto-js';
+import jwt                          from 'jsonwebtoken';
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
@@ -54,8 +54,6 @@ function register(email, password, name, surname){
   return fetch(`http://172.16.20.75:8060/`, requestOptions)
     .then(handleResponse)
     .then(user => {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      currentUserSubject.next(user);
 
       return user;
     });

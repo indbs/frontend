@@ -10,6 +10,12 @@ export const user_behavior = (state={}, action) => {
         logged_in: false,
         user_name: ''
       }
+    case 'REGISTERED':
+      return {
+        logged_in: false,
+        user_name: '',
+        registered: true
+      }
     default:
       return state
   }
