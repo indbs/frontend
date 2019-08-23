@@ -2,10 +2,11 @@ import {
   timelineCommonRowBurn, 
   timelineCommonRowStop, 
   timelineCommonRowStart, 
-  timelineCommonRowPauseLost}           from './timelineCommonDataTracker';
-import {tableCommonDataTracker}         from './tableCommonDataTracker';
-import {graphCommonRow}                 from './graphCommonDataTracker';
-import {TwoTablesCommonRow}             from './twoTablesCommonDataTracker';
+  timelineCommonRowPauseLost }            from './timelineCommonDataTracker';
+import { tableCommonDataTracker }         from './tableCommonDataTracker';
+import { graphCommonRow }                 from './graphCommonDataTracker';
+import { TwoTablesCommonRow }             from './twoTablesCommonDataTracker';
+import { kiln_constants_ru }              from '../../constants/kiln_constants'
 
 export const TimelineColumns = [
   { type: "string", id: "Role" },
@@ -46,10 +47,10 @@ export function handleTimelineResponseCommon (kilntype, response) {
   var HtmltooltipProperty='';
 
   switch (kilntype) {
-    case 'Раиса'  : HtmltooltipProperty ='full';        break;
-    case 'Раиса2' : HtmltooltipProperty ='full';        break;
-    case 'ФР05'   : HtmltooltipProperty ='fullfr';      break;
-    case 'ФР06'   : HtmltooltipProperty ='fullfr';      break;
+    case kiln_constants_ru.Раиса  : HtmltooltipProperty ='full';        break;
+    case kiln_constants_ru.Раиса2 : HtmltooltipProperty ='full';        break;
+    case kiln_constants_ru.ФР05   : HtmltooltipProperty ='fullfr';      break;
+    case kiln_constants_ru.ФР06   : HtmltooltipProperty ='fullfr';      break;
   }
   
   const rowsTimeLine=[], rowsTable=[];

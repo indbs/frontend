@@ -2,10 +2,12 @@ import React                              from 'react';
 import Chart                              from 'react-google-charts';
 import                                         './GeneralTimeLine.css';
 import logo_loading                       from '../../logos/fp_logo_loading.svg';
-import {RequestTimelineData}              from '../receivers/requestData';
-import {TimelineColumns}                  from '../receivers/handleDataResponse';
-import {connect}                          from 'react-redux';
-import {burn_graph_number_received}       from '../../actions/aux_data_receiving_actions';
+import { RequestTimelineData }            from '../receivers/requestData';
+import { TimelineColumns }                from '../receivers/handleDataResponse';
+import { connect }                        from 'react-redux';
+import { burn_graph_number_received }     from '../../actions/aux_data_receiving_actions';
+import { kiln_constants_ru,
+         kiln_constants_en }              from '../../constants/kiln_constants'
 
 export class GeneralTimeLine extends React.Component{
 
@@ -16,19 +18,19 @@ export class GeneralTimeLine extends React.Component{
   requestData(){
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
      
-    RequestTimelineData('Раиса', 'http://172.16.20.75:8060/?generaltimeline=raisa', AuthStr).then(resultArrayTwoDataPresets=>{
+    RequestTimelineData(kiln_constants_ru.Раиса, 'http://172.16.20.75:8060/?generaltimeline=' + kiln_constants_en.Раиса, AuthStr).then(resultArrayTwoDataPresets=>{
       this.setState({dateTimeLineRaisa: resultArrayTwoDataPresets.rowsTimeLine});
       this.props.dispatch(burn_graph_number_received('Раиса', Math.max.apply(Math, resultArrayTwoDataPresets.rowsTimeLine.map(function(row){return row.slice(1,2)}))));
     });   
-    RequestTimelineData('Раиса2', 'http://172.16.20.75:8060/?generaltimeline=raisa2', AuthStr).then(resultArrayTwoDataPresets=>{
+    RequestTimelineData(kiln_constants_ru.Раиса2, 'http://172.16.20.75:8060/?generaltimeline=' + kiln_constants_en.Раиса2, AuthStr).then(resultArrayTwoDataPresets=>{
       this.setState({dateTimeLineRaisa2: resultArrayTwoDataPresets.rowsTimeLine});
       this.props.dispatch(burn_graph_number_received('Раиса2', Math.max.apply(Math, resultArrayTwoDataPresets.rowsTimeLine.map(function(row){return row.slice(1,2)}))));
     });
-    RequestTimelineData('ФР05', 'http://172.16.20.75:8060/?generaltimeline=fr05', AuthStr).then(resultArrayTwoDataPresets=>{
+    RequestTimelineData(kiln_constants_ru.ФР05, 'http://172.16.20.75:8060/?generaltimeline=' + kiln_constants_en.ФР05, AuthStr).then(resultArrayTwoDataPresets=>{
       this.setState({dateTimeLineFR05: resultArrayTwoDataPresets.rowsTimeLine});
       this.props.dispatch(burn_graph_number_received('ФР05', Math.max.apply(Math, resultArrayTwoDataPresets.rowsTimeLine.map(function(row){return row.slice(1,2)}))));
     });
-    RequestTimelineData('ФР06', 'http://172.16.20.75:8060/?generaltimeline=fr06', AuthStr).then(resultArrayTwoDataPresets=>{
+    RequestTimelineData(kiln_constants_ru.ФР06, 'http://172.16.20.75:8060/?generaltimeline=' + kiln_constants_en.ФР06, AuthStr).then(resultArrayTwoDataPresets=>{
       this.setState({dateTimeLineFR06: resultArrayTwoDataPresets.rowsTimeLine});
       this.props.dispatch(burn_graph_number_received('ФР06', Math.max.apply(Math, resultArrayTwoDataPresets.rowsTimeLine.map(function(row){return row.slice(1,2)}))));
     });

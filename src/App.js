@@ -17,6 +17,8 @@ import SignIn                         from './containers/SignIn'
 import logo                           from './logos/fp_logo.svg';
 import LogoutLogo                     from './logos/logout_logo'
 import RegistrationForm               from './containers/Registration'
+import { kiln_constants_ru,
+         kiln_constants_en }          from './constants/kiln_constants'
 
 class App extends Component {
  
@@ -49,10 +51,10 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <div id='inner_logout_navbar' className="navbar-nav">
                       <Link to="/generalTimeLine" className="nav-item nav-link">Обзор </Link>
-                      <Link to="/raisa"           className="nav-item nav-link">Раиса </Link>
-                      <Link to="/raisa2"          className="nav-item nav-link">Раиса2</Link>
-                      <Link to="/fr05"            className="nav-item nav-link">ФР05  </Link>
-                      <Link to="/fr06"            className="nav-item nav-link">ФР06  </Link>
+                      <Link to="/raisa"           className="nav-item nav-link">{kiln_constants_ru.Раиса}   </Link>
+                      <Link to="/raisa2"          className="nav-item nav-link">{kiln_constants_ru.Раиса2}  </Link>
+                      <Link to="/fr05"            className="nav-item nav-link">{kiln_constants_ru.ФР05}    </Link>
+                      <Link to="/fr06"            className="nav-item nav-link">{kiln_constants_ru.ФР06}    </Link>
                     </div>
                     <LogoutLogo/>
                   </nav>

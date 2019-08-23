@@ -1,17 +1,19 @@
 import React                                              from 'react';
 import Chart                                              from 'react-google-charts';
 import                                                         '../style.css';
-import {connect}                                          from 'react-redux';
-import {RequestGraphData}                                 from '../receivers/requestData';
-import {graphOptionsRaisa}                                from './GraphOptions'
-import GraphButtons, {buttonSelectionPreset}              from './GraphRaisaButtons'
+import { connect }                                        from 'react-redux';
+import { RequestGraphData }                               from '../receivers/requestData';
+import { graphOptionsRaisa }                              from './GraphOptions'
+import GraphButtons, { buttonSelectionPreset }            from './GraphRaisaButtons'
+import { kiln_constants_ru,
+         kiln_constants_en }                              from '../../constants/kiln_constants'
 
 export class GraphRaisa extends React.Component {
         
   requestData(dataToRequest){
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
-    RequestGraphData('Раиса', 'http://172.16.20.75:8060/?graph=raisa&program_number=' + dataToRequest + '&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
+    RequestGraphData('Раиса', 'http://172.16.20.75:8060/?graph=' + kiln_constants_en.Раиса + '&program_number=' + dataToRequest + '&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
       this.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
       this.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
       this.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
@@ -30,7 +32,7 @@ export class GraphRaisa extends React.Component {
   }
 
   render() {
-    var displayParameter =buttonSelectionPreset(this.props.graph_mode_selection, 'Раиса');
+    var displayParameter =buttonSelectionPreset(this.props.graph_mode_selection, kiln_constants_ru.Раиса);
     return (
       <div className="GraphPage">    
         <div id="artical" style={{'text-align':'left'}}>     
@@ -56,7 +58,7 @@ export class GraphRaisa extends React.Component {
             options= {graphOptionsRaisa}  
           />}
         </div>
-        <GraphButtons kiln='Раиса'/>          
+        <GraphButtons kiln={kiln_constants_ru.Раиса}/>          
       </div>
     );
   }

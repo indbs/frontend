@@ -1,6 +1,8 @@
+import { kiln_constants_ru }              from '../../constants/kiln_constants'
+
 export function graphCommonRow(kilnLabel, dataGraphRow){
   return [
-    (kilnLabel=='Раиса')?new Date(dataGraphRow.time):new Date(dataGraphRow.time1), 
+    (kilnLabel==kiln_constants_ru.Раиса)?new Date(dataGraphRow.time):new Date(dataGraphRow.time1), 
     dataGraphRow.oxygen_predict_sp,
     dataGraphRow.analiser_calc,
     dataGraphRow.setpoint, 

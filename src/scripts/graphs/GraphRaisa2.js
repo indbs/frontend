@@ -4,13 +4,15 @@ import {connect}                                          from 'react-redux';
 import {RequestGraphData}                                 from '../receivers/requestData';
 import {graphOptionsRaisa}                                from './GraphOptions'
 import GraphButtons, {buttonSelectionPreset}              from './GraphRaisaButtons'
+import { kiln_constants_ru,
+         kiln_constants_en }                              from '../../constants/kiln_constants'
 
 export class GraphRaisa2 extends React.Component {
        
   requestData(dataToRequest){
     const AuthStr =JSON.parse(localStorage.getItem('currentUser'));
 
-    RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=raisa2&program_number='+dataToRequest+'&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
+    RequestGraphData('Раиса2', 'http://172.16.20.75:8060/?graph=' + kiln_constants_en.Раиса2 + '&program_number='+dataToRequest+'&year=' + new Date().getFullYear(), AuthStr).then(resultArrayTablePresets=>{
       this.setState({dataCurrents:    resultArrayTablePresets.chartDataCurrents});  
       this.setState({dataAirHeaters:  resultArrayTablePresets.chartDataAirHeaters});  
       this.setState({dataAll:         resultArrayTablePresets.chartDataAll}); 
@@ -29,7 +31,7 @@ export class GraphRaisa2 extends React.Component {
   }
 
   render() {
-    var displayParameter =buttonSelectionPreset(this.props.graph_mode_selection, 'Раиса2');
+    var displayParameter =buttonSelectionPreset(this.props.graph_mode_selection, kiln_constants_ru.Раиса2);
     return (
       <div className="GraphPage">   
         <div id="artical" style={{'text-align':'left'}}>     
@@ -57,7 +59,7 @@ export class GraphRaisa2 extends React.Component {
             />
           }
         </div>
-        <GraphButtons kiln='Раиса2'/>      
+        <GraphButtons kiln={kiln_constants_ru.Раиса2}/>      
       </div>
     );
   }
