@@ -3,6 +3,7 @@ import { handleResponse }           from '../helpers/handleResponse';
 import pbkdf2                       from 'crypto-js/pbkdf2';
 import crypto                       from 'crypto-js';
 import jwt                          from 'jsonwebtoken';
+import {tokens}                     from '../constants/tokens'
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
@@ -15,8 +16,8 @@ export const authenticationService = {
 };
 
 function login(email, password) {
-  var hashedPassword = pbkdf2(password, 'ferropriborsalt', { keySize: 512/32, iterations: 1000 }).toString();
-  var userDataPairToken = jwt.sign({email: email, hash: hashedPassword}, 'ferropribor');
+  var hashedPassword = pbkdf2(password, tokens.client_side_salt_hash, { keySize: 512/32, iterations: 1000 }).toString();
+  var userDataPairToken = jwt.sign({email: email, hash: hashedPassword}, tokens.client_side_salt);
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -41,8 +42,8 @@ function logout() {
 }
 
 function register(email, password, name, surname){
-  var hashedPassword = pbkdf2(password, 'ferropriborsalt', { keySize: 512/32, iterations: 1000 }).toString();
-  var userDataQuartetToken = jwt.sign({email: email, hash: hashedPassword, name: name, surname: surname}, 'ferropribor');
+  var hashedPassword = pbkdf2(password, tokens.client_side_salt_hash, { keySize: 512/32, iterations: 1000 }).toString();
+  var userDataQuartetToken = jwt.sign({email: email, hash: hashedPassword, name: name, surname: surname}, tokens.client_side_salt);
   const requestOptions = {
     method: 'POST',
     headers: {
