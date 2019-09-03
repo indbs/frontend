@@ -29,7 +29,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "webpack-dev-server --hot --host 0.0.0.0",
+    "strt": "webpack"
+  },
+  "babel": {
+    "plugins": ["@babel/plugin-proposal-class-properties"],
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,7 +56,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
     "redux-devtools": "^3.5.0",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
   }
 }
