@@ -1,5 +1,7 @@
 import { authenticationService } from '../services/authentication';
 
+// handleResponse() on loggin and registration
+
 export function handleResponse(response) {
   return response.text()
     .then(text => {

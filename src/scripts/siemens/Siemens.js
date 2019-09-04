@@ -5,6 +5,7 @@ import GraphTrend from '../graphs/GraphTrend';
 import '../style.css';
 import './Siemens.css';
 
+// Need to redesign like a Raisa module.
 export class Siemens extends React.Component {
 
     constructor(props) {

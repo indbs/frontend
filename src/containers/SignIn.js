@@ -1,4 +1,5 @@
-import React, { Component }                       from 'react';
+import   React, 
+       { Component }                              from 'react';
 import { Formik, Form, Field, ErrorMessage }      from 'formik';
 import                                                 '../bootstrap.min.css';
 import { authenticationService }                  from '../services/authentication';

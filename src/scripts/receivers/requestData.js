@@ -4,6 +4,8 @@ import {
   handleTwoTablesResponseCommon }         from './handleDataResponse';
 import axios                              from 'axios';
 
+// Request functions with Authorisation header
+
 export function RequestTimelineData(kiln, data_url, AuthStr){
   return axios.get(data_url, {headers: {'Authorization': AuthStr.token}}).then(response => handleTimelineResponseCommon(  kiln, response));
 }

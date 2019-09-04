@@ -9,6 +9,7 @@ import { kiln_constants_ru,
          kiln_constants_en }                                from '../../constants/kiln_constants'
 import { button_constants }                                 from '../../constants/button_constants'
 
+// Graph
 export class GraphRaisa extends React.Component {
         
   requestData(dataToRequest){

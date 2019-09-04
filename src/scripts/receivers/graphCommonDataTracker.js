@@ -1,5 +1,7 @@
 import { kiln_constants_ru }              from '../../constants/kiln_constants'
 
+// Graph data filler
+
 export function graphCommonRow(kilnLabel, dataGraphRow){
   return [
     (kilnLabel==kiln_constants_ru.Раиса)?new Date(dataGraphRow.time):new Date(dataGraphRow.time1), 

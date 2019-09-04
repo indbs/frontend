@@ -1,3 +1,5 @@
+// aux_data_receiver action. Loads the last burn numbers on loading GTML page after loggin
+
 export const burn_graph_number_received = (kiln, graph_number) => ({
   type:               'BURN_GRAPH_NUMBER_RECEIVED',
   kiln:               kiln,

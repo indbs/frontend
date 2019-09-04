@@ -8,6 +8,8 @@ import GraphFR06  from '../graphs/GraphFR06';
 import HtmlToolTip from '../tooltips/Tooltip';
 var ReactDOMServer = require('react-dom/server');
 
+//redesign this module
+
 require('datejs');  
 
 const columns = [

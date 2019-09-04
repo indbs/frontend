@@ -7,7 +7,7 @@ import 'moment/locale/ru';
 import HtmlToolTip from '../tooltips/Tooltip';
 import GraphFR05 from '../graphs/GraphFR05';
 
-
+//redesign this module
 
 var ReactDOMServer = require('react-dom/server');
 

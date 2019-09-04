@@ -5,6 +5,11 @@ function getTimeFromMins(x) {
   return hours + 'ч. ' + minutes+'мин.';
 }
 
+/*
+ TwoTables forms shows burn program selected by user on kiln and start up time.
+ If user checked program and started the kiln two times there will be two preset of rows with different 'inserted' time.
+*/
+
 export function TwoTablesCommonRow(kilntype, HeatOrGasParameter, dataTimeLineRow){
 
   return (HeatOrGasParameter=='HEAT')?

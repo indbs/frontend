@@ -1,3 +1,6 @@
+// User actions. 
+// Add in future reset password.
+
 export const login_action = (user_name) => ({
   type:         'LOGIN',
   title:        'USER LOGIN',

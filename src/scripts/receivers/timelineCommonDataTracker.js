@@ -4,6 +4,14 @@ import HtmlToolTip from '../tooltips/Tooltip';
 import timelineStyle from '../timelines/GeneralTimeLine.css';
 var ReactDOMServer = require('react-dom/server');
 
+/*
+ Timeline data filler with custom tooltips
+ Each burn present by few sections:
+ |pause from (n-1) burn| + |start| + |(n) burn| + |stop|
+ tooltips shows custom data on each section
+*/
+
+// Burn section on timeline
 export function timelineCommonRowBurn(kilnLabel, dataTimeLineRow, HtmltooltipProperty){
   return [
     kilnLabel,
@@ -19,6 +27,7 @@ export function timelineCommonRowBurn(kilnLabel, dataTimeLineRow, HtmltooltipPro
   ]
 }
 
+// Stop section on timeline
 export function timelineCommonRowStop(kilnLabel, dataTimeLineRow, stop){
   return [
     kilnLabel,  
@@ -33,6 +42,7 @@ export function timelineCommonRowStop(kilnLabel, dataTimeLineRow, stop){
   ]
 }
 
+// Start section on timeline
 export function timelineCommonRowStart(kilnLabel, dataTimeLineRow, start){
   return [
     kilnLabel, 
@@ -47,6 +57,7 @@ export function timelineCommonRowStart(kilnLabel, dataTimeLineRow, start){
   ]
 }
 
+// Pause section on timeline
 export function timelineCommonRowPauseLost(kilnLabel, dataTimeLineRow, dataTimeLineNextRow){
   return [
     kilnLabel,  

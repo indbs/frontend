@@ -1,12 +1,14 @@
 import {
-  timelineCommonRowBurn, 
-  timelineCommonRowStop, 
-  timelineCommonRowStart, 
-  timelineCommonRowPauseLost }            from './timelineCommonDataTracker';
+         timelineCommonRowBurn, 
+         timelineCommonRowStop, 
+         timelineCommonRowStart, 
+         timelineCommonRowPauseLost }            from './timelineCommonDataTracker';
 import { tableCommonDataTracker }         from './tableCommonDataTracker';
 import { graphCommonRow }                 from './graphCommonDataTracker';
 import { TwoTablesCommonRow }             from './twoTablesCommonDataTracker';
 import { kiln_constants_ru }              from '../../constants/kiln_constants'
+
+// Prepares data for charts before data to be fill
 
 export const TimelineColumns = [
   { type: "string", id: "Role" },

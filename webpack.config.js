@@ -1,6 +1,14 @@
 const path = require("path");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+// main.js size is 5mb, need to go deep in optimising, minimizing and splitting files
 
 module.exports = {
+  stats: {
+    //Check in future, no sure it works right.
+    entrypoints: false,
+    children: false
+  },
   entry: "./src/index.js",
   mode: "development",
   output: {
@@ -15,7 +23,14 @@ module.exports = {
     watchContentBase: true,
     progress: true
   },
-
+  plugins: [
+    //with this plugin css extracts ok.
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, 
+    }),
+  ],
   module: {
     rules: [
       {
@@ -28,15 +43,15 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
           {
-            loader: "css-loader",
+            loader: MiniCssExtractPlugin.loader,
             options: {
-              importLoaders: 1,
-              modules: true
-            } 
-          }
-        ]
+              publicPath: '../',
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

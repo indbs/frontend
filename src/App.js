@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
-import {Route, Router, Redirect, Link} from "react-router-dom";
-import './App.css';
+import   React, 
+       { Component }                    from 'react';
+import { Route, 
+         Router, 
+         Redirect, Link}                from "react-router-dom";
+import                                     './App.css';
 
-import InfoRaisa                      from './scripts/infos/InfoRaisa';
-import InfoRaisa2                     from './scripts/infos/InfoRaisa2';
-import InfoFR05                       from './scripts/infos/InfoFR05';
-import InfoFR06                       from './scripts/infos/InfoFR06';
-import Siemens                        from './scripts/siemens/Siemens';
-import TwoTablesRaisa                 from './scripts/twoTables/TwoTablesRaisa'; 
-import GeneralTimeLine                from './scripts/timelines/GeneralTimeLine';
-import GraphTrend                     from './scripts/graphs/GraphTrend';
-import { PrivateRoute }               from './components/PrivateRoute';
-import { authenticationService }      from './services/authentication';
-import { history }                    from './helpers/history';
-import SignIn                         from './containers/SignIn'
-import logo                           from './logos/fp_logo.svg';
-import LogoutLogo                     from './logos/logout_logo'
-import RegistrationForm               from './containers/Registration'
+import   InfoRaisa                      from './scripts/infos/InfoRaisa';
+import   InfoRaisa2                     from './scripts/infos/InfoRaisa2';
+import   InfoFR05                       from './scripts/infos/InfoFR05';
+import   InfoFR06                       from './scripts/infos/InfoFR06';
+import   Siemens                        from './scripts/siemens/Siemens';
+import   TwoTablesRaisa                 from './scripts/twoTables/TwoTablesRaisa'; 
+import   GeneralTimeLine                from './scripts/timelines/GeneralTimeLine';
+import   GraphTrend                     from './scripts/graphs/GraphTrend';
+import { PrivateRoute }                 from './components/PrivateRoute';
+import { authenticationService }        from './services/authentication';
+import { history }                      from './helpers/history';
+import   SignIn                         from './containers/SignIn'
+import   logo                           from './logos/fp_logo.svg';
+import   LogoutLogo                     from './logos/logout_logo'
+import   RegistrationForm               from './containers/Registration'
 import { kiln_constants_ru,
-         kiln_constants_en }          from './constants/kiln_constants'
+         kiln_constants_en }            from './constants/kiln_constants'
 
 class App extends Component {
  

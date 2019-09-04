@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+// Table filler
+
 export function tableCommonDataTracker (kilntype, dataTableRow) {
   return [
     moment(dataTableRow.STARTUP_TIME).locale("ru").format("YYYY  Do MMMM, h:mm:ss"),

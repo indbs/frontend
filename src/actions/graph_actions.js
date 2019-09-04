@@ -1,5 +1,7 @@
 import { button_constants as bc } from '../constants/button_constants'
 
+// Allow to select output graph mode
+
 export const graph_short_mode_selected =        (kiln) => ({
   type:               'GRAPH_SHORT_MODE_SELECTED',
   kiln:               kiln,

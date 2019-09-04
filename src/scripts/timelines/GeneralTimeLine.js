@@ -9,6 +9,13 @@ import { burn_graph_number_received }     from '../../actions/aux_data_receiving
 import { kiln_constants_ru,
          kiln_constants_en }              from '../../constants/kiln_constants'
 
+/*
+ Main entry point of appliation.
+ Shows short visualisation of all burns.
+ Add in future event on select custom program to show graph.
+ in future delete ability so select start, stop sections on timeline
+*/
+
 export class GeneralTimeLine extends React.Component{
 
   constructor(props) {

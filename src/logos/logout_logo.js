@@ -6,6 +6,7 @@ import {connect}                      from 'react-redux';
 import {logout_action}                from '../actions/user_actions';
 import {burn_graph_number_clean}      from '../actions/aux_data_receiving_actions'
 
+// Open door logo on logout button in upper horisontal menu
 class LogoutLogo extends Component {
   constructor(props) {
     super(props);

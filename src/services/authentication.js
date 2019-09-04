@@ -1,9 +1,10 @@
 import { BehaviorSubject }          from 'rxjs';
 import { handleResponse }           from '../helpers/handleResponse';
 import pbkdf2                       from 'crypto-js/pbkdf2';
-import crypto                       from 'crypto-js';
 import jwt                          from 'jsonwebtoken';
 import {tokens}                     from '../constants/tokens'
+
+// authentication service, add in future reset password feature
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 

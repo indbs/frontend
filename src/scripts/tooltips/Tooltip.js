@@ -3,6 +3,8 @@ import TooltipStyle from "./tooltip.css";
 import moment from 'moment';
 import 'moment/locale/ru';
 
+// Tooltips for timelines
+
 function placeInDiv(parameter){
     return <div>{parameter}</div>;
 }

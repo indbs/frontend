@@ -1,6 +1,7 @@
 import React, { Component }                       from 'react';
 import                                                 '../bootstrap.min.css';
 
+// Buutons below graph
 export class RegisterRememberButtons extends Component {
   render(){
     return(

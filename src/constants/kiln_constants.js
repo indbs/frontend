@@ -1,3 +1,5 @@
+// Kiln names constants
+
 export const kiln_constants_ru = {
   Раиса:    'Раиса',
   Раиса2:   'Раиса2',

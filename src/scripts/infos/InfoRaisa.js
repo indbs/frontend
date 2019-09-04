@@ -13,6 +13,13 @@ import { burn_graph_number_received,
 import { kiln_constants_ru,
          kiln_constants_en }                from '../../constants/kiln_constants'
 
+/*
+ Detailed information on kiln Raisa
+ Present table form with program list, timeline form and graph form
+ Graph receives number of burn to dislay from GTML
+
+ in future delete ability so select start, stop sections on timeline
+*/
 export class InfoRaisa extends React.Component{
   constructor(props) {
     super(props);

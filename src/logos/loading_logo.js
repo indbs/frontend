@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-
+// Rotating logo on receiving data
 class LoadingLogo extends Component {
   constructor(props) {
     super(props);
