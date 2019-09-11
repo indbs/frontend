@@ -2,7 +2,7 @@ JAVA servlet replacement React project
 
 JAVA servlet screens (with hidden confidential data):
 1. overview_old.jpg       - overview screen
-![overview screen](overview_old.jpg){:height="200px"}
+<img src="https://github.com/indbs/frontend/overview_old.jpg" width="100" height="100">
 2. graph_data_old         - detailed graph data screen
 ![detailed graph data screen](graph_data_old.jpg){:height="200px"}
 3. detailed_data_old      - more details
