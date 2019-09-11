@@ -11,7 +11,7 @@ OLD JAVA servlet screens (with hidden confidential data):
 
 NEW REACT screens:
 1. react_welcome.jpg       - welcome screen
-<img src="https://github.com/indbs/frontend/blob/github/react_welcome.jpg" width="200">
+<img src="https://github.com/indbs/frontend/blob/github/react_welcome_.jpg" width="200">
 2. react_welcome.jpg       - welcome screen
 ![react_overview](react_overview.jpg){:height="200px"}
 <img src="https://github.com/indbs/frontend/blob/github/react_overview.jpg" width="200">
